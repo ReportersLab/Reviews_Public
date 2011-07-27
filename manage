@@ -1,0 +1,2 @@
+#!/bin/sh
+python ./review_lab/configs/${DEPLOYMENT_TARGET:="common"}/manage.py $*
