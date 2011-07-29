@@ -41,7 +41,7 @@ class Migration(SchemaMigration):
             ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=512)),
             ('url', self.gf('django.db.models.fields.CharField')(max_length=512, blank=True)),
             ('description', self.gf('django.db.models.fields.TextField')()),
-            ('cost', self.gf('django.db.models.fields.CharField')(default='Free', max_length=32)),
+            ('cost', self.gf('django.db.models.fields.IntegerField')(default=0, blank=True)),
             ('programming_required_description', self.gf('django.db.models.fields.TextField')()),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=512, db_index=True)),
             ('programming_required_rating_votes', self.gf('django.db.models.fields.PositiveIntegerField')(default=0, blank=True)),
