@@ -7,4 +7,4 @@ south
 django-taggit
 -e hg+https://bitbucket.org/fabian/django-taggit-autosuggest#egg=django-taggit-autosuggest
 django-ratings
-django-tinymce
+grappelli
