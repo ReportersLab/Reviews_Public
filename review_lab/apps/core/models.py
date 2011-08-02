@@ -11,7 +11,7 @@ from djangoratings.fields import RatingField
 
 
 class CommonInfo(models.Model):
-    name            = models.CharField(max_length=512, unique=True, null=False, blank=False, help_text='The name must be unique')
+    name            = models.CharField(max_length=512, unique=True, null=False, blank=False, help_text='The name must be unique', verbose_name = 'Name or Title')
     description     = models.TextField(blank=True)
     published       = models.BooleanField()
     tags            = TaggableManager(blank = True)
@@ -68,7 +68,6 @@ class Review(CommonInfo):
     user_rating          = RatingField(range=10, allow_anonymous = True, use_cookies = True)
     version_tested       = models.CharField(max_length=128, blank = True)
     os_used              = models.ManyToManyField('OperatingSystem', blank = True, null = True)
-    
         
     def __unicode__(self):
         return u'%s (Review of: %s)' % (self.title, self.product)
@@ -80,7 +79,7 @@ class Product(CommonInfo):
     cost                                  = models.IntegerField(blank=False, default=0,help_text='Cost is a dollar amount. "0" for free')
     categories                            = models.ManyToManyField('Category', blank=True, null=True)
     programming_required_rating           = models.IntegerField(choices=RATING_CHOICES)
-    programming_required_description      = models.TextField()
+    programming_required_description      = models.TextField(blank = True)
     tasks_performed                       = models.ManyToManyField(to='Task', through='ProductTask', blank=True, null=True)
     open_source                           = models.BooleanField()
     demo_available                        = models.BooleanField()

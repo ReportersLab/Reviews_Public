@@ -20,7 +20,9 @@ function CustomFileBrowser(field_name, url, type, win) {
     return false;
 }
 
-tinyMCE.init({
+
+
+TINYMCE_OPTIONS = {
     
     // see
     // http://wiki.moxiecode.com/index.php/TinyMCE:Configuration
@@ -140,5 +142,8 @@ tinyMCE.init({
     // extended_valid_elements : 'embed[width|height|name|flashvars|src|bgcolor|align|play|'
     // + 'loop|quality|allowscriptaccess|type|pluginspage]'
     
-});
+};
+
+
+tinyMCE.init(TINYMCE_OPTIONS);
 

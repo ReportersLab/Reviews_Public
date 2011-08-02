@@ -3,6 +3,23 @@ from models import Category, DocumentSet, OperatingSystem, Product, ProductTask,
 from django.contrib import admin
 
 
+
+
+#Inlines
+
+
+
+    
+class ProductTaskInline(admin.StackedInline):
+    model = ProductTask
+    extra = 0
+    
+    readonly_fields = ('slug',)
+    
+
+
+
+
 class CommonAdmin(admin.ModelAdmin):
     actions_on_top = True
     actions_on_bottom = True
@@ -16,12 +33,10 @@ class CommonAdmin(admin.ModelAdmin):
     
 
 
+
+
     
-class ProductTaskInline(admin.StackedInline):
-    model = ProductTask
-    extra = 0
     
-    readonly_fields = ('slug',)
     
 
 
