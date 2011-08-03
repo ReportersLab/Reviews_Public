@@ -1,0 +1,5 @@
+The Reporter's Lab Review System.
+
+A Django Project designed to deploy on EC2 and help us review products reporter's may use in their day-to-day investigations.
+
+
