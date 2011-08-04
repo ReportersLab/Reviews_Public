@@ -5,7 +5,6 @@ psycopg2
 python-memcached
 south
 django-taggit
-mercurial
 -e hg+https://bitbucket.org/fabian/django-taggit-autosuggest#egg=django-taggit-autosuggest
 django-ratings
-grappelli
+django-grappelli
