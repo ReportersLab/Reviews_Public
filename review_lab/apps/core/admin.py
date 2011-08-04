@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task
 from django.contrib import admin
@@ -36,7 +37,7 @@ class CommonAdmin(admin.ModelAdmin):
     
     
     class Media:
-        js = ('/static/grappelli//tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js')
+        js = (settings.MEDIA_URL+'grappelli//tinymce/jscripts/tiny_mce/tiny_mce.js', settings.MEDIA_URL+'grappelli/tinymce_setup/tinymce_setup.js')
     
 
 
