@@ -37,7 +37,7 @@ class CommonAdmin(admin.ModelAdmin):
     
     
     class Media:
-        js = (settings.MEDIA_URL+'grappelli//tinymce/jscripts/tiny_mce/tiny_mce.js', settings.MEDIA_URL+'grappelli/tinymce_setup/tinymce_setup.js')
+        js = (settings.STATIC_URL+'grappelli//tinymce/jscripts/tiny_mce/tiny_mce.js', settings.STATIC_URL+'grappelli/tinymce_setup/tinymce_setup.js')
     
 
 
