@@ -12,3 +12,4 @@ build
 .svn
 *.pyc
 *.pyo
+my_servers

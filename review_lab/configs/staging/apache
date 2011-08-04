@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-    ServerName review_lab.beta.reporterslab.org
-    ServerAlias www.review_lab.beta.reporterslab.org
+    ServerName reviews.beta.reporterslab.org
+    ServerAlias www.reviews.beta.reporterslab.org
 
     WSGIScriptAlias / /home/newsapps/sites/review_lab/repository/review_lab/configs/staging/staging.wsgi
     
@@ -19,7 +19,7 @@
     RewriteEngine on
     # canonical hostname
     RewriteCond %{HTTP_HOST} ^www [NC] 
-    RewriteRule ^/(.*)  http://review_lab.beta.reporterslab.org/$1 [L,R]
+    RewriteRule ^/(.*)  http://reviews.beta.reporterslab.org/$1 [L,R]
     
     RewriteCond %{REQUEST_URI} /maintenance.html$ 
     RewriteRule $ / [R=302,L]

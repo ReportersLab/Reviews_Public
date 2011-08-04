@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-    ServerName review_lab.beta.reporterslab.org
-    ServerAlias www.review_lab.beta.reporterslab.org
+    ServerName reviews.beta.reporterslab.org
+    ServerAlias www.reviews.beta.reporterslab.org
     
     Redirect permanent /favicon.ico http://media.beta.reporterslab.org/review_lab/na_media/favicon.ico
     
@@ -18,7 +18,7 @@
     RewriteEngine on
     # canonical hostname
     RewriteCond %{HTTP_HOST} ^www [NC] 
-    RewriteRule ^/(.*)  http://review_lab.beta.reporterslab.org/$1 [L,R]
+    RewriteRule ^/(.*)  http://reviews.beta.reporterslab.org/$1 [L,R]
     
     DocumentRoot /home/newsapps/sites/review_lab/repository/review_lab/assets/
     

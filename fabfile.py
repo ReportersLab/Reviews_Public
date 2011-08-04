@@ -16,7 +16,7 @@ env.env_path = '%(path)s/env' % env
 env.repo_path = '%(path)s/repository' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
-env.repository_url = "git@git.example.com:example/project_name.git"
+env.repository_url = "https://MrMetlHed@github.com/ReportersLab/Review-Lab.git"
 env.multi_server = False
 env.memcached_server_address = "cache.example.com"
 
@@ -37,7 +37,7 @@ def staging():
     Work on staging environment
     """
     env.settings = 'staging'
-    env.hosts = ['db.beta.reporterslab.org'] 
+    env.hosts = ['beta.reporterslab.org'] 
     env.user = 'newsapps'
     env.s3_bucket = 'media.beta.reporterslab.org'
     
@@ -97,9 +97,14 @@ def setup_directories():
 def setup_virtualenv():
     """
     Setup a fresh virtualenv.
+    
+    CS: Added sudo to the commands. For some reason they'd execute fine on the box,
+    but through Fab I was getting permission denied.
+    
+    TODO: Investigate permission denied issue.
     """
     run('virtualenv -p %(python)s --no-site-packages %(env_path)s;' % env)
-    run('source %(env_path)s/bin/activate; easy_install -U setuptools; easy_install pip;' % env)
+    run('source %(env_path)s/bin/activate; sudo easy_install -U setuptools; sudo easy_install pip;' % env)
 
 def clone_repo():
     """
