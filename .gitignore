@@ -13,3 +13,4 @@ build
 *.pyc
 *.pyo
 my_servers
+review_lab/assets/static
