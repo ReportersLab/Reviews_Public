@@ -2,6 +2,7 @@
 # No copying allowed
 
 from fabric.api import *
+from contextlib import contextmanager as _contextmanager
 
 """
 Base configuration
@@ -40,6 +41,20 @@ def staging():
     env.hosts = ['beta.reporterslab.org'] 
     env.user = 'newsapps'
     env.s3_bucket = 'media.beta.reporterslab.org'
+    
+
+
+
+@_contextmanager
+def virtualenv():
+    """
+    Activates the environment's virtualenv. This makes
+    executing ./manage calls easier.
+    """    
+    with prefix('source %(env_path)s/bin/activate' % env):
+        yield
+
+
     
 """
 Branches
@@ -104,7 +119,7 @@ def setup_virtualenv():
     TODO: Investigate permission denied issue.
     """
     run('virtualenv -p %(python)s --no-site-packages %(env_path)s;' % env)
-    run('source %(env_path)s/bin/activate; sudo easy_install -U setuptools; sudo easy_install pip;' % env)
+    run('source %(env_path)s/bin/activate; sudo easy_install -U setuptools; sudo easy_install pip; sudo easy_install mercurial;' % env)
 
 def clone_repo():
     """
@@ -146,6 +161,7 @@ def deploy():
         maintenance_up()
         
     checkout_latest()
+    collect_static()
     gzip_assets()
     deploy_to_s3()
     maintenance_down()
@@ -156,6 +172,17 @@ def maintenance_up():
     """
     sudo('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/apache_maintenance %(apache_config_path)s' % env)
     reboot()
+
+
+def collect_static():
+    """
+    Collects Static files from installed apps and places their
+    content in the STATIC_ROOT. This allows that content to be
+    pushed to S3, but not live in the repo.
+    """
+    with virtualenv():
+        with cd('%(repo_path)s' % env):
+            run('./manage collectstatic')
 
 def gzip_assets():
     """

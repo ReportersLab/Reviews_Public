@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-    ServerName review_lab.reporterslab.org
-    ServerAlias www.review_lab.reporterslab.org
+    ServerName reviews.reporterslab.org
+    ServerAlias www.reviews.reporterslab.org
     
     SetEnvIf X-Forwarded-For "^163\.192\..*\..*" trib
     <Location /> # until launch
@@ -32,8 +32,8 @@
     
     RewriteEngine on
     # canonical hostname
-    RewriteCond %{HTTP_HOST} !^review_lab.reporterslab.org [NC] 
-    RewriteRule ^/(.*)  http://review_lab.reporterslab.org/$1 [L,R]
+    RewriteCond %{HTTP_HOST} !^reviews.reporterslab.org [NC] 
+    RewriteRule ^/(.*)  http://reviews.reporterslab.org/$1 [L,R]
     
     RewriteCond %{REQUEST_URI} /maintenance.html$ 
     RewriteRule $ / [R=302,L]
