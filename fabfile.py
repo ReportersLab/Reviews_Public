@@ -169,6 +169,7 @@ def deploy():
     collect_static()
     gzip_assets()
     deploy_to_s3()
+    run_migrations()
     maintenance_down()
     
 def maintenance_up():
