@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task
+from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task, Tutorial
 from django.contrib import admin
 
 
@@ -50,7 +50,7 @@ class ProductAdmin(CommonAdmin):
         ),
         ('Product Details',
             {
-                'fields': ('company', 'cost', 'open_source', 'demo_available', 'obsolete', 'programming_required_rating', 'programming_required_description', 'categories', 'release_date',)
+                'fields': ('company', 'image', 'cost', 'open_source', 'demo_available', 'obsolete', 'programming_required_rating', 'programming_required_description', 'categories', 'release_date',)
             }
         ),
     )
@@ -65,7 +65,7 @@ class ReviewAdmin(CommonAdmin):
     fieldsets = (
         ('The Basics',
             {
-                'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'published', 'tags', )
+                'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'published', 'tags', 'image',)
             }
         ),
         ('Teaser Text', {'fields': ('teaser',)}),
@@ -81,6 +81,27 @@ class ReviewAdmin(CommonAdmin):
     list_display_links = ('name',)
     list_editable= ('published',)
     
+ 
+ 
+class TutorialAdmin(CommonAdmin):
+    fieldsets = (
+        ('The Basics', {
+            'fields': ('product', 'kicker', 'name', 'subtitle', 'writer', 'writer_external', 'editor', 'slug', 'published', 'tags', 'image',)
+        }),
+        ('Teaser Text', {'fields': ('teaser',)}),
+        ('Tutorial Text', {'fields': ('description',)}),
+        ('Tutorial Details',
+            {
+                'fields': ('tasks', 'url', 'embed', 'repo_link', 'files',)
+            }
+         ),
+        
+    )
+    list_display = ('name', 'product', 'repo_link', 'published',)
+    list_display_links = ('name',)
+    list_editable = ('published',)
+ 
+ 
     
 
 class ProductTaskAdmin(CommonAdmin):
@@ -96,7 +117,7 @@ class TaskAdmin(CommonAdmin):
 
 
 class DocumentSetAdmin(CommonAdmin):
-    list_display = ('name', 'url', 'published',)
+    list_display = ('name', 'url', 'published', 'image',)
     list_display_links = ('name',)
     list_editable = ('published',)
 
@@ -119,3 +140,9 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductTask, ProductTaskAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Task, TaskAdmin)
+admin.site.register(Tutorial, TutorialAdmin)
+
+
+
+
+

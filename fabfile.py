@@ -8,6 +8,7 @@ from contextlib import contextmanager as _contextmanager
 Base configuration
 """
 env.project_name = 'review_lab'
+env.apps = ['core',]
 env.database_password = 'v6QUDibEAf'
 env.site_media_prefix = "site_media"
 env.admin_media_prefix = "admin_media"
@@ -119,7 +120,8 @@ def setup_virtualenv():
     TODO: Investigate permission denied issue.
     """
     run('virtualenv -p %(python)s --no-site-packages %(env_path)s;' % env)
-    run('source %(env_path)s/bin/activate; sudo easy_install -U setuptools; sudo easy_install pip; sudo easy_install mercurial;' % env)
+    with virtualenv():
+        run('sudo easy_install -U setuptools; sudo easy_install pip; sudo easy_install mercurial;' % env)
 
 def clone_repo():
     """
@@ -131,13 +133,16 @@ def checkout_latest():
     """
     Pull the latest code on the specified branch.
     """
-    run('cd %(repo_path)s; git checkout %(branch)s; git pull origin %(branch)s' % env)
+    with cd('%(repo_path)s' % env):
+        run('git checkout %(branch)s; git pull origin %(branch)s' % env)
 
 def install_requirements():
     """
     Install the required packages using pip.
     """
-    run('source %(env_path)s/bin/activate; pip install -E %(env_path)s -r %(repo_path)s/requirements.txt' % env)
+    with virtualenv():
+        with cd('%(repo_path)s' % env):
+            run('pip install -E %(env_path)s -r requirements.txt' % env)
 
 def install_apache_conf():
     """
@@ -189,7 +194,8 @@ def gzip_assets():
     GZips every file in the assets directory and places the new file
     in the gzip directory with the same filename.
     """
-    run('cd %(repo_path)s; python gzip_assets.py' % env)
+    with cd('%(repo_path)s' % env):
+        run('python gzip_assets.py' % env)
 
 def deploy_to_s3():
     """
@@ -197,7 +203,19 @@ def deploy_to_s3():
     """
     env.gzip_path = '%(path)s/repository/%(project_name)s/gzip/assets/' % env
     run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(path)s/repository/s3exclude sync %(gzip_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
-       
+
+
+def run_migrations():
+    """
+    Run South Migrations pulled in from the repo against the database
+    """
+    with virtualenv():
+        with cd('%(repo_path)s' % env):
+            for app in env.apps:
+                run('./manage migrate %s' % app)
+    
+
+
 def reboot(): 
     """
     Restart the Apache2 server.
@@ -340,7 +358,8 @@ def _execute_psql(query):
     Executes a PostgreSQL command using the command line interface.
     """
     env.query = query
-    run(('cd %(path)s/repository; psql -q %(project_name)s -c "%(query)s"') % env)
+    with cd('%(repo_path)s' % env):
+        run(('psql -q %(project_name)s -c "%(query)s"') % env)
     
 def bootstrap():
     """

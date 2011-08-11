@@ -58,15 +58,16 @@ DOCUMENT_KIND_CHOICES = (
 class Review(CommonInfo):
     product              = models.ForeignKey(to='Product')
     reviewer             = models.ForeignKey(to=User)
-    editor               = models.ForeignKey(to=User, null=True, related_name='editor_user')
+    editor               = models.ForeignKey(to=User, null=True, blank=True, related_name='review_editor_user')
     kicker               = models.CharField(max_length = 128, blank = True)
     subtitle             = models.CharField(max_length = 512, blank = True)
     teaser               = models.TextField(blank = True)
     user_rating          = RatingField(range=10, allow_anonymous = True, use_cookies = True)
     version_tested       = models.CharField(max_length=128, blank = True)
     os_used              = models.ManyToManyField('OperatingSystem', blank = True, null = True)
-    review_done          = models.DateField(null = True)
-    
+    review_done          = models.DateField(null = True, blank=True)
+    image                = models.ImageField( help_text='Review Screenshot? TODO: Standardize Size', max_length=256,
+                                            upload_to='review_lab/contrib/img/reviews', null=True, blank=True)
     
     community            = models.IntegerField(choices=RATING_CHOICES, default = 0)
     documentation        = models.IntegerField(choices=RATING_CHOICES, default = 0)
@@ -81,6 +82,8 @@ class Review(CommonInfo):
     
 class Product(CommonInfo):
     url                                   = models.URLField(blank=True)
+    image                                 = models.ImageField( help_text='Product logo or screenshot. TODO: Standardize Size', max_length=256,
+                                                              upload_to='review_lab/contrib/img/products', null=True, blank=True)
     cost                                  = models.IntegerField(blank=False, default=0,help_text='Cost is a dollar amount. "0" for free')
     categories                            = models.ManyToManyField('Category', blank=True, null=True)
     programming_required_rating           = models.IntegerField(choices=RATING_CHOICES)
@@ -89,11 +92,32 @@ class Product(CommonInfo):
     open_source                           = models.BooleanField()
     demo_available                        = models.BooleanField()
     company                               = models.CharField(max_length = 128, blank = True)
-    release_date                          = models.DateField(null = True)
+    release_date                          = models.DateField(null = True, blank=True)
     obsolete                              = models.BooleanField()
     
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.url)
+
+
+
+
+
+class Tutorial(CommonInfo):
+    product              = models.ForeignKey(to='Product')
+    url                  = models.URLField(blank=True, help_text='URL to source of this tutorial if applicable.')
+    tasks                = models.ManyToManyField('Task', blank=True, null=True, help_text='What tasks this tutorial will help with')
+    writer               = models.ForeignKey(to=User, null=True, blank=True)
+    writer_external      = models.CharField(max_length = 128, blank=True, help_text='Writer name, email if not part of Review Lab')
+    editor               = models.ForeignKey(to=User, null=True, blank=True, related_name='tutorial_editor_user')
+    kicker               = models.CharField(max_length = 128, blank = True)
+    subtitle             = models.CharField(max_length = 512, blank = True)
+    teaser               = models.TextField(blank = True)
+    image                = models.ImageField( help_text='Product logo or screenshot. TODO: Standardize Size', max_length=256,
+                                              upload_to='review_lab/contrib/img/tutorials', null=True, blank=True)
+    embed                = models.TextField(help_text='This is probably a YouTube Embed or something similar.', blank=True)
+    repo_link            = models.URLField(verbose_name='Repository Link', blank=True)
+    files                = models.FileField(verbose_name='Tutorial Zip File', upload_to='review_lab/contrib/zip/tutorial_files', blank=True, null=True)
+
 
 
     
@@ -131,6 +155,9 @@ class ProductTask(CommonInfo):
 class DocumentSet(CommonInfo):
     url       = models.URLField(blank=True)
     kind      = models.CharField(max_length=64, choices=DOCUMENT_KIND_CHOICES)
+    image     = models.ImageField( help_text='Sample Document Image or logo of some sort. TODO: Standardize Size', max_length=256,
+                                   upload_to='review_lab/contrib/img/docs', null=True, blank=True)
+    
     
     def __unicode__(self):
         return u'%s' % (self.name,)
@@ -140,6 +167,23 @@ class DocumentSet(CommonInfo):
         verbose_name = 'Document Set'
         verbose_name_plural = 'Document Sets'
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

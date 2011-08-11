@@ -1,3 +1,4 @@
+pil
 fabric
 django
 django-debug-toolbar
@@ -8,3 +9,4 @@ django-taggit
 -e hg+https://bitbucket.org/fabian/django-taggit-autosuggest#egg=django-taggit-autosuggest
 django-ratings
 django-grappelli
+django-storages
