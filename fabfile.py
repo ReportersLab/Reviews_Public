@@ -41,8 +41,10 @@ def staging():
     env.settings = 'staging'
     env.hosts = ['beta.reporterslab.org'] 
     env.user = 'newsapps'
-    env.s3_bucket = 'media.beta.reporterslab.org'
-    
+    #for the life of me I cannot get the wordpress.com DNS to point to media.beta using a CNAME
+    #so, for now we'll have a directory called /beta on the media domain. Blargh.
+    #env.s3_bucket = 'media.beta.reporterslab.org'
+    env.s3_bucket = 'media.reporterslab.org/beta'
 
 
 
