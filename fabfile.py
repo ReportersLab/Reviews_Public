@@ -205,6 +205,8 @@ def deploy_to_s3():
     Deploy the latest project site media to S3.
     """
     env.gzip_path = '%(path)s/repository/%(project_name)s/gzip/assets/' % env
+    # The problem here is that it applies gzip encoding flags to pngs, which the gzip_assets script doesn't apply.
+    # Causes the browser to go insane. Edited gzip_assets.py script to apply compression to those files to see if it works.
     run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(path)s/repository/s3exclude sync %(gzip_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
 
 
