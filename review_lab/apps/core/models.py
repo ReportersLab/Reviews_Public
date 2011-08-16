@@ -107,7 +107,7 @@ class Tutorial(CommonInfo):
     url                  = models.URLField(blank=True, help_text='URL to source of this tutorial if applicable.')
     tasks                = models.ManyToManyField('Task', blank=True, null=True, help_text='What tasks this tutorial will help with')
     writer               = models.ForeignKey(to=User, null=True, blank=True)
-    writer_external      = models.CharField(max_length = 128, blank=True, help_text='Writer name, email if not part of Review Lab')
+    writer_external      = models.CharField(max_length = 256, blank=True, help_text='Writer name, email if not part of Review Lab')
     editor               = models.ForeignKey(to=User, null=True, blank=True, related_name='tutorial_editor_user')
     kicker               = models.CharField(max_length = 128, blank = True)
     subtitle             = models.CharField(max_length = 512, blank = True)
@@ -119,6 +119,19 @@ class Tutorial(CommonInfo):
     files                = models.FileField(verbose_name='Tutorial Zip File', upload_to='review_lab/contrib/zip/tutorial_files', blank=True, null=True)
 
 
+class Challenge(CommonInfo):
+    tasks                     = models.ManyToManyField(to='Task', blank=True, null=True)
+    documents                 = models.ManyToManyField(to='DocumentSet', blank=True, null=True)
+    teaser                    = models.TextField(blank=True)
+    kicker                    = models.CharField(max_length = 128, blank = True)
+    subtitle                  = models.CharField(max_length = 512, blank = True)
+    image                     = models.ImageField(help_text='Challenge logo. TODO: Standardize Size', max_length=256,
+                                            upload_to='review_lab/contrig/img/challenges', null=True, blank=True)
+    files                     = models.FileField(verbose_name='Challenge Files', upload_to='review_lab/contrib/zip/challenges', blank=True, null=True,
+                                           help_text='Any kind of related files for the challenge should go here if not part of the Document Set')
+    contact                   = models.ForeignKey(to=User, null=True, blank=True)
+    other_contact             = models.CharField(max_length=256, blank=True, help_text='other contact information if not user in system')
+    award                     = models.CharField(max_length=256, blank=True)
 
     
 class Task(CommonInfo):

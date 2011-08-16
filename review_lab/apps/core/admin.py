@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task, Tutorial
+from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task, Tutorial, Challenge
 from django.contrib import admin
 
 
@@ -102,6 +102,24 @@ class TutorialAdmin(CommonAdmin):
     list_editable = ('published',)
  
  
+class ChallengeAdmin(CommonAdmin):
+    fieldsets = (
+        ('The Basics', {
+            'fields': ('kicker', 'name', 'subtitle', 'contact', 'other_contact', 'slug', 'published', 'tags', 'image',)
+        }),
+        ('Teaser Text', {'fields': ('teaser',)}),
+        ('Challenge Text', {'fields': ('description',)}),
+        ('Challenge Details',
+            {
+                'fields': ('tasks', 'documents', 'files', 'award')
+            }
+         ),
+        
+    )
+    list_display = ('name', 'contact', 'published',)
+    list_display_links = ('name',)
+    list_editable = ('published',)
+ 
     
 
 class ProductTaskAdmin(CommonAdmin):
@@ -141,6 +159,7 @@ admin.site.register(ProductTask, ProductTaskAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Tutorial, TutorialAdmin)
+admin.site.register(Challenge, ChallengeAdmin)
 
 
 
