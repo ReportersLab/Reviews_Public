@@ -14,3 +14,4 @@ build
 *.pyo
 my_servers
 review_lab/assets/static
+.DS_Store

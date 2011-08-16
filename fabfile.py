@@ -190,7 +190,7 @@ def collect_static():
     """
     with virtualenv():
         with cd('%(repo_path)s' % env):
-            run('./manage collectstatic')
+            run('./manage collectstatic -i grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js -i review_lab/assets/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce_popup.js')
 
 def gzip_assets():
     """
