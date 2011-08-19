@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from taggit_autosuggest.managers import TaggableManager
 #ratings
 from djangoratings.fields import RatingField
+from datetime import datetime
 
 
 
@@ -16,18 +17,21 @@ class CommonInfo(models.Model):
     description     = models.TextField(blank=True)
     published       = models.BooleanField()
     tags            = TaggableManager(blank = True)
-    creation_time   = models.DateTimeField(auto_now_add = True)
-    update_time     = models.DateTimeField(auto_now = True)
+    creation_time   = models.DateTimeField() # generated in save
+    update_time     = models.DateTimeField() # generated in save
     slug            = models.SlugField(max_length=512, unique=True, blank=True)
     
     def save(self):
         if not self.id:
-            self.slug = slugify(self.name)
+            self.creation_time = datetime.now()
+            self.slug = slugify("{0} {1}".format(self.name, self.creation_time.date().isoformat()))
+        self.update_time = datetime.now()
         super(CommonInfo, self).save()
         
         
     class Meta:
         abstract = True
+        ordering = ['-creation_time'] #this doesn't seem to work.
 
 
 
@@ -78,6 +82,13 @@ class Review(CommonInfo):
     def __unicode__(self):
         return u'%s (Review of: %s)' % (self.name, self.product)
     
+    @models.permalink
+    def get_absolute_url(self):
+        return ('review_view', (), {'slug': self.slug})
+        
+    class Meta:
+        ordering = ['-creation_time']
+    
     
     
 class Product(CommonInfo):
@@ -86,7 +97,7 @@ class Product(CommonInfo):
                                                               upload_to='review_lab/contrib/img/products', null=True, blank=True)
     cost                                  = models.IntegerField(blank=False, default=0,help_text='Cost is a dollar amount. "0" for free')
     categories                            = models.ManyToManyField('Category', blank=True, null=True)
-    programming_required_rating           = models.IntegerField(choices=RATING_CHOICES)
+    programming_required_rating           = models.IntegerField(choices=RATING_CHOICES, default = 0)
     programming_required_description      = models.TextField(blank = True)
     tasks_performed                       = models.ManyToManyField(to='Task', through='ProductTask', blank=True, null=True)
     open_source                           = models.BooleanField()
@@ -97,8 +108,13 @@ class Product(CommonInfo):
     
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.url)
+        
+    @models.permalink
+    def get_absolute_url(self):
+        return ('product_view', (), {'slug': self.slug})
 
-
+    class Meta:
+        ordering = ['-creation_time']
 
 
 
@@ -117,6 +133,15 @@ class Tutorial(CommonInfo):
     embed                = models.TextField(help_text='This is probably a YouTube Embed or something similar.', blank=True)
     repo_link            = models.URLField(verbose_name='Repository Link', blank=True)
     files                = models.FileField(verbose_name='Tutorial Zip File', upload_to='review_lab/contrib/zip/tutorial_files', blank=True, null=True)
+    
+    
+    @models.permalink
+    def get_absolute_url(self):
+        return ('tutorial_view', (), {'slug': self.slug})
+    
+
+    class Meta:
+        ordering = ['-creation_time']
 
 
 class Challenge(CommonInfo):
@@ -132,6 +157,13 @@ class Challenge(CommonInfo):
     contact                   = models.ForeignKey(to=User, null=True, blank=True)
     other_contact             = models.CharField(max_length=256, blank=True, help_text='other contact information if not user in system')
     award                     = models.CharField(max_length=256, blank=True)
+    
+    @models.permalink
+    def get_absolute_url(self):
+        return ('challenge_view', (), {'slug': self.slug})
+        
+    class Meta:
+        ordering = ['-creation_time']
 
     
 class Task(CommonInfo):
@@ -142,13 +174,19 @@ class Task(CommonInfo):
     
     def __unicode__(self):
         return u'Task: %s, For Document: %s' % (self.name, self.document)
+        
+    @models.permalink
+    def get_absolute_url(self):
+        return ('task_view', (), {'slug': self.slug})    
 
+    class Meta:
+        ordering = ['-creation_time']
 
 
 class ProductTask(CommonInfo):
     product     = models.ForeignKey('Product')
     task        = models.ForeignKey('Task')
-    rating      = models.IntegerField(choices=RATING_CHOICES)
+    rating      = models.IntegerField(choices=RATING_CHOICES, default = 0)
     
     def __unicode__(self):
         return u'Task Review of %s for Task %s' % (self.product, self.task)
@@ -159,10 +197,14 @@ class ProductTask(CommonInfo):
     def task_name(self):
         return self.task.name
     
+    @models.permalink
+    def get_absolute_url(self):
+        return ('product_task_view', (), {'slug': self.slug})
+    
     class Meta:
         verbose_name = 'Product Task Review'
         verbose_name_plural = 'Product Task Reviews'
-
+        ordering = ['-creation_time']
 
 
 class DocumentSet(CommonInfo):
@@ -175,19 +217,15 @@ class DocumentSet(CommonInfo):
     def __unicode__(self):
         return u'%s' % (self.name,)
         
+    @models.permalink
+    def get_absolute_url(self):
+        return ('document_view', (), {'slug': self.slug})
+        
     
     class Meta:
         verbose_name = 'Document Set'
         verbose_name_plural = 'Document Sets'
-    
-
-
-
-
-
-
-
-
+        ordering = ['-creation_time']
 
 
 

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Product Preformance: {{ product_task.name }}
+{% endblock %}
+
+{% block main_content %}
+    
+    
+        <div class="review_list_container">
+            <h2>
+                <a href="">{{product_task.name}}</a>
+            </h2>
+            
+            <div class="teaser">
+                {{product_task.description|safe}}
+            </div>
+        </div>
+
+{% endblock %}

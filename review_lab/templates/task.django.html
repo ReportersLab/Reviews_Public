@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Task: {{ task.name }}
+{% endblock %}
+
+{% block main_content %}
+    
+        <div class="review_list_container">
+            <h2>
+                <a href="">{{task.name}}</a>
+            </h2>
+            
+            <div class="teaser">
+                {{task.description|safe}}
+            </div>
+        </div>
+
+{% endblock %}

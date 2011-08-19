@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Challenge: {{ challenge.name }}
+{% endblock %}
+
+{% block main_content %}
+    
+    
+        <div class="review_list_container">
+            <h2>
+                <a href="">{{challenge.name}}</a>
+            </h2>
+            
+            <div class="teaser">
+                {{challenge.description|safe}}
+            </div>
+        </div>
+
+{% endblock %}

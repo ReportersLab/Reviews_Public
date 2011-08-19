@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ review.name }}, a review of {{ review.product.name }}
+{% endblock %}
+
+{% block main_content %}
+    
+    
+        <div class="review_list_container">
+            <h6>{{ review.kicker }}</h6>
+            <h2>
+               {{review.name}}
+            </h2>
+            <h4>{{ review.subtitle }}</h4>
+            <h6>A review of <a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></h6>
+            <div class="byline_timestamp_container">
+                <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a> | </span>
+                
+                <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
+            </div>
+            <div class="teaser">
+                {{review.description|safe}}
+            </div>
+        </div>
+
+{% endblock %}

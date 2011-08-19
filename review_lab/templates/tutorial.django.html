@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Tutorial: {{ tutorial.name }}
+{% endblock %}
+
+{% block main_content %}
+    
+    
+        <div class="review_list_container">
+            <h2>
+                <a href="">{{tutorial.name}}</a>
+            </h2>
+            
+            <div class="teaser">
+                {{tutorial.description|safe}}
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{% load pagination_tags %}
+
+
+
+{% block main_content %}
+    
+    {% autopaginate review_list 10 %}
+    {% include "renderers/review_list.django.html" with reviews=review_list %}
+    {% paginate %}
+{% endblock %}

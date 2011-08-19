@@ -10,3 +10,5 @@ django-taggit
 django-ratings
 django-grappelli
 django-storages
+# django-dilla
+linaro-django-pagination

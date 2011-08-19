@@ -1,0 +1,160 @@
+body
+{
+    
+}
+
+a
+{
+    text-decoration:none;
+    color:#A4BDCD;
+}
+
+a:hover
+{
+    background-color:#FFFF78;
+}
+
+#header, #footer
+{
+    background-color:#262626;
+    color:#FFFFFF;
+}
+
+#footer
+{
+    padding-bottom:20px;
+}
+
+#header
+{
+    padding-top:20px;
+}
+
+#header h1
+{
+    text-align:center;
+    margin-bottom:5px;
+}
+
+#footer_contact h4
+{
+    margin-bottom:2px;
+}
+
+#footer_contact p
+{
+    margin-bottom:2px;   
+}
+
+#footer_contact a
+{
+    color:#A1BCBD;    
+}
+
+
+
+/**
+ *Right Rail Styles
+ **/
+
+#right_rail
+{
+    border-left:1px solid #DDDDDD;
+    padding-left:5px;
+}
+
+#right_rail h3
+{
+    color:#333333;
+    margin:5px 0 5px 5px;
+}
+
+#right_rail div
+{
+    clear:both;
+}
+
+#right_rail ul li
+{
+    list-style:none;
+}
+
+#right_rail ul li h5
+{
+    margin-bottom:0;
+}
+
+#right_rail ul li p
+{
+    color:#333333;
+}
+
+#right_rail .more_link
+{
+    float:right;
+}
+
+
+
+
+
+.review_list_container
+{
+    border-bottom:1px solid #DDDDDD;
+    margin:10px 0 0 0;
+    padding:10px 0 20px 0;
+}
+
+.review_list_container h2
+{
+    margin-bottom:2px;
+}
+
+.review_list_container h6
+{
+    font-weight:normal;
+    color:#333333;
+    margin-bottom:2px;
+}
+
+.byline_timestamp_container
+{
+    color:#666666;
+    margin-bottom:8px;
+}
+
+.byline_timestamp_contaner span
+{
+    padding-left:5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
