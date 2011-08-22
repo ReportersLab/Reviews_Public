@@ -1,26 +1,139 @@
 {% extends "base.html" %}
+{% load range_tag %}
 
 {% block title %}
-    {{ review.name }}, a review of {{ review.product.name }}
+    {{ review.name }}, a Review of {{ review.product.name }}
 {% endblock %}
 
 {% block main_content %}
     
     
-        <div class="review_list_container">
-            <h6>{{ review.kicker }}</h6>
-            <h2>
-               {{review.name}}
-            </h2>
-            <h4>{{ review.subtitle }}</h4>
-            <h6>A review of <a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></h6>
-            <div class="byline_timestamp_container">
-                <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a> | </span>
-                
-                <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
+        <div id="detail_container" class="review">
+            <div id="detail_header">
+                <h6><a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a>
+                    {% if review.kicker %} | {{ review.kicker }} {% endif %}
+                </h6>
+                <h1>
+                   {{review.name}}
+                </h1>
+                <h4>{{ review.subtitle }}</h4>
+                <!--<h5>A review of <a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></h5> -->
+                <div class="byline_timestamp_container">
+                    <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a> | </span>
+                    
+                    <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
+                </div>
             </div>
-            <div class="teaser">
+            <div id="details">
+                <div id="more_details" class="grid_2 omega">
+                    <div>
+                        <h6>Product</h6>
+                        <p><a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></p>
+                    </div>
+                    <div>
+                        <h6>Company</h6>
+                        <p><a href="{{ review.product.url }}">{{ review.product.company }}</a></p>
+                    </div>
+                    <div>
+                        <h6>Version Tested</h6>
+                        <p>{{ review.version_tested }}</p>
+                    </div>
+                    {% if review.product.release_date %}
+                    <div>
+                        <h6>Release Date</h6>
+                        <p>{{ review.product.release_date|date:"SHORT_DATE_FORMAT" }}</a></p>
+                    </div>
+                    {% endif %}
+                    <div>
+                        <h6>OS Tested</h6>
+                        <p> {% for os in review.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a><br />{% endfor %}</p>
+                    </div>
+                    <div>
+                        <h6>Cost</h6>
+                        <p>{% if review.product.cost == 0 %}FREE {% else %}${{ review.product.cost }}{% endif %}</a></p>
+                    </div>
+                    <div>
+                        <h6>Open Sourced</h6>
+                        <p>{% if review.product.open_source %}Yes {% else %}No{% endif %}</a></p>
+                    </div>
+                    <div>
+                        <h6>Demo Available</h6>
+                        <p>{% if review.product.demo_available %}Yes {% else %}No{% endif %}</a></p>
+                    </div>
+                    <div>
+                        <h6>Obsolete</h6>
+                        <p>{% if review.product.obsolete %}Yes {% else %}No{% endif %}</a></p>
+                    </div>
+                </div>
+                
                 {{review.description|safe}}
+            </div>
+            
+            <div id="ratings">
+                
+                <div class="grid_8 alpha omega">
+                    <div class="rating_container">
+                        <span class="verdict">Community:</span>
+                        {% mkrange 1 6 1 as star_range %}
+                        {% for i in star_range %}
+                            <input name="star_comm" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.community %} checked="checked" {% endif %} />
+                        {% endfor %}
+                    </div>
+                    <div class="rating_container">
+                        <span class="verdict">Documentation:</span>
+                        {% mkrange 1 6 1 as star_range %}
+                        {% for i in star_range %}
+                            <input name="star_doc" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.documentation %} checked="checked" {% endif %} />
+                        {% endfor %}
+                    </div>
+                    <div class="rating_container">
+                        <span class="verdict">Performance:</span>
+                        {% mkrange 1 6 1 as star_range %}
+                        {% for i in star_range %}
+                            <input name="star_per" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.performance %} checked="checked" {% endif %} />
+                        {% endfor %}
+                    </div>
+                    <div class="rating_container">
+                        <span class="verdict">Usability:</span>
+                        {% mkrange 1 6 1 as star_range %}
+                        {% for i in star_range %}
+                            <input name="star_use" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.usability %} checked="checked" {% endif %} />
+                        {% endfor %}
+                    </div>
+                    <div class="rating_container last grid_8 alpha omega">
+                        <span class="verdict">Overall:</span>
+                        {% mkrange 1 6 1 as star_range %}
+                        {% for i in star_range %}
+                            <input name="star_tot" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.rating %} checked="checked" {% endif %} />
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            <div id="task_performance">
+                <h2>How {{ review.product.name }} performed on our tasks</h2>
+                {% for pt in review.product.producttask_set.all %}
+                     <div class="pt_review">
+                        <h3>{{ pt.name }}</h3>
+                        <div class="pt_metadata">
+                            <div class="task_url">Task: <a href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a></div>
+                            {% if pt.task.document %}
+                                <div class="document_url">Document Set: <a href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a></div>
+                            {% endif %}
+                        </div>
+                        <div class="details">{{ pt.description|safe }}</div>
+                        <div class="verdict_container grid_3 alpha">
+                            <span class="verdict">Verdict:</span>
+                            {% mkrange 1 6 1 as star_range %}
+                            {% for i in star_range %}
+                                <input name="star{{ pt.id }}" type="radio" class="star" disabled="disabled" {% if forloop.counter == pt.rating %} checked="checked" {% endif %} />
+                            {% endfor %}
+                        </div>
+                     </div>
+                     
+                {% endfor %}
             </div>
         </div>
 

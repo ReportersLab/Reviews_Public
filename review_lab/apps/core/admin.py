@@ -123,28 +123,85 @@ class ChallengeAdmin(CommonAdmin):
     
 
 class ProductTaskAdmin(CommonAdmin):
+    fieldsets = (
+        ('The Basics',
+            {
+                'fields': ('name', 'slug', 'description', 'published', 'tags', )
+            }
+        ),
+        ('The Details',
+            {
+                'fields': ('product', 'task', 'rating',)    
+            } 
+        )
+    )
+    
     list_display = ('name', 'product_name', 'task_name', 'rating', 'published',)
     list_display_links = ('name',)
     list_editable= ('published',)
     
 
 class TaskAdmin(CommonAdmin):
+    fieldsets = (
+        ('The Basics',
+            {
+                'fields': ('name', 'slug', 'description', 'published', 'tags', )
+            }
+        ),
+        ('The Details',
+            {
+                'fields': ('document',)    
+            } 
+        )
+    )
     list_display = ('name', 'document_name', 'published',)
     list_display_links = ('name',)
     list_editable= ('published',)
 
 
 class DocumentSetAdmin(CommonAdmin):
+    fieldsets = (
+        ('The Basics',
+            {
+                'fields': ('name', 'slug', 'description', 'published', 'tags', )
+            }
+        ),
+        ('The Details',
+            {
+                'fields': ('url', 'kind', 'image',)    
+            } 
+        )
+    )
     list_display = ('name', 'url', 'published', 'image',)
     list_display_links = ('name',)
     list_editable = ('published',)
 
 class OperatingSystemAdmin(CommonAdmin):
+    fieldsets = (
+        ('The Basics',
+            {
+                'fields': ('name', 'slug', 'description', 'published', 'tags', )
+            }
+        ),
+        ('The Detials',
+            {
+                'fields': ('url',)    
+            } 
+        )
+    )
+    
     list_display = ('name', 'url', 'published',)
     list_display_links = ('name',)
     list_editable = ('published',)
 
 class CategoryAdmin(CommonAdmin):
+    fieldsets = (
+        ('The Basics',
+            {
+                'fields': ('name', 'slug', 'description', 'published', 'tags', )
+            }
+        ),
+    )
     list_display = ('name', 'published',)
     list_display_links = ('name',)
     list_editable = ('published',)
