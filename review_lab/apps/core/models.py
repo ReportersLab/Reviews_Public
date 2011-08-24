@@ -74,10 +74,15 @@ class Review(CommonInfo):
                                             upload_to='review_lab/contrib/img/reviews', null=True, blank=True)
     
     community            = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    community_text       = models.CharField(max_length = 256, blank = True)
     documentation        = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    documentation_text   = models.CharField(max_length = 256, blank = True)
     performance          = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    performance_text     = models.CharField(max_length = 256, blank = True)
     usability            = models.IntegerField(choices=RATING_CHOICES, default = 0, help_text = "General Difficulty level, learning curve.")
+    usability_text       = models.CharField(max_length = 256, blank = True)
     rating               = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    rating_text          = models.CharField(max_length = 256, blank = True)
         
     def __unicode__(self):
         return u'%s (Review of: %s)' % (self.name, self.product)
@@ -184,9 +189,10 @@ class Task(CommonInfo):
 
 
 class ProductTask(CommonInfo):
-    product     = models.ForeignKey('Product')
-    task        = models.ForeignKey('Task')
-    rating      = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    product       = models.ForeignKey('Product')
+    task          = models.ForeignKey('Task')
+    rating        = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    rating_text   = models.CharField(max_length = 256, blank = True)
     
     def __unicode__(self):
         return u'Task Review of %s for Task %s' % (self.product, self.task)

@@ -70,42 +70,52 @@
             </div>
             
             <div id="ratings">
-                
+                {% mkrange 1 6 1 as star_range %}
                 <div class="grid_8 alpha omega">
                     <div class="rating_container">
-                        <span class="verdict">Community:</span>
-                        {% mkrange 1 6 1 as star_range %}
-                        {% for i in star_range %}
-                            <input name="star_comm" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.community %} checked="checked" {% endif %} />
-                        {% endfor %}
+                        <span class="verdict grid_2 alpha">Community:</span>
+                        <div class="grid_2">
+                            {% for i in star_range %}
+                                <input name="star_comm" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.community %} checked="checked" {% endif %} />
+                            {% endfor %}
+                        </div>
+                        <p class="grid_4 omega">{{ review.community_text }}</p>
                     </div>
                     <div class="rating_container">
-                        <span class="verdict">Documentation:</span>
-                        {% mkrange 1 6 1 as star_range %}
-                        {% for i in star_range %}
-                            <input name="star_doc" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.documentation %} checked="checked" {% endif %} />
-                        {% endfor %}
+                        <span class="verdict grid_2 alpha">Documentation:</span>
+                        <div class="grid_2">
+                            {% for i in star_range %}
+                                <input name="star_doc" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.documentation %} checked="checked" {% endif %} />
+                            {% endfor %}
+                        </div>
+                        <p class="grid_4 omega">{{ review.documentation_text }}</p>
                     </div>
                     <div class="rating_container">
-                        <span class="verdict">Performance:</span>
-                        {% mkrange 1 6 1 as star_range %}
-                        {% for i in star_range %}
-                            <input name="star_per" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.performance %} checked="checked" {% endif %} />
-                        {% endfor %}
+                        <span class="verdict grid_2 alpha">Performance:</span>
+                        <div class="grid_2">
+                            {% for i in star_range %}
+                                <input name="star_per" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.performance %} checked="checked" {% endif %} />
+                            {% endfor %}
+                        </div>
+                        <p class="grid_4 omega">{{ review.performance_text }}</p>
                     </div>
                     <div class="rating_container">
-                        <span class="verdict">Usability:</span>
-                        {% mkrange 1 6 1 as star_range %}
-                        {% for i in star_range %}
-                            <input name="star_use" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.usability %} checked="checked" {% endif %} />
-                        {% endfor %}
+                        <span class="verdict grid_2 alpha">Usability:</span>
+                        <div class="grid_2">
+                            {% for i in star_range %}
+                                <input name="star_use" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.usability %} checked="checked" {% endif %} />
+                            {% endfor %}
+                        </div>
+                        <p class="grid_4 omega">{{ review.usability_text }}</p>
                     </div>
                     <div class="rating_container last grid_8 alpha omega">
-                        <span class="verdict">Overall:</span>
-                        {% mkrange 1 6 1 as star_range %}
-                        {% for i in star_range %}
-                            <input name="star_tot" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.rating %} checked="checked" {% endif %} />
-                        {% endfor %}
+                        <span class="verdict grid_2 alpha">Overall:</span>
+                        <div class="grid_2">
+                            {% for i in star_range %}
+                                <input name="star_tot" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.rating %} checked="checked" {% endif %} />
+                            {% endfor %}
+                        </div>
+                        <p class="grid_4 omega">{{ review.rating_text }}</p>
                     </div>
                     
                 </div>
@@ -124,12 +134,14 @@
                             {% endif %}
                         </div>
                         <div class="details">{{ pt.description|safe }}</div>
-                        <div class="verdict_container grid_3 alpha">
-                            <span class="verdict">Verdict:</span>
-                            {% mkrange 1 6 1 as star_range %}
-                            {% for i in star_range %}
-                                <input name="star{{ pt.id }}" type="radio" class="star" disabled="disabled" {% if forloop.counter == pt.rating %} checked="checked" {% endif %} />
-                            {% endfor %}
+                        <div class="rating_container">
+                            <span class="verdict grid_2 alpha">Verdict:</span>
+                            <div class="grid_2">
+                                {% for i in star_range %}
+                                    <input name="star{{ pt.id }}" type="radio" class="star" disabled="disabled" {% if forloop.counter == pt.rating %} checked="checked" {% endif %} />
+                                {% endfor %}
+                            </div>
+                            <p class="grid_4 omega">{{ pt.rating_text }}</p>
                         </div>
                      </div>
                      

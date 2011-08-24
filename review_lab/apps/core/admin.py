@@ -72,7 +72,8 @@ class ReviewAdmin(CommonAdmin):
         ('Review Text', {'fields': ('description',)}),
         ('Review Details',
             {
-                'fields': ('version_tested', 'os_used', 'rating', 'community', 'documentation', 'performance', 'usability',)
+                'fields': ('version_tested', 'os_used', 'community', 'community_text', 'documentation', 'documentation_text',
+                           'performance', 'performance_text', 'usability', 'usability_text', 'rating', 'rating_text',)
             }
         )
     )
@@ -131,7 +132,7 @@ class ProductTaskAdmin(CommonAdmin):
         ),
         ('The Details',
             {
-                'fields': ('product', 'task', 'rating',)    
+                'fields': ('product', 'task', 'rating', 'rating_text',)    
             } 
         )
     )

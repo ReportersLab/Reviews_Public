@@ -211,16 +211,33 @@ a:hover
     margin:auto;
 }
 
-#ratings .verdict
+.rating_container
 {
-    width:120px;
+    background-color:#E6E6E6;
+    padding:10px 0 10px 0;
+    float:left;
+    clear:both;
+}
+
+.verdict
+{
     text-align:right;
+    float:left;
+    margin:-1px 10px 0 0;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.star-rating-control
+{
+    display:block;
+    margin:0 20px 0 20px;
 }
 
 
 .rating_container.last
 {
-    border-top:1px solid #333333;
+    border-top:1px solid #FFFFFF;
 }
 
 
@@ -260,27 +277,12 @@ a:hover
     font-style:italic;
 }
 
-
-.pt_review .verdict_container, .rating_container
+.pt_review .details
 {
-    background-color:#E6E6E6;
-    padding:10px 0 10px 0;
-    float:left;
-    clear:both;
+    margin:0 0 15px 0;
 }
 
-.pt_review .verdict_container
-{
-    padding:10px;
-}
 
-.pt_review .verdict, .verdict
-{
-    float:left;
-    margin:-1px 10px 0 0;
-    font-size:14px;
-    font-weight:bold;
-}
 
 
 
