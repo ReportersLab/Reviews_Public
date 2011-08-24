@@ -6,13 +6,24 @@ body
 a
 {
     text-decoration:none;
-    color:#A4BDCD;
+    color:#94BDCD;
+    color:#3366CC;
 }
 
 a:hover
 {
     background-color:#FFFF78;
 }
+
+blockquote
+{
+    font-size:14px;
+    margin:10px 0 10px 40px;
+    padding:0 0 0 15px;
+    border-left:5px solid #DDDDDD;
+}
+
+
 
 #header, #footer
 {
@@ -95,7 +106,9 @@ a:hover
 }
 
 
-
+/**
+ *Index view / list
+ **/ 
 
 
 .review_list_container
@@ -103,6 +116,12 @@ a:hover
     border-bottom:1px solid #DDDDDD;
     margin:10px 0 0 0;
     padding:10px 0 20px 0;
+}
+
+.review_list_container.last
+{
+    border:none;
+    padding:10px 0 5px 0;
 }
 
 .review_list_container h2
@@ -136,7 +155,7 @@ a:hover
 
 #detail_container
 {
-    
+    margin-top:10px;
 }
 
 #detail_container h6
@@ -181,7 +200,13 @@ a:hover
     border-bottom:1px solid #DDDDDD;
 }
 
-#more_details
+
+/**
+ *
+ * Review Specific Details
+ * 
+ **/
+#review_details
 {
     float:right;
     background:#EDEDED;
@@ -190,42 +215,50 @@ a:hover
     padding:5px;
 }
 
-#more_details p, #more_details h6
+#review_details p, #review_details h6
 {
     margin:0;
     padding:0;
 }
 
-#more_details h6
+#review_details h6
 {
     margin-top:10px;
 }
 
 
+#product_details div.container
+{
+    float:left;
+    clear:both;
+}
 
-#ratings
+#ratings, #product_details
 {
     float:left;
     clear:both;
     background-color:#E6E6E6;
     margin:auto;
+    padding:5px 0 5px 0;
 }
 
 .rating_container
 {
     background-color:#E6E6E6;
-    padding:10px 0 10px 0;
+    margin:10px 0 0 0;
+    padding:5px 0 5px 0;
     float:left;
     clear:both;
 }
 
-.verdict
+.verdict, #product_details h4
 {
     text-align:right;
     float:left;
     margin:-1px 10px 0 0;
     font-size:14px;
     font-weight:bold;
+    color:#000000;
 }
 
 .star-rating-control
@@ -241,12 +274,12 @@ a:hover
 }
 
 
-#task_performance
+#task_performance, #product_reviews
 {
     float:left; clear:both;
     margin:10px 0 0 0;
 }
-#task_performance h2
+#task_performance h2, #product_reviews h2
 {
     border-bottom:1px solid #DDDDDD;
     border-top:1px solid #333333;
@@ -263,6 +296,12 @@ a:hover
     border-bottom:1px solid #DDDDDD;
 }
 
+.pt_review.last
+{
+    padding-bottom:5px;
+    border-bottom:none;
+}
+
 .pt_review h3
 {
     font-weight:bold;
@@ -270,11 +309,18 @@ a:hover
     margin:0 0 5px 0;
 }
 
-.pt_review .pt_metadata
+.pt_metadata
 {
     font-size:12px;
-    margin:5px 0 20px 0;
+    margin:5px 0 5px 0;
     font-style:italic;
+    clear:both;
+    float:left;
+}
+
+.pt_metadata span
+{
+    text-align:right;
 }
 
 .pt_review .details
@@ -284,8 +330,9 @@ a:hover
 
 
 
-
-
+/**
+ *Product specific details
+ **/
 
 
 

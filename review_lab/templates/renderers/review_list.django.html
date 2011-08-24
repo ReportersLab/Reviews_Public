@@ -1,5 +1,5 @@
 {% for review in reviews %}
-        <div class="review_list_container">
+        <div class="review_list_container {% if forloop.last %}last{% endif %}">
             <h2>
                 <a href="{{ review.get_absolute_url }}">{{review.name}}</a>
             </h2>

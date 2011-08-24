@@ -35,6 +35,10 @@ class CommonAdmin(admin.ModelAdmin):
     
     readonly_fields = ('slug',)
     
+    def view_link(self, object):
+        return '<a href="{0}">{0}</a>'.format(object.get_absolute_url())
+    view_link.allow_tags = True
+    
     
     class Media:
         js = (settings.STATIC_URL+'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', settings.STATIC_URL+'grappelli/tinymce_setup/tinymce_setup.js')
@@ -56,7 +60,7 @@ class ProductAdmin(CommonAdmin):
     )
     
     inlines = [ProductTaskInline, ReviewInline, ]
-    list_display = ('name', 'url', 'company', 'published',)
+    list_display = ('name', 'url', 'company', 'published', 'view_link',)
     list_editable= ('published',)
     list_display_links = ('name',)
 
@@ -65,7 +69,7 @@ class ReviewAdmin(CommonAdmin):
     fieldsets = (
         ('The Basics',
             {
-                'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'published', 'tags', 'image',)
+                'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'published', 'tags', 'image', 'review_done',)
             }
         ),
         ('Teaser Text', {'fields': ('teaser',)}),
@@ -78,7 +82,7 @@ class ReviewAdmin(CommonAdmin):
         )
     )
     
-    list_display = ('name', 'product', 'rating', 'published',)
+    list_display = ('name', 'product', 'rating', 'published', 'view_link',)
     list_display_links = ('name',)
     list_editable= ('published',)
     
@@ -98,7 +102,7 @@ class TutorialAdmin(CommonAdmin):
          ),
         
     )
-    list_display = ('name', 'product', 'repo_link', 'published',)
+    list_display = ('name', 'product', 'repo_link', 'published', 'view_link',)
     list_display_links = ('name',)
     list_editable = ('published',)
  
@@ -117,7 +121,7 @@ class ChallengeAdmin(CommonAdmin):
          ),
         
     )
-    list_display = ('name', 'contact', 'published',)
+    list_display = ('name', 'contact', 'published', 'view_link',)
     list_display_links = ('name',)
     list_editable = ('published',)
  
@@ -127,17 +131,19 @@ class ProductTaskAdmin(CommonAdmin):
     fieldsets = (
         ('The Basics',
             {
-                'fields': ('name', 'slug', 'description', 'published', 'tags', )
+                 'fields': ('kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'published', 'tags', 'image', 'review_done',)
             }
         ),
+        ('Teaser Text', {'fields': ('teaser',)}),
+        ('The Review', {'fields': ('description',)}),
         ('The Details',
             {
-                'fields': ('product', 'task', 'rating', 'rating_text',)    
+                'fields': ('product', 'task', 'rating', 'rating_text', 'version_tested', 'os_used', )    
             } 
-        )
+        ),
     )
     
-    list_display = ('name', 'product_name', 'task_name', 'rating', 'published',)
+    list_display = ('name', 'product_name', 'task_name', 'rating', 'published', 'view_link')
     list_display_links = ('name',)
     list_editable= ('published',)
     
@@ -155,7 +161,7 @@ class TaskAdmin(CommonAdmin):
             } 
         )
     )
-    list_display = ('name', 'document_name', 'published',)
+    list_display = ('name', 'document_name', 'published', 'view_link',)
     list_display_links = ('name',)
     list_editable= ('published',)
 
@@ -173,7 +179,7 @@ class DocumentSetAdmin(CommonAdmin):
             } 
         )
     )
-    list_display = ('name', 'url', 'published', 'image',)
+    list_display = ('name', 'url', 'published', 'image', 'view_link',)
     list_display_links = ('name',)
     list_editable = ('published',)
 

@@ -17,15 +17,15 @@
                    {{review.name}}
                 </h1>
                 <h4>{{ review.subtitle }}</h4>
-                <!--<h5>A review of <a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></h5> -->
                 <div class="byline_timestamp_container">
-                    <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a> | </span>
-                    
+                    {% if review.reviewer %}
+                        <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a> | </span>
+                    {% endif %}
                     <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
                 </div>
             </div>
             <div id="details">
-                <div id="more_details" class="grid_2 omega">
+                <div id="review_details" class="grid_2 omega">
                     <div>
                         <h6>Product</h6>
                         <p><a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></p>
@@ -124,28 +124,60 @@
             
             <div id="task_performance">
                 <h2>How {{ review.product.name }} performed on our tasks</h2>
+                {% comment %}
                 {% for pt in review.product.producttask_set.all %}
-                     <div class="pt_review">
+                     <div class="pt_review {% if forloop.last %}last{% endif %}">
                         <h3>{{ pt.name }}</h3>
                         <div class="pt_metadata">
-                            <div class="task_url">Task: <a href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a></div>
+                            <div class="task_url">
+                                <span class="grid_1 alpha">Task:</span>
+                                <a class="grid_7 omega" href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>
+                            </div>
                             {% if pt.task.document %}
-                                <div class="document_url">Document Set: <a href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a></div>
+                                <div class="document_url">
+                                    <span class="grid_1 alpha">Documents:</span>
+                                    <a class="grid_7 omega" href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
+                                </div>
                             {% endif %}
                         </div>
                         <div class="details">{{ pt.description|safe }}</div>
                         <div class="rating_container">
-                            <span class="verdict grid_2 alpha">Verdict:</span>
+                            <span class="verdict grid_1 alpha">Verdict:</span>
                             <div class="grid_2">
                                 {% for i in star_range %}
                                     <input name="star{{ pt.id }}" type="radio" class="star" disabled="disabled" {% if forloop.counter == pt.rating %} checked="checked" {% endif %} />
                                 {% endfor %}
                             </div>
-                            <p class="grid_4 omega">{{ pt.rating_text }}</p>
+                            <p class="grid_5 omega">{{ pt.rating_text }}</p>
                         </div>
                      </div>
                      
                 {% endfor %}
+                {% endcomment %}
+                
+                {% for pt in review.product.producttask_set.all %}
+                     <div class="pt_review grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                        <h3><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h3>
+                        <div class="pt_metadata">
+                            <div class="task_url">
+                                <span class="grid_1 alpha">Task:</span>
+                                <a class="grid_7 omega" href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>
+                            </div>
+                            {% if pt.task.document %}
+                                <div class="document_url">
+                                    <span class="grid_1 alpha">Documents:</span>
+                                    <a class="grid_7 omega" href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="details">{{ pt.teaser|safe }}
+                           <h6> <a href="{{ pt.get_absolute_url }}">READ OUR FULL REVIEW &raquo;</a></h6>
+                        </div>
+                        
+                     </div>
+                     
+                {% endfor %}
+                
             </div>
         </div>
 

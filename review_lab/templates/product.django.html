@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load range_tag %}
 
 {% block title %}
     {{ product.name }}
@@ -7,14 +8,105 @@
 {% block main_content %}
     
     
-        <div class="review_list_container">
-            <h2>
-                <a href="">{{product.name}}</a>
-            </h2>
-            
-            <div class="teaser">
+        <div id="detail_container" class="product">
+            <h1>{{product.name}}</h1>            
+            <div id="details">
                 {{product.description|safe}}
             </div>
+            <div id="product_details" class="grid_8 alpha omega">
+                <div class="container">
+                    <h4 class="grid_2 alpha">Company:</h4>
+                    <p class="grid_6 omega"><a href="{{ product.url }}">{{ product.company }}</a></p>
+                </div>
+                {% if product.release_date %}
+                <div class="container">
+                    <h4 class="grid_2 alpha">Release Date:</h4>
+                    <p class="grid_6 omega">{{ product.release_date|date:"SHORT_DATE_FORMAT" }}</a></p>
+                </div>
+                {% endif %}
+                <div class="container">
+                    <h4 class="grid_2 alpha">Cost:</h4>
+                    <p class="grid_6 omega">{% if product.cost == 0 %}FREE {% else %}${{ product.cost }}{% endif %}</a></p>
+                </div>
+                <div class="container">
+                    <h4 class="grid_2 alpha">Open Sourced:</h4>
+                    <p class="grid_6 omega">{% if product.open_source %}Yes {% else %}No{% endif %}</a></p>
+                </div>
+                <div class="container">
+                    <h4 class="grid_2 alpha">Demo Available:</h4>
+                    <p class="grid_6 omega">{% if product.demo_available %}Yes {% else %}No{% endif %}</a></p>
+                </div>
+                <div class="container">
+                    <h4 class="grid_2 alpha">Obsolete:</h4>
+                    <p class="grid_6 omega">{% if product.obsolete %}Yes {% else %}No{% endif %}</a></p>
+                </div>
+                <div class="container">
+                    <h4 class="grid_2 alpha">Programming:</h4>
+                    <div class="grid_6 omega">
+                        {{ product.programming_required_description|safe }}
+                        <strong>Difficulty: {{ product.programming_required_rating }}/5</strong>
+                    </div>
+                </div>
+            </div>
+            
+            
+            {% if product.review_set.all %}
+            <div id="product_reviews">
+                <h2>Our Reviews</h2>
+                {% for review in product.review_set.all %}
+                    <div class="review_list_container {% if forloop.last %}last{% endif %}">
+                        <h3>
+                            <a href="{{ review.get_absolute_url }}">{{ review.name }}</a>
+                        </h3>
+                        <div class="byline_timestamp_container">
+                            <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a> | </span>
+                            <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
+                        </div>
+                        <div class="teaser">
+                            {{ review.teaser|safe }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        
+        {% if product.producttask_set.all %}         
+            <div id="task_performance">
+                <h2>Tasks Tested</h2>
+                {% for pt in product.producttask_set.all %}
+                     <div class="pt_review grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                        <h3><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h3>
+                        <div class="pt_metadata">
+                            <div class="task_url">
+                                <span class="grid_1 alpha">Task:</span>
+                                <a class="grid_7 omega" href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>
+                            </div>
+                            {% if pt.task.document %}
+                                <div class="document_url">
+                                    <span class="grid_1 alpha">Documents:</span>
+                                    <a class="grid_7 omega" href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="details">{{ pt.teaser|safe }}
+                           <h6> <a href="{{ pt.get_absolute_url }}">READ OUR FULL REVIEW &raquo;</a></h6>
+                        </div>
+                        
+                     </div>
+                     
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        
+        
+        
+        
+        
+            
         </div>
+        
+        
 
 {% endblock %}

@@ -117,6 +117,13 @@ class Product(CommonInfo):
     @models.permalink
     def get_absolute_url(self):
         return ('product_view', (), {'slug': self.slug})
+        
+    
+    def latest_review(self):
+        result = None
+        if(self.review_set.count() > 0):
+            result = self.review_set.order_by('-creation_time')[0]
+        return result
 
     class Meta:
         ordering = ['-creation_time']
@@ -189,17 +196,31 @@ class Task(CommonInfo):
 
 
 class ProductTask(CommonInfo):
-    product       = models.ForeignKey('Product')
-    task          = models.ForeignKey('Task')
-    rating        = models.IntegerField(choices=RATING_CHOICES, default = 0)
-    rating_text   = models.CharField(max_length = 256, blank = True)
+    product          = models.ForeignKey('Product')
+    task             = models.ForeignKey('Task')
+    teaser           = models.TextField(blank = True)
+    rating           = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    rating_text      = models.CharField(max_length = 256, blank = True)
+    reviewer         = models.ForeignKey(to=User, null=True, blank=True)
+    editor           = models.ForeignKey(to=User, null=True, blank=True, related_name='product_task_editor_user')
+    kicker           = models.CharField(max_length = 128, blank = True)
+    subtitle         = models.CharField(max_length = 512, blank = True)
+    version_tested   = models.CharField(max_length=128, blank = True)
+    os_used          = models.ManyToManyField('OperatingSystem', blank = True, null = True)
+    review_done      = models.DateField(null = True, blank=True)
+    image            = models.ImageField( help_text='Review Screenshot? TODO: Standardize Size', max_length=256,
+                                            upload_to='review_lab/contrib/img/product_tasks', null=True, blank=True)
+    
+    
     
     def __unicode__(self):
         return u'Task Review of %s for Task %s' % (self.product, self.task)
     
+    @property
     def product_name(self):
         return self.product.name
     
+    @property
     def task_name(self):
         return self.task.name
     
