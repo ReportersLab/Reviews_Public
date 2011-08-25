@@ -27,36 +27,62 @@
                     {% endif %}
                     <span class="timestamp">{{ challenge.update_time|date:"DATETIME_FORMAT" }}</span>
                 </div>
-                <div class="challenge_details">
+                <div id="challenge_details">
                     {% if challenge.files %}<span><a href="{{ challenge.files }}">&raquo; Download the files</a></span>{% endif %}
                 </div>
             </div>
             
             <div id="details">
+                <div id="challenge_docs_and_tasks" class="grid_3 sidebar omega">
+                    {% if challenge.documents %}
+                    <div id="challenge_documents">
+                        <h5>Documents</h5>
+                        <ul>
+                            {% for doc in challenge.documents.all %}
+                                <li><a href="{{ doc.get_absolute_url }}">{{ doc.name }}</a></li>    
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                
+                    {% if challenge.tasks %}
+                    <div id="challenge_tasks">
+                        <h5>Tasks</h5>
+                        <ul>
+                            {% for task in challenge.tasks.all %}
+                                <li><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></li>    
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+                
                 {{ challenge.description|safe }}
             </div>
             
-            {% if challenge.documents %}
-            <div id="challenge_documents">
-                <h5>Documents</h5>
-                <ul>
-                    {% for doc in challenge.documents.all %}
-                        <li><a href="{{ doc.get_absolute_url }}">{{ doc.name }}</a></li>    
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-        
-            {% if challenge.tasks %}
-            <div id="challenge_tasks">
-                <h5>Tasks</h5>
-                <ul>
-                    {% for task in challenge.tasks.all %}
-                        <li><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></li>    
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
+            {% comment %}
+                    {% if challenge.documents %}
+                    <div id="challenge_documents">
+                        <h5>Documents</h5>
+                        <ul>
+                            {% for doc in challenge.documents.all %}
+                                <li><a href="{{ doc.get_absolute_url }}">{{ doc.name }}</a></li>    
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                
+                    {% if challenge.tasks %}
+                    <div id="challenge_tasks">
+                        <h5>Tasks</h5>
+                        <ul>
+                            {% for task in challenge.tasks.all %}
+                                <li><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></li>    
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+            {% endcomment %}
             
         </div>
 

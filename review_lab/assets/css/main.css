@@ -207,13 +207,14 @@ blockquote
  * Review Specific Details
  * 
  **/
-#review_details
+.sidebar
 {
     float:right;
     background:#EDEDED;
     border-top:1px solid #333333;
     border-bottom:1px solid #333333;
     padding:5px;
+    margin:5px 0 10px 10px;
 }
 
 #review_details p, #review_details h6
