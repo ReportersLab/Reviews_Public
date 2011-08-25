@@ -72,7 +72,7 @@
         
         
         {% if product.producttask_set.all %}         
-            <div id="task_performance">
+            <div id="task_performance" class="detail_item_container">
                 <h2>Tasks Tested</h2>
                 {% for pt in product.producttask_set.all %}
                      <div class="pt_review grid_8 alpha omega {% if forloop.last %}last{% endif %}">

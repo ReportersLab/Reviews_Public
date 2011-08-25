@@ -7,14 +7,37 @@
 {% block main_content %}
     
     
-        <div class="review_list_container">
-            <h2>
-                <a href="">{{document.name}}</a>
-            </h2>
-            
-            <div class="teaser">
-                {{document.description|safe}}
+        <div id="detail_container" class="document">
+            <h6>{{ document.kind }} | <a href="{{ document.url }}">Download the Documents &raquo;</a></h6>
+            <h1>{{ document.name }}</h1>
+            <div id="details">
+                {{ document.description|safe }}
             </div>
+            
+            {% if document.task_set.all %}
+                <div id="document_tasks" class="detail_item_container">
+                    <h2>Tasks for this Document Set</h2>
+                    {% for task in document.task_set.all %}
+                        <div class="task_item">
+                            <h3><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></h3>
+                            <div class="details">{{ task.description|safe }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% if document.challenges %}
+                <div id="document_challenges" class="detail_item_container">
+                    <h2>Challenges for this Document Set</h2>
+                    {% for challenge in document.challenges %}
+                        <div class="challenge_item">
+                            <h3><a href="{{ challenge.get_absolute_url }}">{{ challenge.name }}</a></h3>
+                            <div class="details">{{ challenge.teaser|safe }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
         </div>
 
 {% endblock %}

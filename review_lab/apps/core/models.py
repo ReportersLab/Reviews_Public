@@ -181,8 +181,24 @@ class Challenge(CommonInfo):
 class Task(CommonInfo):
     document = models.ForeignKey('DocumentSet', null=True)
     
+    @property
     def document_name(self):
         return self.document.name
+    
+    @property
+    def latest_reviews(self):
+        result = None
+        if(self.producttask_set.count() > 0):
+            result = self.producttask_set.order_by('-creation_time')[:5]
+        return result
+    
+    @property
+    def challenges(self):
+        result = None
+        if(self.challenge_set.count() > 0):
+            result = self.challenge_set.order_by('-creation_time')
+        return result
+    
     
     def __unicode__(self):
         return u'Task: %s, For Document: %s' % (self.name, self.document)
@@ -239,6 +255,15 @@ class DocumentSet(CommonInfo):
     kind      = models.CharField(max_length=64, choices=DOCUMENT_KIND_CHOICES)
     image     = models.ImageField( help_text='Sample Document Image or logo of some sort. TODO: Standardize Size', max_length=256,
                                    upload_to='review_lab/contrib/img/docs', null=True, blank=True)
+    
+    
+    @property
+    def challenges(self):
+        result = None
+        if(self.challenge_set.count() > 0):
+            result = self.challenge_set.order_by('-creation_time')
+        return result
+    
     
     
     def __unicode__(self):

@@ -33,6 +33,7 @@ blockquote
 
 #footer
 {
+    margin:15px 0 0 0;
     padding-bottom:20px;
 }
 
@@ -274,12 +275,12 @@ blockquote
 }
 
 
-#task_performance, #product_reviews
+.detail_item_container
 {
     float:left; clear:both;
     margin:10px 0 0 0;
 }
-#task_performance h2, #product_reviews h2
+.detail_item_container h2
 {
     border-bottom:1px solid #DDDDDD;
     border-top:1px solid #333333;

@@ -6,14 +6,61 @@
 
 {% block main_content %}
     
-        <div class="review_list_container">
-            <h2>
-                <a href="">{{task.name}}</a>
-            </h2>
-            
-            <div class="teaser">
-                {{task.description|safe}}
-            </div>
+    <div id="detail_container" class="task">
+        {% if task.document %}
+            <h6>Document: <a href="{{ task.document.get_absolute_url }}">{{ task.document.name }}</a></h6>
+        {% endif %}
+        <h1>{{task.name}}</h1>            
+        <div id="details">
+            {{task.description|safe}}
         </div>
+        
+        
+        {% if task.latest_reviews %}         
+            <div id="task_performance" class="detail_item_container">
+                <h2>Latest Reviews of this Task</h2>
+                {% for pt in task.latest_reviews %}
+                     <div class="pt_review grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                        <h3><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h3>
+                        <div class="pt_metadata">
+                            <div class="pt_product">
+                                <span class="grid_1 alpha">Product:</span>
+                                <a class="grid_7 omega" href="{{ pt.product.get_absolute_url }}">{{ pt.product.name }}</a>
+                            </div>
+                            {% if pt.task.document %}
+                                <div class="pt_doc">
+                                    <span class="grid_1 alpha">Documents:</span>
+                                    <a class="grid_7 omega" href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="details">{{ pt.teaser|safe }}
+                           <h6> <a href="{{ pt.get_absolute_url }}">READ OUR FULL REVIEW &raquo;</a></h6>
+                        </div>
+                        
+                     </div>
+                     
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        
+        {% if task.challenges %}
+            <div id="task_challenges" class="detail_item_container">
+                <h2>Challenges for this Task</h2>
+                {% for challenge in task.challenges %}
+                    <div class="challenge_item">
+                        <h3><a href="{{ challenge.get_absolute_url }}">{{ challenge.name }}</a></h3>
+                        <div class="details">{{ challenge.teaser|safe }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        
+        
+        
+        
+    </div>
 
 {% endblock %}
