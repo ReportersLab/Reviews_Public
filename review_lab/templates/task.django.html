@@ -20,9 +20,9 @@
             <div id="task_performance" class="detail_item_container">
                 <h2>Latest Reviews of this Task</h2>
                 {% for pt in task.latest_reviews %}
-                     <div class="pt_review grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                     <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
                         <h3><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h3>
-                        <div class="pt_metadata">
+                        <div class="detail_item_metadata">
                             <div class="pt_product">
                                 <span class="grid_1 alpha">Product:</span>
                                 <a class="grid_7 omega" href="{{ pt.product.get_absolute_url }}">{{ pt.product.name }}</a>

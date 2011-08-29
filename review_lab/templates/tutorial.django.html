@@ -1,19 +1,105 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Tutorial: {{ tutorial.name }}
+    {{ tutorial.name }}, a Tutorial for {{ tutorial.product.name }}
 {% endblock %}
 
 {% block main_content %}
     
     
-        <div class="review_list_container">
-            <h2>
-                <a href="">{{tutorial.name}}</a>
-            </h2>
-            
-            <div class="teaser">
-                {{tutorial.description|safe}}
+        <div id="detail_container" class="tutorial">
+            <div id="detail_header">
+                <h6><a href="{{ tutorial.product.get_absolute_url }}">{{ tutorial.product.name }}</a>
+                    {% if tutorial.kicker %} | {{ tutorial.kicker }} {% endif %}
+                </h6>
+                <h1>
+                   {{tutorial.name}}
+                </h1>
+                <h4>{{ tutorial.subtitle }}</h4>
+                <div class="byline_timestamp_container">
+                        {% if tutorial.writer %}
+                            <span class="byline">By: <a href="mailto:{{ tutorial.writer.email }}">{{ tutorial.writer.first_name }} {{ tutorial.last_name }}</a> | </span>
+                        {% endif %}
+                        {% if tutorial.writer_external %}
+                            <span class="byline">By: {{ tutorial.writer_external|safe }} | </span>
+                        {% endif %}
+                        <span class="timestamp">{{ tutorial.update_time|date:"DATETIME_FORMAT" }}</span>
+                    </div>
+                <div id="header_details" class="grid_8 alpha omega">
+                    
+                    {% if tutorial.url %}
+                        <div class="container">
+                            <h4 class="grid_2 alpha">Original Source:</h4>
+                            <p class="grid_6 omega"><a href="{{ tutorial.url }}">{{ tutorial.url }}</a></p>
+                        </div>
+                    {% endif %}
+                    {% if tutorial.files %}
+                        <div class="container">
+                            <h4 class="grid_2 alpha">Tutorial Files:</h4>
+                            <p class="grid_6 omega"><a href="{{ MEDIA_URL }}{{ tutorial.files }}">{{ tutorial.files }}</a></p>
+                        </div>
+                    {% endif %}
+                    {% if tutorial.repo_link %}
+                        <div class="container">
+                            <h4 class="grid_2 alpha">Repository:</h4>
+                            <p class="grid_6 omega"><a href="{{ tutorial.repo_link }}">{{ tutorial.repo_link }}</a></p>
+                        </div>
+                    {% endif %}
+                    {% if tutorial.tasks %}
+                        <div class="container">
+                            <h4 class="grid_2 alpha">Tutorial Tasks:</h4>
+                            <p class="grid_6 omega">   
+                                {% for task in tutorial.tasks.all %}
+                                    <a href="{{ task.get_absolute_url }}">{{ task.name }}</a><br /> 
+                                {% endfor %}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="details" class="grid_8 alpha omega">
+                {% if tutorial.embed %}
+                    <div id="tutorial_embed" class="grid_8 alpha omega">
+                        {{ tutorial.embed|safe }}
+                    </div>
+                {% endif %}
+                <div id="tutorial_details" class="grid_2 sidebar omega">
+                    <div>
+                        <h6>Product</h6>
+                        <p><a href="{{ tutorial.product.get_absolute_url }}">{{ tutorial.product.name }}</a></p>
+                    </div>
+                    <div>
+                        <h6>Company</h6>
+                        <p><a href="{{ tutorial.product.url }}">{{ tutorial.product.company }}</a></p>
+                    </div>
+                    <div>
+                        <h6>Version Tested</h6>
+                        <p>{{ tutorial.version }}</p>
+                    </div>
+                    
+                    <div>
+                        <h6>OS Tested</h6>
+                        <p> {% for os in tutorial.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a><br />{% endfor %}</p>
+                    </div>
+                    <div>
+                        <h6>Cost</h6>
+                        <p>{% if tutorial.product.cost == 0 %}FREE {% else %}${{ tutorial.product.cost }}{% endif %}</a></p>
+                    </div>
+                    <div>
+                        <h6>Open Sourced</h6>
+                        <p>{% if tutorial.product.open_source %}Yes {% else %}No{% endif %}</a></p>
+                    </div>
+                    <div>
+                        <h6>Demo Available</h6>
+                        <p>{% if tutorial.product.demo_available %}Yes {% else %}No{% endif %}</a></p>
+                    </div>
+                    <div>
+                        <h6>Obsolete</h6>
+                        <p>{% if tutorial.product.obsolete %}Yes {% else %}No{% endif %}</a></p>
+                    </div>
+                </div>
+                
+                {{ tutorial.description|safe }}
             </div>
         </div>
 

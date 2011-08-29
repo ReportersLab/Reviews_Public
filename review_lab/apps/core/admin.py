@@ -97,7 +97,7 @@ class TutorialAdmin(CommonAdmin):
         ('Tutorial Text', {'fields': ('description',)}),
         ('Tutorial Details',
             {
-                'fields': ('tasks', 'url', 'embed', 'repo_link', 'files',)
+                'fields': ('tasks', 'url', 'embed', 'repo_link', 'files', 'version', 'os_used',)
             }
          ),
         

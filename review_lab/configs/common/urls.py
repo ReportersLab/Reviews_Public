@@ -11,10 +11,10 @@ urlpatterns = patterns('',
     (r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
     (r'^grappelli/', include('grappelli.urls')),
     
-    
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT
     }),
+    
     
     (r'^/?', include('core.urls')),
     

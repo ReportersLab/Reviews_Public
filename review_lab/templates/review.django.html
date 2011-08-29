@@ -156,9 +156,9 @@
                 {% endcomment %}
                 
                 {% for pt in review.product.producttask_set.all %}
-                     <div class="pt_review grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                     <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
                         <h3><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h3>
-                        <div class="pt_metadata">
+                        <div class="detail_item_metadata">
                             <div class="task_url">
                                 <span class="grid_1 alpha">Task:</span>
                                 <a class="grid_7 omega" href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>

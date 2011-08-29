@@ -28,12 +28,14 @@
                     <span class="timestamp">{{ challenge.update_time|date:"DATETIME_FORMAT" }}</span>
                 </div>
                 <div id="challenge_details">
-                    {% if challenge.files %}<span><a href="{{ challenge.files }}">&raquo; Download the files</a></span>{% endif %}
+                    {% if challenge.files %}<span><a href="{{ MEDIA_URL }}{{ challenge.files }}">&raquo; Download the files</a></span>{% endif %}
                 </div>
             </div>
             
             <div id="details">
                 <div id="challenge_docs_and_tasks" class="grid_3 sidebar omega">
+                    {% if challenge.files %}<h6><a href="{{ challenge.files }}">&raquo; Download the files</a></h6><p></p>{% endif %}
+                
                     {% if challenge.documents %}
                     <div id="challenge_documents">
                         <h5>Documents</h5>

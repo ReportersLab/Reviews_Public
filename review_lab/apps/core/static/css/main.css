@@ -9,7 +9,7 @@ a
     color:#94BDCD;
     color:#3366CC;
 }
-
+ 
 a:hover
 {
     background-color:#FFFF78;
@@ -229,13 +229,13 @@ blockquote
 }
 
 
-#product_details div.container
+#header_details div.container
 {
     float:left;
     clear:both;
 }
 
-#ratings, #product_details
+#ratings, #header_details
 {
     float:left;
     clear:both;
@@ -253,7 +253,7 @@ blockquote
     clear:both;
 }
 
-.verdict, #product_details h4
+.verdict, #header_details h4
 {
     text-align:right;
     float:left;
@@ -290,7 +290,7 @@ blockquote
     padding:10px 0 10px 0;
 }
 
-.pt_review
+.detail_item
 {
     float:left; clear:both;
     padding-bottom:15px;
@@ -298,20 +298,20 @@ blockquote
     border-bottom:1px solid #DDDDDD;
 }
 
-.pt_review.last
+.detail_item.last
 {
     padding-bottom:5px;
     border-bottom:none;
 }
 
-.pt_review h3
+.detail_item h3
 {
     font-weight:bold;
     font-size:16px;
     margin:0 0 5px 0;
 }
 
-.pt_metadata
+.detail_item_metadata
 {
     font-size:12px;
     margin:5px 0 5px 0;
@@ -320,17 +320,23 @@ blockquote
     float:left;
 }
 
-.pt_metadata span
+.detail_item_metadata span
 {
     text-align:right;
 }
 
-.pt_review .details
+.detail_item .details
 {
     margin:0 0 15px 0;
 }
 
 
+#tutorial_embed
+{
+    text-align:center;
+    margin:10px 0 10px 0;
+    float:left; clear:both;
+}
 
 /**
  *Product specific details

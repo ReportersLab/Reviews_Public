@@ -13,7 +13,7 @@
             <div id="details">
                 {{product.description|safe}}
             </div>
-            <div id="product_details" class="grid_8 alpha omega">
+            <div id="header_details" class="grid_8 alpha omega">
                 <div class="container">
                     <h4 class="grid_2 alpha">Company:</h4>
                     <p class="grid_6 omega"><a href="{{ product.url }}">{{ product.company }}</a></p>
@@ -51,10 +51,10 @@
             
             
             {% if product.review_set.all %}
-            <div id="product_reviews">
+            <div id="product_reviews" class="detail_item_container">
                 <h2>Our Reviews</h2>
                 {% for review in product.review_set.all %}
-                    <div class="review_list_container {% if forloop.last %}last{% endif %}">
+                    <div class="detail_item review_list_container {% if forloop.last %}last{% endif %}">
                         <h3>
                             <a href="{{ review.get_absolute_url }}">{{ review.name }}</a>
                         </h3>
@@ -75,9 +75,9 @@
             <div id="task_performance" class="detail_item_container">
                 <h2>Tasks Tested</h2>
                 {% for pt in product.producttask_set.all %}
-                     <div class="pt_review grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                     <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
                         <h3><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h3>
-                        <div class="pt_metadata">
+                        <div class="detail_item_metadata">
                             <div class="task_url">
                                 <span class="grid_1 alpha">Task:</span>
                                 <a class="grid_7 omega" href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>
@@ -98,6 +98,23 @@
                 {% endfor %}
             </div>
         {% endif %}
+        
+        
+        
+        {% if product.tutorial_set.all %}         
+            <div id="product_tutorial" class="detail_item_container">
+                <h2>Tutorials</h2>
+                {% for tutorial in product.tutorial_set.all %}
+                     <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                        <h3><a href="{{ tutorial.get_absolute_url }}">{{ tutorial.name }}</a></h3>
+                        <div class="details">{{ tutorial.teaser|safe }}
+                           <h6> <a href="{{ tutorial.get_absolute_url }}">READ THE FULL TUTORIAL &raquo;</a></h6>
+                        </div>
+                     </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
         
         
         

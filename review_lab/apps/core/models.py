@@ -8,6 +8,7 @@ from taggit_autosuggest.managers import TaggableManager
 #ratings
 from djangoratings.fields import RatingField
 from datetime import datetime
+#import fts
 
 
 
@@ -142,6 +143,8 @@ class Tutorial(CommonInfo):
     teaser               = models.TextField(blank = True)
     image                = models.ImageField( help_text='Product logo or screenshot. TODO: Standardize Size', max_length=256,
                                               upload_to='review_lab/contrib/img/tutorials', null=True, blank=True)
+    version              = models.CharField(max_length=128, blank = True)
+    os_used              = models.ManyToManyField('OperatingSystem', blank = True, null = True)
     embed                = models.TextField(help_text='This is probably a YouTube Embed or something similar.', blank=True)
     repo_link            = models.URLField(verbose_name='Repository Link', blank=True)
     files                = models.FileField(verbose_name='Tutorial Zip File', upload_to='review_lab/contrib/zip/tutorial_files', blank=True, null=True)
