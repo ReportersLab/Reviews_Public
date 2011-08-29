@@ -109,7 +109,7 @@ class Product(CommonInfo):
     open_source                           = models.BooleanField()
     demo_available                        = models.BooleanField()
     company                               = models.CharField(max_length = 128, blank = True)
-    release_date                          = models.DateField(null = True, blank=True)
+    release_date                          = models.CharField(max_length = 64, null = True, blank = True)  #Change to Text
     obsolete                              = models.BooleanField()
     
     def __unicode__(self):

@@ -63,8 +63,27 @@ def product_task_view(request, slug):
     product_task = get_object_or_404(ProductTask, slug=slug)
     return get_response('product_task.django.html', data={'product_task':product_task}, request=request)
     
-
     
+    
+
+MORE_CLASSES = {
+    'reviews':Review,
+    'products':Product,
+    'tutorials':Tutorial,
+    'documents':DocumentSet,
+    'challenges':Challenge
+}
+
+
+def more_view(request, model):
+    print "THIS IS THE MODEL: " + model
+    model_class = MORE_CLASSES.get(model, Review)
+    data = {
+        'objects': model_class.objects.all(),
+        'name': model
+    }
+    
+    return get_response('more.django.html', data=data, request=request)
     
     
     

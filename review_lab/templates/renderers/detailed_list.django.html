@@ -1,0 +1,10 @@
+{% for item in objects %}
+        <div class="review_list_container {% if forloop.last %}last{% endif %}">
+            <h2>
+                <a href="{{ item.get_absolute_url }}">{{item.name}}</a>
+            </h2>
+            <div class="teaser">
+                {{ item.teaser|safe }}
+            </div>
+        </div>
+{% endfor %}

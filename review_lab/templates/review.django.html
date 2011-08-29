@@ -173,7 +173,15 @@
                         <div class="details">{{ pt.teaser|safe }}
                            <h6> <a href="{{ pt.get_absolute_url }}">READ OUR FULL REVIEW &raquo;</a></h6>
                         </div>
-                        
+                        <div class="rating_container">
+                            <span class="verdict grid_1 alpha">Verdict:</span>
+                            <div class="grid_2">
+                                {% for i in star_range %}
+                                    <input name="star{{ pt.id }}" type="radio" class="star" disabled="disabled" {% if forloop.counter == pt.rating %} checked="checked" {% endif %} />
+                                {% endfor %}
+                            </div>
+                            <p class="grid_5 omega">{{ pt.rating_text }}</p>
+                        </div>
                      </div>
                      
                 {% endfor %}

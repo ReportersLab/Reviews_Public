@@ -28,7 +28,7 @@
                     <span class="timestamp">{{ challenge.update_time|date:"DATETIME_FORMAT" }}</span>
                 </div>
                 <div id="challenge_details">
-                    {% if challenge.files %}<span><a href="{{ MEDIA_URL }}{{ challenge.files }}">&raquo; Download the files</a></span>{% endif %}
+                    {% if challenge.files %}<span><a href="{{ MEDIA_URL }}{{ challenge.files }}">Download the Files Here &raquo;</a></span>{% endif %}
                 </div>
             </div>
             
