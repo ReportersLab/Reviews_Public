@@ -101,6 +101,10 @@
                 
                 {{ tutorial.description|safe }}
             </div>
+            
+            
+                {% include "renderers/tag_cloud.django.html" with object=tutorial %}
+            
         </div>
 
 {% endblock %}

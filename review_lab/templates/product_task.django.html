@@ -97,7 +97,9 @@
         </div>
         <p class="grid_5 omega">{{ product_task.rating_text }}</p>
     </div>
-            
+        
+        
+    {% include "renderers/tag_cloud.django.html" with object=product_task %}  
 
 
 {% endblock %}

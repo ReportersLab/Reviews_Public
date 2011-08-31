@@ -16,6 +16,8 @@
         </div>
         
         
+        {% include "renderers/tag_cloud.django.html" with object=task %}
+        
         {% if task.latest_reviews %}         
             <div id="task_performance" class="detail_item_container">
                 <h2>Latest Reviews of this Task</h2>

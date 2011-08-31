@@ -13,7 +13,7 @@
             <div id="details">
                 {{product.description|safe}}
             </div>
-            <div id="header_details" class="grid_8 alpha omega">
+            <div id="footer_details" class="grid_8 alpha omega">
                 <div class="container">
                     <h4 class="grid_2 alpha">Company:</h4>
                     <p class="grid_6 omega"><a href="{{ product.url }}">{{ product.company }}</a></p>
@@ -48,6 +48,10 @@
                     </div>
                 </div>
             </div>
+            
+            
+            {% include "renderers/tag_cloud.django.html" with object=product %}
+            
             
             
             {% if product.review_set.all %}

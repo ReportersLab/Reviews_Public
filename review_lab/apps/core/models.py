@@ -334,9 +334,28 @@ class CustomTag(TagBase):
         self.name = self.name.lower()
         super(CustomTag, self).save(*args, **kwargs)
         
+    
     @models.permalink
     def get_absolute_url(self, slug):
         return ('tag_view', (), {'slug': self.slug})
+    
+    
+    def clean_name(self):
+        out = self.name
+        try:
+            out = self.name.split(':')[1]
+        except IndexError:
+            pass
+        
+        return out
+    
+    def style_name(self):
+        out = ''
+        try:
+            out = self.name.split(':')[0]
+        except IndexError:
+            pass
+        return out
         
     class Meta:
         verbose_name = "Kitchen Tag"

@@ -62,6 +62,8 @@
                 {{ challenge.description|safe }}
             </div>
             
+            {% include "renderers/tag_cloud.django.html" with object=challenge %}
+            
             {% comment %}
                     {% if challenge.documents %}
                     <div id="challenge_documents">

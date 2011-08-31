@@ -2,6 +2,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from core.models import *
 from django.views.generic.date_based import *
+from django.utils import simplejson as json
+from django.conf import settings
 
 '''
 View for the homepage
@@ -26,7 +28,8 @@ View for a PRODUCT, takes the slug
 '''
 def product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    return get_response('product.django.html', data={'product':product}, request=request)
+    tags = product.tags.all()
+    return get_response('product.django.html', data={'product':product, 'tags':tags}, request=request)
     
 '''
 View for a CHALLENGE, takes the slug
@@ -63,7 +66,15 @@ def product_task_view(request, slug):
     product_task = get_object_or_404(ProductTask, slug=slug)
     return get_response('product_task.django.html', data={'product_task':product_task}, request=request)
     
+
+'''
+View for a TAG, takes the slug
+'''
+def tag_view(request, slug):
+    tag = get_object_or_404(CustomTag, slug=slug)
+    return get_response('tag.django.html', data={'tag':tag}, request=request)
     
+       
     
 
 MORE_CLASSES = {
@@ -106,4 +117,38 @@ def get_response(template = 'index.html', data = dict(), request = dict(), mime 
     data.update(generic_data) # I think this is right.
     return render_to_response(template, data, context_instance = RequestContext(request), mimetype = mime)
     
-    
+   
+   
+   
+   
+   
+'''
+Django-Taggit-Autosuggest hardcodes the model used in auto-suggesting to "Tag". Since we have a custom model,
+this is broken. This is a copy-paste job of the view from there, substituting the correct model.
+'''
+
+MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
+
+
+def list_tags(request):
+    """
+Returns a list of JSON objects with a `name` and a `value` property that
+all start like your query string `q` (not case sensitive).
+"""
+    query = request.GET.get('q', '')
+    limit = request.GET.get('limit', MAX_SUGGESTIONS)
+    try:
+        request.GET.get('limit', MAX_SUGGESTIONS)
+        limit = min(int(limit), MAX_SUGGESTIONS) # max or less
+    except ValueError:
+        limit = MAX_SUGGESTIONS
+
+    tag_name_qs = CustomTag.objects.filter(name__istartswith=query).\
+        values_list('name', flat=True)
+    data = [{'name': n, 'value': n} for n in tag_name_qs[:limit]]
+
+    return HttpResponse(json.dumps(data), mimetype='application/json')
+
+
+
+

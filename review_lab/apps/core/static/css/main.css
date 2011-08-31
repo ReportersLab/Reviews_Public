@@ -9,6 +9,9 @@ a
     color:#94BDCD;
     color:#3366CC;
 }
+
+a.good { color:#33DD33; }
+a.bad { color:#DD3333; }
  
 a:hover
 {
@@ -23,6 +26,27 @@ blockquote
     border-left:5px solid #DDDDDD;
 }
 
+fieldset
+{
+    border:1px solid #666666;
+    margin:10px 0 10px 0;
+    padding:0;
+}
+
+fieldset p
+{
+    padding:10px;
+    font-weight:bold;
+}
+
+fieldset legend
+{
+    margin:0 5px 0 5px;
+    padding:0 5px 0 5px;
+    font-size:14px;
+    font-weight:bold;
+    font-variant:small-caps;
+}
 
 
 #header, #footer
@@ -229,13 +253,13 @@ blockquote
 }
 
 
-#header_details div.container
+#header_details div.container, #footer_details div.container
 {
     float:left;
     clear:both;
 }
 
-#ratings, #header_details
+#ratings, #header_details, #footer_details
 {
     float:left;
     clear:both;
@@ -253,7 +277,7 @@ blockquote
     clear:both;
 }
 
-.verdict, #header_details h4
+.verdict, #header_details h4, #footer_details h4
 {
     text-align:right;
     float:left;

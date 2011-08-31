@@ -14,6 +14,10 @@
                 {{ document.description|safe }}
             </div>
             
+            
+            {% include "renderers/tag_cloud.django.html" with object=document %}
+            
+            
             {% if document.task_set.all %}
                 <div id="document_tasks" class="detail_item_container">
                     <h2>Tasks for this Document Set</h2>

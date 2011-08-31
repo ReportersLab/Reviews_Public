@@ -10,6 +10,9 @@ urlpatterns = patterns('',
     url(r'^task/(?P<slug>[-\w]+)/$', views.task_view, name='task_view'),
     url(r'^producttask/(?P<slug>[-\w]+)/?$', views.product_task_view, name='product_task_view'),
     url(r'^document/(?P<slug>[-\w]+)/?$', views.document_view, name='document_view'),
+    url(r'^tag/(?P<slug>[-\w]+)/?$', views.tag_view, name='tag_view'),
     url(r'^more/(?P<model>\w+)/?$', views.more_view, name='more_view'),
+    #override with our custom view function.
+    url(r'^taggit_autosuggest/list/$', views.list_tags, name='taggit_autosuggest-list'),
     url(r'', views.index_view, name='index_view'),
 )

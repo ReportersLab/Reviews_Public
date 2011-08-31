@@ -67,8 +67,11 @@
                 </div>
                 
                 {{review.description|safe}}
+                
             </div>
             
+            {% include "renderers/tag_cloud.django.html" with object=review %}
+
             <div id="ratings">
                 {% mkrange 1 6 1 as star_range %}
                 <div class="grid_8 alpha omega">
