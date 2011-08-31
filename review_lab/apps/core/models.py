@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 #tags
 #from taggit_autocomplete.managers import TaggableManager
 from taggit_autosuggest.managers import TaggableManager
+from taggit.models import GenericTaggedItemBase, TagBase
 #ratings
 from djangoratings.fields import RatingField
 from datetime import datetime
@@ -17,7 +18,7 @@ class CommonInfo(models.Model):
     name            = models.CharField(max_length=512, unique=True, null=False, blank=False, help_text='The name must be unique', verbose_name = 'Name or Title')
     description     = models.TextField(blank=True)
     published       = models.BooleanField()
-    tags            = TaggableManager(blank = True)
+    tags            = TaggableManager(blank = True, through='CustomTagItem')
     creation_time   = models.DateTimeField() # generated in save
     update_time     = models.DateTimeField() # generated in save
     slug            = models.SlugField(max_length=512, unique=True, blank=True)
@@ -316,4 +317,36 @@ class OperatingSystem(CommonInfo):
 
 
 
+
+
+
+
+'''
+Custom tag models. Basically I want these all to be lower-cased so there isn't difficulty in entering
+
+I also want to add a get_absolute_url method so templates can be created.
+
+'''
+
+class CustomTag(TagBase):
     
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower()
+        super(CustomTag, self).save(*args, **kwargs)
+        
+    @models.permalink
+    def get_absolute_url(self, slug):
+        return ('tag_view', (), {'slug': self.slug})
+        
+    class Meta:
+        verbose_name = "Kitchen Tag"
+        verbose_name_plural = "Kitchen Tags"
+
+
+class CustomTagItem(GenericTaggedItemBase):
+    tag = models.ForeignKey(CustomTag, related_name="tagged_items")
+    
+    
+    
+
+

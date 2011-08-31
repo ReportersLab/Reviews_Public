@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from core.models import *
-
+from django.views.generic.date_based import *
 
 '''
 View for the homepage
@@ -83,6 +83,7 @@ def more_view(request, model):
         'name': model
     }
     
+    #return archive_index(request, model_class.objects.all(), 'creation_time', template_name='more.django.html')
     return get_response('more.django.html', data=data, request=request)
     
     

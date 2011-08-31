@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task, Tutorial, Challenge
+from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task, Tutorial, Challenge, CustomTag
 from django.contrib import admin
 
 
@@ -224,6 +224,7 @@ admin.site.register(Review, ReviewAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Tutorial, TutorialAdmin)
 admin.site.register(Challenge, ChallengeAdmin)
+admin.site.register(CustomTag)
 
 
 
