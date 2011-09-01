@@ -1,0 +1,14 @@
+<div id="search_form" class="grid_12 alpha omega">
+    <form method="post" name="searchForm" onsubmit="return false;" action="/search">
+        <input id="q" name="searchBox" type="text" style="width:180px; margin:0 15px 0 0;" />
+        <input id="searchButton" type="submit" value="Search" />
+    </form>
+    <script type="text/javascript" language="javascript">
+        
+            $('#searchButton').click(function(){
+                text = $('#q').val().replace(' ', '+');
+                window.location = "/search?q=" + text
+            });
+            
+    </script>
+</div>

@@ -30,7 +30,11 @@ class CommonInfo(models.Model):
         self.update_time = datetime.now()
         super(CommonInfo, self).save()
         
-        
+    
+    @property
+    def verbose_name(self):
+        return self._meta.verbose_name
+    
     class Meta:
         abstract = True
         ordering = ['-creation_time'] #this doesn't seem to work.
@@ -128,7 +132,9 @@ class Product(CommonInfo):
         return result
 
     class Meta:
-        ordering = ['-creation_time']
+        ordering             = ['-creation_time']
+        verbose_name         = 'Product'
+        verbose_name_plural = 'Products'
 
 
 

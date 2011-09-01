@@ -4,6 +4,9 @@ from core.models import *
 from django.views.generic.date_based import *
 from django.utils import simplejson as json
 from django.conf import settings
+from django.db.models import Q
+from itertools import chain
+from operator import attrgetter
 
 '''
 View for the homepage
@@ -72,7 +75,8 @@ View for a TAG, takes the slug
 '''
 def tag_view(request, slug):
     tag = get_object_or_404(CustomTag, slug=slug)
-    return get_response('tag.django.html', data={'tag':tag}, request=request)
+    items = tag.tagged_items.all()
+    return get_response('tag.django.html', data={'tag':tag, 'items':items}, request=request)
     
        
     
@@ -97,7 +101,38 @@ def more_view(request, model):
     #return archive_index(request, model_class.objects.all(), 'creation_time', template_name='more.django.html')
     return get_response('more.django.html', data=data, request=request)
     
+
+
+def search_view(request):
+    #get the query text
+    q = request.GET.get('q', '')
+    if q == '':
+        q = request.POST.get('q', '')
+        request.GET.q = q
+    terms = q.split()
     
+    #loop over the terms and build up a generic query of Q objects
+    query = Q()
+    if terms:
+        for term in terms:
+            query &= Q(name__icontains=term) | Q(description__icontains=term)
+        
+    #Create QuerySets for the models we want to search on
+    reviews = Review.objects.filter(query)
+    products = Product.objects.filter(query)
+    tutorials = Tutorial.objects.filter(query)
+    documents = DocumentSet.objects.filter(query)
+    challenges = Challenge.objects.filter(query)
+    
+    #combine them all into a nice iterable
+    results = sorted(
+        chain(reviews, products, tutorials, documents, challenges),
+        key=attrgetter('update_time'),
+        reverse = True
+    )
+    
+    #And return the results
+    return get_response('search.django.html', data={'results':results}, request=request)
     
     
 '''

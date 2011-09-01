@@ -87,6 +87,12 @@ fieldset legend
     color:#A1BCBD;    
 }
 
+#search_form
+{
+    text-align:center;
+    padding:5px 0 15px 0;
+}
+
 
 
 /**
@@ -195,6 +201,11 @@ fieldset legend
 {
     margin:0;
     font-size:20px;
+}
+
+#detail_container.tag h1
+{
+    text-transform:capitalize; /*Tags usually come in lowercase and we want them all caps here. */
 }
 
 #detail_container h4
@@ -362,16 +373,40 @@ fieldset legend
     float:left; clear:both;
 }
 
+
+
+
 /**
- *Product specific details
+ *PAGINATION
  **/
 
+.pagination
+{
+    float:left;
+    clear:both;
+    display:inline;
+    margin:10px 0 10px 0;
+    width:620px;
+    text-align:right;
+}
 
+.pagination .page.current
+{
+    font-weight:bold;
+    border:none;
+}
 
+.pagination .page
+{
+    padding:2px 5px 2px 5px;
+    margin:0 2px 0 2px;
+    border:1px solid #DDDDDD;
+}
 
-
-
-
+.pagination .prev, .pagination .next
+{
+    margin:0 5px 0 5px;
+}
 
 
 

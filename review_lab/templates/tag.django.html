@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load range_tag %}
+{% load pagination_tags %}
 
 {% block title %}
     {{ product.name }}
@@ -9,7 +9,32 @@
     
     
     <div id="detail_container" class="tag">
-        <h1> {{ tag.name }} </h1>            
+        <h1>Items Tagged With: {{ tag.clean_name|capfirst }} </h1>
+        <h6>{{ items.count }} items</h6>
+        <div class="detail_item_container">
+            {% autopaginate items 10 %}
+            {% for item in items %}
+                <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                    <h6>{{ item.content_type|capfirst }}</h6>
+                    <h3>
+                        <a href="{{ item.content_object.get_absolute_url }}">{{item.content_object.name}}</a>
+                    </h3>
+                    <div class="byline_timestamp_container">
+                        <span class="timestamp">{{ item.content_object.update_time|date:"DATETIME_FORMAT" }}</span>
+                    </div>
+                    <div class="details">
+                        {% if item.content_object.teaser %}
+                             {{ item.content_object.teaser|safe }}
+                        {% else %}
+                             {{ item.content_object.description|safe|truncatewords_html:50 }}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% paginate %}
+        </div>
+        
+        
     </div>
         
         
