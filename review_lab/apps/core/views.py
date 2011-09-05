@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from core.models import *
@@ -117,22 +118,58 @@ def search_view(request):
         for term in terms:
             query &= Q(name__icontains=term) | Q(description__icontains=term)
         
-    #Create QuerySets for the models we want to search on
-    reviews = Review.objects.filter(query)
-    products = Product.objects.filter(query)
-    tutorials = Tutorial.objects.filter(query)
-    documents = DocumentSet.objects.filter(query)
-    challenges = Challenge.objects.filter(query)
+    
+    #If there's a date, lets add that range as well.
+    date = request.GET.get('date', None)
+    if date and (date != 'all'):
+        now = datetime.date.today()
+        difference = datetime.timedelta(weeks=-1)
+        if date == "fortnight":
+            difference = datetime.timedelta(weeks=-2)
+        if date == "month":
+            difference = datetime.timedelta(days=-31)
+        if date == "season":
+            difference = datetime.timedelta(weeks=-13)
+        if date == "year":
+            difference = datetime.timedelta(days=-365)
+        
+        now_diff = now + difference
+        query &= Q(update_time__range = (now_diff, now))
+        
+        
+    
+    model_list = list()
+    
+    #lets see if a specific model is requested.
+    model = request.GET.get('type', '')
+    model = model.lower()
+    if model != '' and model != 'all':
+        model_class = MORE_CLASSES.get(model, Review)
+        model_list.append(model_class.objects.filter(query))
+    #otherwise use everything
+    else:
+        #Create QuerySets for the models we want to search on
+        model_list.append(Review.objects.filter(query))
+        model_list.append(Product.objects.filter(query))
+        model_list.append(Tutorial.objects.filter(query))
+        model_list.append(DocumentSet.objects.filter(query))
+        model_list.append(Challenge.objects.filter(query))
+    
     
     #combine them all into a nice iterable
     results = sorted(
-        chain(reviews, products, tutorials, documents, challenges),
+        chain.from_iterable(model_list),
         key=attrgetter('update_time'),
         reverse = True
     )
     
+    data = {
+        'results':results,
+        'facets':gen_facets(request),
+    }
+    
     #And return the results
-    return get_response('search.django.html', data={'results':results}, request=request)
+    return get_response('search.django.html', data=data, request=request)
     
     
 '''
@@ -152,9 +189,33 @@ def get_response(template = 'index.html', data = dict(), request = dict(), mime 
     data.update(generic_data) # I think this is right.
     return render_to_response(template, data, context_instance = RequestContext(request), mimetype = mime)
     
-   
-   
-   
+
+'''
+Generates the data structures for the search facets so there isn't template chaos
+'''
+
+def gen_facets(request):
+    
+    date_facet = [
+        {'label':'All', 'value':'all'},
+        {'label':'Past Week', 'value':'week'},
+        {'label':'Past 2 Weeks', 'value':'fortnight'},
+        {'label':'Past Month', 'value':'month'},
+        {'label':'Past Season', 'value':'season'},
+        {'label':'Past Year', 'value':'year'},
+    ]
+    
+    type_facet = [
+        {'label':'All', 'value':'all'},
+        {'label':'Reviews', 'value':'reviews'},
+        {'label':'Products', 'value':'products'},
+        {'label':'Tutorials', 'value':'tutorials'},
+        {'label':'Document Sets', 'value':'documents'},
+        {'label':'Challenges', 'value':'challenges'},
+    ]
+    
+    return({'dates':date_facet, 'types':type_facet})
+    
    
    
 '''

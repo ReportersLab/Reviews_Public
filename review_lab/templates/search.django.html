@@ -7,6 +7,9 @@
 
 {% block main_content %}
     {% autopaginate results 10 %}
-    {% include "renderers/detailed_list.django.html" with objects=results search='True' %}
+    <div id="search_results">
+        {% include "renderers/facets.django.html" with facets=facets %}
+        {% include "renderers/detailed_list.django.html" with objects=results search='True' %}
+    </div>
     {% paginate %}
 {% endblock %}

@@ -2,30 +2,30 @@
 <div>
     <h3>Latest Reviews</h3>
     {% include "renderers/simple_list.django.html" with items=latest_reviews %}
-    <a class="more_link" href="/more/reviews">See more&raquo;</a>
+    <a class="more_link" href="/search?type=reviews">See more&raquo;</a>
 </div>
 {% endif %}
 
 <div>
     <h3>Latest Tutorials</h3>
     {% include "renderers/simple_list.django.html" with items=latest_tutorials %}
-    <a class="more_link" href="/more/tutorials">See more&raquo;</a>
+    <a class="more_link" href="/search?type=tutorials">See more&raquo;</a>
 </div>
 
 <div>
     <h3>Latest Products</h3>
     {% include "renderers/simple_list.django.html" with items=latest_products %}
-    <a class="more_link" href="/more/products">See more&raquo;</a>
+    <a class="more_link" href="/search?type=products">See more&raquo;</a>
 </div>
 
 <div>
     <h3>Latest Challenges</h3>
     {% include "renderers/simple_list.django.html" with items=latest_challenges %}
-    <a class="more_link" href="/more/challenges">See more&raquo;</a>
+    <a class="more_link" href="/search?type=challenges">See more&raquo;</a>
 </div>
 
 <div>
     <h3>Latest Documents</h3>
     {% include "renderers/simple_list.django.html" with items=latest_documents %}
-    <a class="more_link" href="/more/documents">See more&raquo;</a>
+    <a class="more_link" href="/search?type=documents">See more&raquo;</a>
 </div>

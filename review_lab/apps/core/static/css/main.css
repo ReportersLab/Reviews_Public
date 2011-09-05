@@ -242,7 +242,7 @@ fieldset legend
  * Review Specific Details
  * 
  **/
-.sidebar
+.sidebar, #facets
 {
     float:right;
     background:#EDEDED;
@@ -413,12 +413,33 @@ fieldset legend
 
 
 
+/**
+ *Search
+ **/
+
+#search_results
+{
+    float:left;
+    clear:both;
+}
+
+#search_results .detail_item_container
+{
+    float:none;
+    clear:none;
+}
+
+#search_results .detail_item
+{
+    float:none;
+    clear:none;
+}
 
 
-
-
-
-
+#facets
+{
+    margin-top:20px;
+}
 
 
 

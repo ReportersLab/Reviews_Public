@@ -1,0 +1,36 @@
+<div id="facets" class="grid_2 alpha">
+    <h4>Filter Results</h4>
+    <div class="facet">
+        <h6>Date Ranges</h6>
+        <ul>
+            {% for d in facets.dates %}
+                <li>
+                    {% if request.GET.date != d.value %}
+                        <a href="/search?q={{ request.GET.q }}&date={{ d.value }}{% if request.GET.type != '' %}&type={{ request.GET.type }}{% endif %}">
+                    {% endif %}
+                        {{ d.label }}
+                    {% if request.GET.date != d.value %}
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="facet">
+        <h6>Type</h6>
+        <ul>
+            {% for t in facets.types %}
+                <li>
+                    {% if request.GET.type != t.value %}
+                        <a href="/search?q={{ request.GET.q }}&type={{ t.value }}{% if request.GET.date != '' %}&date={{ request.GET.date }}{% endif %}">
+                    {% endif %}
+                        {{ t.label }}
+                    {% if request.GET.type != d.value %}
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+</div>
