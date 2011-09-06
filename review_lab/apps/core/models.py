@@ -13,6 +13,10 @@ from datetime import datetime
 
 
 
+class PublishedManager(models.Manager):
+    def get_query_set(self):
+        return super(PublishedManager, self).get_query_set().filter(published = True)
+
 
 class CommonInfo(models.Model):
     name            = models.CharField(max_length=512, unique=True, null=False, blank=False, help_text='The name must be unique', verbose_name = 'Name or Title')
@@ -22,6 +26,12 @@ class CommonInfo(models.Model):
     creation_time   = models.DateTimeField() # generated in save
     update_time     = models.DateTimeField() # generated in save
     slug            = models.SlugField(max_length=512, unique=True, blank=True)
+    
+    
+    # make sure we only get published items...
+    # maybe we need just a "published_objects" field? Not override default?
+    objects = PublishedManager()
+    all_objects = models.Manager()
     
     def save(self):
         if not self.id:

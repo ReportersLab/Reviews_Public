@@ -39,6 +39,12 @@ class CommonAdmin(admin.ModelAdmin):
         return '<a href="{0}">{0}</a>'.format(object.get_absolute_url())
     view_link.allow_tags = True
     
+    def queryset(self, request):
+        # In the Admin we want to get all objects, not just published ones.
+        return self.model.all_objects
+        #this is the normal implementation
+        #return super(CommonAdmin, self).queryset(request)
+    
     
     class Media:
         js = (settings.STATIC_URL+'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', settings.STATIC_URL+'grappelli/tinymce_setup/tinymce_setup.js')
