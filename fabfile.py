@@ -210,6 +210,15 @@ def deploy_to_s3():
     run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(path)s/repository/s3exclude sync %(gzip_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
 
 
+def backup_db():
+    """
+    Backup the postgres database
+    """
+    with cd('%(repo_path)s' % env):
+        run(("pg_dump %(project_name)s > %(project_name)s.dump.out") % env)
+        run(('s3cmd put %(project_name)s.dump.out s3://%(s3_bucket)s/%(project_name)s/backup/') % env)
+    
+
 def run_migrations():
     """
     Run South Migrations pulled in from the repo against the database
