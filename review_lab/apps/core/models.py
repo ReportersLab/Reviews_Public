@@ -183,7 +183,7 @@ class Challenge(CommonInfo):
     kicker                    = models.CharField(max_length = 128, blank = True)
     subtitle                  = models.CharField(max_length = 512, blank = True)
     image                     = models.ImageField(help_text='Challenge logo. TODO: Standardize Size', max_length=256,
-                                            upload_to='review_lab/contrig/img/challenges', null=True, blank=True)
+                                            upload_to='review_lab/contrib/img/challenges', null=True, blank=True)
     files                     = models.FileField(verbose_name='Challenge Files', upload_to='review_lab/contrib/zip/challenges', blank=True, null=True,
                                            help_text='Any kind of related files for the challenge should go here if not part of the Document Set')
     contact                   = models.ForeignKey(to=User, null=True, blank=True)
