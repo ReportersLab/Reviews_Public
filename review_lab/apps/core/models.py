@@ -382,6 +382,68 @@ class CustomTagItem(GenericTaggedItemBase):
     tag = models.ForeignKey(CustomTag, related_name="tagged_items")
     
     
+
+
+"""
+Custom cache clearing. Basically I want to clear the view cache on a save of a model.
+
+From here: http://stackoverflow.com/questions/2268417/expire-a-view-cache-in-django
+"""
+
+def expire_view_cache(view_name, args = []):
+    
+    from django.core.urlresolvers import reverse
+    from django.http import HttpRequest
+    from django.utils.cache import get_cache_key
+    from django.core.cache import cache
+    
+    
+    request = HttpRequest()
+    
+    request.path = reverse(view_name, args=args)
+    key = get_cache_key(request)
+    
+    if key:
+        if cache.get(key):
+            cache.delete(key)
+        return True
+    return False
     
 
+from django.db.models.signals import post_save
+
+def invalidate_review(sender, **kwargs):
+    expire_view_cache('review_view', [kwargs['instance'].slug])
+
+def invalidate_product(sender, **kwargs):
+    expire_view_cache('product_view', [kwargs['instance'].slug])
+
+def invalidate_tutorial(sender, **kwargs):
+    expire_view_cache('tutorial_view', [kwargs['instance'].slug])
+
+def invalidate_challenge(sender, **kwargs):
+    expire_view_cache('challenge_view', [kwargs['instance'].slug])
+
+def invalidate_task(sender, **kwargs):
+    expire_view_cache('task_view', [kwargs['instance'].slug])
+
+def invalidate_product_task(sender, **kwargs):
+    expire_view_cache('product_task_view', [kwargs['instance'].slug])
+
+def invalidate_document(sender, **kwargs):
+    expire_view_cache('document_view', [kwargs['instance'].slug])
+    
+#def invalidate_review(sender, **kwargs):
+#    expire_view_cache('tag_view', [kwargs['instance'].slug])
+
+
+  
+
+post_save.connect(invalidate_review, sender=Review)
+post_save.connect(invalidate_product, sender=Product)
+post_save.connect(invalidate_tutorial, sender=Tutorial)
+post_save.connect(invalidate_challenge, sender=Challenge)
+post_save.connect(invalidate_task, sender=Task)
+post_save.connect(invalidate_product_task, sender=ProductTask)
+post_save.connect(invalidate_document, sender=DocumentSet)
 
