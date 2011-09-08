@@ -390,18 +390,20 @@ Custom cache clearing. Basically I want to clear the view cache on a save of a m
 From here: http://stackoverflow.com/questions/2268417/expire-a-view-cache-in-django
 """
 
-def expire_view_cache(view_name, args = []):
+def expire_view_cache(view_name, args = [], namespace=None, key_prefix=None):
     
     from django.core.urlresolvers import reverse
     from django.http import HttpRequest
     from django.utils.cache import get_cache_key
     from django.core.cache import cache
     
-    
     request = HttpRequest()
     
+    if namespace:
+        view_name = namespace + ":" + view_name
+    
     request.path = reverse(view_name, args=args)
-    key = get_cache_key(request)
+    key = get_cache_key(request, key_prefix=key_prefix)
     
     if key:
         if cache.get(key):
@@ -413,6 +415,7 @@ def expire_view_cache(view_name, args = []):
 from django.db.models.signals import post_save
 
 def invalidate_review(sender, **kwargs):
+    print "EXPIRING REVIEW"
     expire_view_cache('review_view', [kwargs['instance'].slug])
 
 def invalidate_product(sender, **kwargs):
