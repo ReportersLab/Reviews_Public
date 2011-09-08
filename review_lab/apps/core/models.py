@@ -415,7 +415,6 @@ def expire_view_cache(view_name, args = [], namespace=None, key_prefix=None):
 from django.db.models.signals import post_save
 
 def invalidate_review(sender, **kwargs):
-    print "EXPIRING REVIEW"
     expire_view_cache('review_view', [kwargs['instance'].slug])
 
 def invalidate_product(sender, **kwargs):
