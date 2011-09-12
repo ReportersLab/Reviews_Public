@@ -60,7 +60,9 @@ class ProductAdmin(CommonAdmin):
         ),
         ('Product Details',
             {
-                'fields': ('company', 'image', 'cost', 'open_source', 'demo_available', 'obsolete', 'programming_required_rating', 'programming_required_description', 'categories', 'release_date',)
+                'fields': ('company', 'image', 'cost', 'open_source', 'demo_available', 'obsolete',
+                           'programming_required_rating', 'programming_required_description', 'categories',
+                           'release_date', 'operating_systems',)
             }
         ),
     )

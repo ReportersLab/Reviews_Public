@@ -126,6 +126,7 @@ class Product(CommonInfo):
     company                               = models.CharField(max_length = 128, blank = True)
     release_date                          = models.CharField(max_length = 64,  blank = True)  #Change to Text
     obsolete                              = models.BooleanField()
+    operating_systems                     = models.ManyToManyField('OperatingSystem', blank = True, null = True) 
     
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.url)

@@ -41,6 +41,17 @@
                     <p class="grid_6 omega">{% if product.obsolete %}Yes {% else %}No{% endif %}</a></p>
                 </div>
                 <div class="container">
+                    <h4 class="grid_2 alpha">Operating Systems:</h4>
+                    <p class="grid_6 omega">
+                        {% for os in product.operating_systems.all %}
+                            <a href="{{os.url}}" target="_blank">
+                                {{os.name}}
+                            </a>
+                            {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="container">
                     <h4 class="grid_2 alpha">Programming:</h4>
                     <div class="grid_6 omega">
                         {{ product.programming_required_description|safe }}
