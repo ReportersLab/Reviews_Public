@@ -12,8 +12,6 @@ class CommonInline(admin.StackedInline):
     extra = 0
     readonly_fields = ('slug',)
     
-    def queryset(self, request):
-        return self.model.all_objects
     
 class ProductTaskInline(CommonInline):
     model = ProductTask
