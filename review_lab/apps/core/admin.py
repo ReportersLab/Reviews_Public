@@ -50,7 +50,13 @@ class CommonAdmin(admin.ModelAdmin):
             pass
         #otherwise, return the normal content.
         return super(CommonAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-        
+    
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        try:
+            kwargs['queryset'] = db_field.rel.to.all_objects
+        except AttributeError:
+            pass
+        return super(CommonAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
         
     
     def queryset(self, request):
