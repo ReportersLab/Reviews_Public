@@ -24,14 +24,14 @@ def index_view(request):
 View for individual review, takes a slug
 '''
 def review_view(request, slug):
-    review = get_object_or_404(Review, slug=slug)
+    review = get_user_visible_object(Review, request, slug=slug)
     return get_response('review.django.html', data={'review':review}, request=request)
 
 '''
 View for a PRODUCT, takes the slug
 '''
 def product_view(request, slug):
-    product = get_object_or_404(Product, slug=slug)
+    product = get_user_visible_object(Product, request, slug=slug)
     tags = product.tags.all()
     return get_response('product.django.html', data={'product':product, 'tags':tags}, request=request)
     
@@ -39,35 +39,35 @@ def product_view(request, slug):
 View for a CHALLENGE, takes the slug
 '''
 def challenge_view(request, slug):
-    challenge = get_object_or_404(Challenge, slug=slug)
+    challenge = get_user_visible_object(Challenge, request, slug=slug)
     return get_response('challenge.django.html', data={'challenge':challenge}, request=request)
     
 '''
 View for a TUTORIAL, takes the slug
 '''
 def tutorial_view(request, slug):
-    tutorial = get_object_or_404(Tutorial, slug=slug)
+    tutorial = get_user_visible_object(Tutorial, request, slug=slug)
     return get_response('tutorial.django.html', data={'tutorial':tutorial}, request=request)
     
 '''
 View for a DOCUMENT, takes the slug
 '''
 def document_view(request, slug):
-    document = get_object_or_404(DocumentSet, slug=slug)
+    document = get_user_visible_object(DocumentSet, request, slug=slug)
     return get_response('document.django.html', data={'document':document}, request=request)
     
 '''
 View for a TASK, takes the slug
 '''
 def task_view(request, slug):
-    task = get_object_or_404(Task, slug=slug)
+    task = get_user_visible_object(Task, request, slug=slug)
     return get_response('task.django.html', data={'task':task}, request=request)
     
 '''
 View for a PRODUCT TASK REVIEW, takes the slug
 '''
 def product_task_view(request, slug):
-    product_task = get_object_or_404(ProductTask, slug=slug)
+    product_task = get_user_visible_object(ProductTask, request, slug=slug)
     return get_response('product_task.django.html', data={'product_task':product_task}, request=request)
     
 
@@ -189,6 +189,19 @@ def get_response(template = 'index.html', data = dict(), request = dict(), mime 
     data.update(generic_data) # I think this is right.
     return render_to_response(template, data, context_instance = RequestContext(request), mimetype = mime)
     
+
+'''
+If the user is logged in, we want to let them see content if they know the direct URL. This means returning unpublished items.
+To accomplish this, check if the user is logged in and use all_items queryset instead of standary queryset.
+'''
+def get_user_visible_object(model, request, **kwargs):
+    qs = model.objects
+    if request.user.is_authenticated() and request.user.is_staff:
+        qs = model.all_objects
+    return get_object_or_404(qs, **kwargs)
+
+
+
 
 '''
 Generates the data structures for the search facets so there isn't template chaos
