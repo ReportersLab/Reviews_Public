@@ -74,6 +74,7 @@ DOCUMENT_KIND_CHOICES = (
     ('image','image'),
     ('text','text'),
     ('database','database'),
+    ('pdf', 'pdf'),
 )
 
 
