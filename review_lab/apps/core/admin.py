@@ -38,7 +38,7 @@ class CommonAdmin(admin.ModelAdmin):
     def view_link(self, object):
         return '<a href="{0}">{0}</a>'.format(object.get_absolute_url())
     view_link.allow_tags = True
-    
+    '''
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         #if it's one of our custom models -- which currently all have an all_objects property
         #return all objects
@@ -62,7 +62,7 @@ class CommonAdmin(admin.ModelAdmin):
         return self.model.all_objects
         #this is the normal implementation
         #return super(CommonAdmin, self).queryset(request)
-    
+    '''
     
     class Media:
         js = (settings.STATIC_URL+'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', settings.STATIC_URL+'js/tinymce_setup.js')

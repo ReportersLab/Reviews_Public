@@ -14,7 +14,7 @@ View for the homepage
 '''
 def index_view(request):
     data = {
-        'review_list'  : Review.objects.all(),
+        'review_list'  : Review.published_objects.all(),
         'is_index' : True,
     }
     return get_response(template='index.django.html', data=data, request=request)
@@ -95,11 +95,11 @@ def more_view(request, model):
     print "THIS IS THE MODEL: " + model
     model_class = MORE_CLASSES.get(model, Review)
     data = {
-        'objects': model_class.objects.all(),
+        'objects': model_class.published_objects.all(),
         'name': model
     }
     
-    #return archive_index(request, model_class.objects.all(), 'creation_time', template_name='more.django.html')
+    #return archive_index(request, model_class.published_objects.all(), 'creation_time', template_name='more.django.html')
     return get_response('more.django.html', data=data, request=request)
     
 
@@ -145,15 +145,15 @@ def search_view(request):
     model = model.lower()
     if model != '' and model != 'all':
         model_class = MORE_CLASSES.get(model, Review)
-        model_list.append(model_class.objects.filter(query))
+        model_list.append(model_class.published_objects.filter(query))
     #otherwise use everything
     else:
         #Create QuerySets for the models we want to search on
-        model_list.append(Review.objects.filter(query))
-        model_list.append(Product.objects.filter(query))
-        model_list.append(Tutorial.objects.filter(query))
-        model_list.append(DocumentSet.objects.filter(query))
-        model_list.append(Challenge.objects.filter(query))
+        model_list.append(Review.published_objects.filter(query))
+        model_list.append(Product.published_objects.filter(query))
+        model_list.append(Tutorial.published_objects.filter(query))
+        model_list.append(DocumentSet.published_objects.filter(query))
+        model_list.append(Challenge.published_objects.filter(query))
     
     
     #combine them all into a nice iterable
@@ -179,11 +179,11 @@ split off into a template tag?
 '''
 def get_response(template = 'index.html', data = dict(), request = dict(), mime = 'text/html'):
     generic_data = {
-        'latest_reviews'    : Review.objects.all()[:5],
-        'latest_documents'  : DocumentSet.objects.all()[:5],
-        'latest_products'   : Product.objects.all()[:5],
-        'latest_challenges' : Challenge.objects.all()[:5],
-        'latest_tutorials'  : Tutorial.objects.all()[:5],
+        'latest_reviews'    : Review.published_objects.all()[:5],
+        'latest_documents'  : DocumentSet.published_objects.all()[:5],
+        'latest_products'   : Product.published_objects.all()[:5],
+        'latest_challenges' : Challenge.published_objects.all()[:5],
+        'latest_tutorials'  : Tutorial.published_objects.all()[:5],
     }
     
     data.update(generic_data) # I think this is right.
@@ -195,9 +195,9 @@ If the user is logged in, we want to let them see content if they know the direc
 To accomplish this, check if the user is logged in and use all_items queryset instead of standary queryset.
 '''
 def get_user_visible_object(model, request, **kwargs):
-    qs = model.objects
+    qs = model.published_objects
     if request.user.is_authenticated() and request.user.is_staff:
-        qs = model.all_objects
+        qs = model.objects
     return get_object_or_404(qs, **kwargs)
 
 

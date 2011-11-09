@@ -30,8 +30,10 @@ class CommonInfo(models.Model):
     
     # make sure we only get published items...
     # maybe we need just a "published_objects" field? Not override default?
-    objects = PublishedManager()
-    all_objects = models.Manager()
+    #objects = PublishedManager()
+    #all_objects = models.Manager()
+    objects = models.Manager()
+    published_objects = PublishedManager()
     
     def save(self):
         if not self.id:
