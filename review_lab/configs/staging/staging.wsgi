@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../ext")))
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "review_lab.configs.staging.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "review_lab.configs.staging.settings_private"
 
 from django.core.handlers.wsgi import WSGIHandler
 application = WSGIHandler()
