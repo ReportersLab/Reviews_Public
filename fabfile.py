@@ -137,6 +137,11 @@ def checkout_latest():
     """
     with cd('%(repo_path)s' % env):
         run('git checkout %(branch)s; git pull origin %(branch)s' % env)
+    
+    #once repo is deployed, copy local private settings over. We could check and deploy for specific server, but not really necessary...
+    put('configs/common/settings_private.py', '%(repo_path)s/configs/common/settings_private.py' % env)
+    put('configs/staging/settings_private.py', '%(repo_path)s/configs/staging/settings_private.py' % env)
+    put('configs/production/settings_private.py', '%(repo_path)s/configs/production/settings_private.py' % env)
 
 def install_requirements():
     """
