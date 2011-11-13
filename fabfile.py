@@ -143,10 +143,17 @@ def checkout_latest():
         run('git fetch')
         run('git reset --hard origin/%(branch)s' % env)
     
-    #once repo is deployed, copy local private settings over. We could check and deploy for specific server, but not really necessary...
+    # once repo is deployed, copy local private settings over. We could check and deploy for specific server, but not really necessary...
+    # none of this is going as planned. I'm trying to just include the normal settings.py in the settings_private.py, but I keep getting
+    # server 500 errors I can't diagnose. So, instead, let's try merging the files on upload. This may be too confusing and very, very dumb.
     put('%(project_name)s/configs/common/settings_private.py' % env, '%(repo_path)s/%(project_name)s/configs/common/settings_private.py' % env)
     put('%(project_name)s/configs/staging/settings_private.py' % env, '%(repo_path)s/%(project_name)s/configs/staging/settings_private.py' % env)
     put('%(project_name)s/configs/production/settings_private.py' % env, '%(repo_path)s/%(project_name)s/configs/production/settings_private.py' % env)
+    run('cat %(repo_path)s/%(project_name)s/configs/staging/settings_private.py %(repo_path)s/%(project_name)s/configs/staging/settings.py > %(repo_path)s/%(project_name)s/configs/staging/settings_private_new.py' % env)
+    run('cat %(repo_path)s/%(project_name)s/configs/production/settings_private.py %(repo_path)s/%(project_name)s/configs/production/settings.py > %(repo_path)s/%(project_name)s/configs/production/settings_private_new.py' % env)
+    run('cp %(repo_path)s/%(project_name)s/configs/staging/settings_private_new.py %(repo_path)s/%(project_name)s/configs/staging/settings_private.py' % env)
+    run('cp %(repo_path)s/%(project_name)s/configs/production/settings_private_new.py %(repo_path)s/%(project_name)s/configs/production/settings_private.py' % env)
+
 
 def install_requirements():
     """
