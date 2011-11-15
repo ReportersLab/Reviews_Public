@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load range_tag %}
 
 {% block title %}
     Task: {{ task.name }}
@@ -10,13 +11,27 @@
         {% if task.document %}
             <h6>Document: <a href="{{ task.document.get_absolute_url }}">{{ task.document.name }}</a></h6>
         {% endif %}
-        <h1>{{task.name}}</h1>            
+        <h1>{{task.name}}</h1>
+        
         <div id="details">
             {{task.description|safe}}
         </div>
-        
-        
         {% include "renderers/tag_cloud.django.html" with object=task %}
+        <div id="ratings">
+            {% mkrange 1 6 1 as star_range %}
+            <div class="grid_8 alpha omega">
+                <div class="rating_container">
+                    <span class="verdict grid_2 alpha">Difficulty:</span>
+                    <div class="grid_2">
+                        {% for i in star_range %}
+                            <input name="star_comm" type="radio" class="star" disabled="disabled" {% if forloop.counter == task.difficulty %} checked="checked" {% endif %} />
+                        {% endfor %}
+                    </div>
+                    <p class="grid_4 omega">{{ task.difficulty_text }}</p>
+                </div>
+            </div>
+        </div>
+        
         
         {% if task.latest_reviews %}         
             <div id="task_performance" class="detail_item_container">
@@ -58,6 +73,7 @@
                 {% endfor %}
             </div>
         {% endif %}
+        
         
         
         

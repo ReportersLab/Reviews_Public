@@ -204,7 +204,10 @@ class Challenge(CommonInfo):
 
     
 class Task(CommonInfo):
-    document = models.ForeignKey('DocumentSet', null=True)
+    document           = models.ForeignKey('DocumentSet', null=True)
+    difficulty         = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    difficulty_text    = models.CharField(max_length = 256, blank = True)
+    #task_documents = models.ManyToManyField('DocumentSet', null = True, related_name = 'task_documents')
     
     @property
     def document_name(self):

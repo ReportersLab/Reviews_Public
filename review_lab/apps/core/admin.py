@@ -183,7 +183,7 @@ class TaskAdmin(CommonAdmin):
         ),
         ('The Details',
             {
-                'fields': ('document',)    
+                'fields': ('document', 'difficulty', 'difficulty_text',)    
             } 
         )
     )
