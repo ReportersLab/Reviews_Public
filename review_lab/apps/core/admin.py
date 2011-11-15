@@ -132,7 +132,7 @@ class TutorialAdmin(CommonAdmin):
     list_display_links = ('name',)
     list_editable = ('published',)
  
- 
+'''
 class ChallengeAdmin(CommonAdmin):
     fieldsets = (
         ('The Basics', {
@@ -150,7 +150,7 @@ class ChallengeAdmin(CommonAdmin):
     list_display = ('name', 'contact', 'published', 'view_link',)
     list_display_links = ('name',)
     list_editable = ('published',)
- 
+''' 
     
 
 class ProductTaskAdmin(CommonAdmin):
@@ -249,7 +249,7 @@ admin.site.register(ProductTask, ProductTaskAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Tutorial, TutorialAdmin)
-admin.site.register(Challenge, ChallengeAdmin)
+#admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(CustomTag)
 
 

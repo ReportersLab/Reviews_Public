@@ -181,6 +181,12 @@ class Tutorial(CommonInfo):
         ordering = ['-creation_time']
 
 
+
+'''
+It was decided to keep the challenges separate from the rest of the content due to special concerns.
+
+For now I have removed them from the Admin and the views / urls / etc. I'll leave the model in case we ressurect it.
+'''
 class Challenge(CommonInfo):
     tasks                     = models.ManyToManyField(to='Task', blank=True, null=True)
     documents                 = models.ManyToManyField(to='DocumentSet', blank=True, null=True)

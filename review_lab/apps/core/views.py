@@ -38,10 +38,12 @@ def product_view(request, slug):
 '''
 View for a CHALLENGE, takes the slug
 '''
+'''
 def challenge_view(request, slug):
     challenge = get_user_visible_object(Challenge, request, slug=slug)
     return get_response('challenge.django.html', data={'challenge':challenge}, request=request)
-    
+'''
+
 '''
 View for a TUTORIAL, takes the slug
 '''
@@ -87,7 +89,7 @@ MORE_CLASSES = {
     'products':Product,
     'tutorials':Tutorial,
     'documents':DocumentSet,
-    'challenges':Challenge
+    #'challenges':Challenge
 }
 
 
@@ -153,7 +155,7 @@ def search_view(request):
         model_list.append(Product.published_objects.filter(query))
         model_list.append(Tutorial.published_objects.filter(query))
         model_list.append(DocumentSet.published_objects.filter(query))
-        model_list.append(Challenge.published_objects.filter(query))
+        #model_list.append(Challenge.published_objects.filter(query))
     
     
     #combine them all into a nice iterable
@@ -182,7 +184,7 @@ def get_response(template = 'index.html', data = dict(), request = dict(), mime 
         'latest_reviews'    : Review.published_objects.all()[:5],
         'latest_documents'  : DocumentSet.published_objects.all()[:5],
         'latest_products'   : Product.published_objects.all()[:5],
-        'latest_challenges' : Challenge.published_objects.all()[:5],
+        #'latest_challenges' : Challenge.published_objects.all()[:5],
         'latest_tutorials'  : Tutorial.published_objects.all()[:5],
     }
     
@@ -224,7 +226,7 @@ def gen_facets(request):
         {'label':'Products', 'value':'products'},
         {'label':'Tutorials', 'value':'tutorials'},
         {'label':'Document Sets', 'value':'documents'},
-        {'label':'Challenges', 'value':'challenges'},
+        #{'label':'Challenges', 'value':'challenges'},
     ]
     
     return({'dates':date_facet, 'types':type_facet})
