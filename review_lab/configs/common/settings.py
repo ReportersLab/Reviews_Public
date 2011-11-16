@@ -11,6 +11,8 @@ SITE_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__f
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+SECRET_KEY = '[[ YOUR SECRET KEY ]]'
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
@@ -31,10 +33,6 @@ DATABASES = {
     }
 }
 
-# DATABASE_ENGINE = 'postgresql_psycopg2'
-# DATABASE_HOST = 'localhost'
-# DATABASE_PORT = '5432'
-# DATABASE_NAME = 'review_lab'
 
 # Local time
 TIME_ZONE = 'America/Chicago'

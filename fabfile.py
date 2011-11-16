@@ -136,23 +136,26 @@ def checkout_latest():
     Pull the latest code on the specified branch.
     """
     with cd('%(repo_path)s' % env):
+        run('git checkout %(branch)s; git pull origin %(branch)s' % env)
+    
+    #with cd('%(repo_path)s' % env):
         #run('git checkout %(branch)s; git pull origin %(branch)s' % env)
         #I'm trying to blast away any server changes so the pull works.
         #http://stackoverflow.com/questions/4785107/git-pull-from-remote-can-i-force-it-to-overwrite-rather-than-report-conflicts
         #run('git checkout %(branch)s' % env)
-        run('git fetch')
-        run('git reset --hard origin/%(branch)s' % env)
+    #    run('git fetch')
+    #    run('git reset --hard origin/%(branch)s' % env)
     
     # once repo is deployed, copy local private settings over. We could check and deploy for specific server, but not really necessary...
-    # none of this is going as planned. I'm trying to just include the normal settings.py in the settings_private.py, but I keep getting
-    # server 500 errors I can't diagnose. So, instead, let's try merging the files on upload. This may be too confusing and very, very dumb.
+    #If you want to use private config files, this will take care of that.
+    #First move over the private files.
     put('%(project_name)s/configs/common/settings_private.py' % env, '%(repo_path)s/%(project_name)s/configs/common/settings_private.py' % env)
     put('%(project_name)s/configs/staging/settings_private.py' % env, '%(repo_path)s/%(project_name)s/configs/staging/settings_private.py' % env)
-    put('%(project_name)s/configs/production/settings_private.py' % env, '%(repo_path)s/%(project_name)s/configs/production/settings_private.py' % env)
-    run('cat %(repo_path)s/%(project_name)s/configs/staging/settings_private.py %(repo_path)s/%(project_name)s/configs/staging/settings.py > %(repo_path)s/%(project_name)s/configs/staging/settings_private_new.py' % env)
-    run('cat %(repo_path)s/%(project_name)s/configs/production/settings_private.py %(repo_path)s/%(project_name)s/configs/production/settings.py > %(repo_path)s/%(project_name)s/configs/production/settings_private_new.py' % env)
-    run('cp %(repo_path)s/%(project_name)s/configs/staging/settings_private_new.py %(repo_path)s/%(project_name)s/configs/staging/settings_private.py' % env)
-    run('cp %(repo_path)s/%(project_name)s/configs/production/settings_private_new.py %(repo_path)s/%(project_name)s/configs/production/settings_private.py' % env)
+    put('%(project_name)s/configs/production/settings_private.py' % env, '%(repo_path)s/%(project_name)s/configs/production/settings_private.py' % env)    
+    #and then cat their contents into the original settings files.
+    run('cat %(repo_path)s/%(project_name)s/configs/common/settings_private.py >> %(repo_path)s/%(project_name)s/configs/common/settings.py' % env)
+    run('cat %(repo_path)s/%(project_name)s/configs/staging/settings_private.py >> %(repo_path)s/%(project_name)s/configs/staging/settings.py' % env)
+    run('cat %(repo_path)s/%(project_name)s/configs/production/settings_private.py >> %(repo_path)s/%(project_name)s/configs/production/settings.py' % env)
 
 
 def install_requirements():

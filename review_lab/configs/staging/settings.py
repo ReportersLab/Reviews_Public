@@ -1,7 +1,19 @@
-
+from review_lab.configs.common.settings import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
+
+DATABASES = {
+    'default': {
+        'NAME': 'review_lab',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'PORT': '5432',
+        'HOST': 'localhost',
+        'USER': '[[ YOUR USER ]]',
+        'PASSWORD': '[[ YOUR PASSWORD ]]'
+    }
+}
 
 
 
