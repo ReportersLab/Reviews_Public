@@ -120,7 +120,7 @@ class Product(CommonInfo):
     image                                 = models.ImageField( help_text='Product logo or screenshot. TODO: Standardize Size', max_length=256,
                                                               upload_to='review_lab/contrib/img/products', null=True, blank=True)
     #cost                                  = models.IntegerField(blank=False, default=0,help_text='Cost is a dollar amount. "0" for free')
-    cost                                  = models.CharField(max_length = 64, blank = True, default = 'Free')
+    cost                                  = models.CharField(max_length = 64, blank = True, default = 'Free', help_text = 'Include a dollar sign if you want it to display.')
     categories                            = models.ManyToManyField('Category', blank=True, null=True)
     programming_required_rating           = models.IntegerField(choices=RATING_CHOICES, default = 0)
     programming_required_description      = models.TextField(blank = True)
