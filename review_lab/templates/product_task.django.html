@@ -62,7 +62,7 @@
                 </div>
                 <div>
                     <h6>Cost</h6>
-                    <p>{% if product_task.product.cost == 0 %}FREE {% else %}${{ product_task.product.cost }}{% endif %}</a></p>
+                    <p>{% if product_task.product.cost == 0 %}FREE {% else %}{{ product_task.product.cost }}{% endif %}</a></p>
                 </div>
                 <div>
                     <h6>Open Sourced</h6>

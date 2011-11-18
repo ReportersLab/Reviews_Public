@@ -26,7 +26,7 @@
                 {% endif %}
                 <div class="container">
                     <h4 class="grid_2 alpha">Cost:</h4>
-                    <p class="grid_6 omega">{% if product.cost == 0 %}FREE {% else %}${{ product.cost }}{% endif %}</a></p>
+                    <p class="grid_6 omega">{% if product.cost == 0 %}FREE {% else %}{{ product.cost }}{% endif %}</a></p>
                 </div>
                 <div class="container">
                     <h4 class="grid_2 alpha">Open Sourced:</h4>
