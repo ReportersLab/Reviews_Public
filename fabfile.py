@@ -135,16 +135,14 @@ def checkout_latest():
     """
     Pull the latest code on the specified branch.
     """
-    with cd('%(repo_path)s' % env):
-        run('git checkout %(branch)s; git pull origin %(branch)s' % env)
     
-    #with cd('%(repo_path)s' % env):
+    with cd('%(repo_path)s' % env):
         #run('git checkout %(branch)s; git pull origin %(branch)s' % env)
         #I'm trying to blast away any server changes so the pull works.
         #http://stackoverflow.com/questions/4785107/git-pull-from-remote-can-i-force-it-to-overwrite-rather-than-report-conflicts
         #run('git checkout %(branch)s' % env)
-    #    run('git fetch')
-    #    run('git reset --hard origin/%(branch)s' % env)
+        run('git fetch')
+        run('git reset --hard origin/%(branch)s' % env)
     
     # once repo is deployed, copy local private settings over. We could check and deploy for specific server, but not really necessary...
     #If you want to use private config files, this will take care of that.
