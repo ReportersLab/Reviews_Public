@@ -128,7 +128,7 @@ class Product(CommonInfo):
     open_source                           = models.BooleanField()
     demo_available                        = models.BooleanField()
     company                               = models.CharField(max_length = 128, blank = True)
-    release_date                          = models.CharField(max_length = 64,  blank = True)  #Change to Text
+    release_date                          = models.CharField(max_length = 64,  blank = True, null = True)  #Change to Text
     obsolete                              = models.BooleanField()
     operating_systems                     = models.ManyToManyField('OperatingSystem', blank = True, null = True) 
     

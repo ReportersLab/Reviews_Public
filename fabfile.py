@@ -30,7 +30,7 @@ def production():
     Work on production environment
     """
     env.settings = 'production'
-    env.hosts = ['db.reporterslab.org']
+    env.hosts = ['projects.reporterslab.org']
     env.user = 'newsapps'
     env.s3_bucket = 'media.reporterslab.org'
 
