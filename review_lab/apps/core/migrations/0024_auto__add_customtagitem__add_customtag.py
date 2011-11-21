@@ -155,7 +155,7 @@ class Migration(SchemaMigration):
             'programming_required_description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'programming_required_rating': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'published': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'release_date': ('django.db.models.fields.CharField', [], {'max_length': '64', 'blank': 'True'}),
+            'release_date': ('django.db.models.fields.CharField', [], {'max_length': '64', 'blank': 'True', 'null' : 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'db_index': 'True', 'unique': 'True', 'max_length': '512', 'blank': 'True'}),
             'tasks_performed': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['core.Task']", 'null': 'True', 'through': "orm['core.ProductTask']", 'blank': 'True'}),
             'update_time': ('django.db.models.fields.DateTimeField', [], {}),
