@@ -7,15 +7,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
+        pass
         # Changing field 'Product.release_date'
-        db.alter_column('core_product', 'release_date', self.gf('django.db.models.fields.CharField')(default='', max_length=64))
+        #db.alter_column('core_product', 'release_date', self.gf('django.db.models.fields.CharField')(default='', max_length=64))
 
 
     def backwards(self, orm):
-        
+        pass
         # Changing field 'Product.release_date'
-        db.alter_column('core_product', 'release_date', self.gf('django.db.models.fields.CharField')(max_length=64, null=True))
+        #db.alter_column('core_product', 'release_date', self.gf('django.db.models.fields.CharField')(max_length=64, null=True))
 
 
     models = {
