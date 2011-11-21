@@ -20,8 +20,8 @@ DATABASES = {
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 #MEDIA_URL = 'http://media.reporterslab.org/review_lab/'
-MEDIA_URL = 'https://s3.amazonaws.com/media.reporterslab.org/review_lab/site_media/'
-STATIC_URL = 'https://s3.amazonaws.com/media.reporterslab.org/review_lab/site_media/static/'
+MEDIA_URL = 'http://media.reporterslab.org/review_lab/site_media/'
+STATIC_URL = 'http://media.reporterslab.org/review_lab/site_media/static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 # Predefined domain
