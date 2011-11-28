@@ -1,7 +1,27 @@
+@font-face {
+    font-family: 'LeagueGothicRegular';
+    src: url('http://media.reporterslab.org/fonts/League_Gothic-webfont.eot');
+    src: url('http://media.reporterslab.org/fonts/League_Gothic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://media.reporterslab.org/fonts/League_Gothic-webfont.woff') format('woff'),
+         url('http://media.reporterslab.org/fonts/League_Gothic-webfont.ttf') format('truetype'),
+         url('http://media.reporterslab.org/fonts/League_Gothic-webfont.svg#LeagueGothicRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 body
 {
-    
+  font:13px/1.5 'Droid Serif',Arial,'Liberation Sans',FreeSans,sans-serif;  
 }
+
+h1, h2, h3, h4, h5, h6 /* testing for now. */
+{
+    font: 13px/1.5 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
+    text-transform:uppercase;
+}
+
 
 a
 {

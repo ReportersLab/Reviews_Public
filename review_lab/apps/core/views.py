@@ -8,6 +8,8 @@ from django.conf import settings
 from django.db.models import Q
 from itertools import chain
 from operator import attrgetter
+from django.views.defaults import page_not_found
+from django.core.cache import cache
 
 '''
 View for the homepage
@@ -25,7 +27,7 @@ View for individual review, takes a slug
 '''
 def review_view(request, slug):
     review = get_user_visible_object(Review, request, slug=slug)
-    return get_response('review.django.html', data={'review':review}, request=request)
+    return get_response('review.django.html', data={'review':review, 'object':review,}, request=request)
 
 '''
 View for a PRODUCT, takes the slug
@@ -33,7 +35,7 @@ View for a PRODUCT, takes the slug
 def product_view(request, slug):
     product = get_user_visible_object(Product, request, slug=slug)
     tags = product.tags.all()
-    return get_response('product.django.html', data={'product':product, 'tags':tags}, request=request)
+    return get_response('product.django.html', data={'product':product, 'tags':tags, 'object':product,}, request=request)
     
 '''
 View for a CHALLENGE, takes the slug
@@ -49,28 +51,28 @@ View for a TUTORIAL, takes the slug
 '''
 def tutorial_view(request, slug):
     tutorial = get_user_visible_object(Tutorial, request, slug=slug)
-    return get_response('tutorial.django.html', data={'tutorial':tutorial}, request=request)
+    return get_response('tutorial.django.html', data={'tutorial':tutorial, 'object':tutorial,}, request=request)
     
 '''
 View for a DOCUMENT, takes the slug
 '''
 def document_view(request, slug):
     document = get_user_visible_object(DocumentSet, request, slug=slug)
-    return get_response('document.django.html', data={'document':document}, request=request)
+    return get_response('document.django.html', data={'document':document, 'object':document,}, request=request)
     
 '''
 View for a TASK, takes the slug
 '''
 def task_view(request, slug):
     task = get_user_visible_object(Task, request, slug=slug)
-    return get_response('task.django.html', data={'task':task}, request=request)
+    return get_response('task.django.html', data={'task':task, 'object':task,}, request=request)
     
 '''
 View for a PRODUCT TASK REVIEW, takes the slug
 '''
 def product_task_view(request, slug):
     product_task = get_user_visible_object(ProductTask, request, slug=slug)
-    return get_response('product_task.django.html', data={'product_task':product_task}, request=request)
+    return get_response('product_task.django.html', data={'product_task':product_task, 'object':product_task,}, request=request)
     
 
 '''
@@ -188,8 +190,23 @@ def get_response(template = 'index.html', data = dict(), request = dict(), mime 
         'latest_tutorials'  : Tutorial.published_objects.all()[:5],
     }
     
-    data.update(generic_data) # I think this is right.
-    return render_to_response(template, data, context_instance = RequestContext(request), mimetype = mime)
+    data.update(generic_data)
+    content = None
+    try:
+        obj = data['object']
+        key = "{0}-{1}-{2}".format(obj.slug, obj.update_time.isoformat(), obj.__class__)
+        content = cache.get(key)
+        if content is None:
+            content = render_to_response(template, data, context_instance = RequestContext(request), mimetype = mime)
+            cache.set(key, content, 60 * 30)
+    except:
+        content = render_to_response(template, data, context_instance = RequestContext(request), mimetype = mime)
+        
+    return content
+        
+        
+    
+    #return render_to_response(template, data, context_instance = RequestContext(request), mimetype = mime)
     
 
 '''
