@@ -194,7 +194,7 @@ def get_response(template = 'index.html', data = dict(), request = dict(), mime 
     content = None
     try:
         obj = data['object']
-        key = "{0}-{1}-{2}".format(obj.slug, obj.update_time.isoformat(), obj.__class__)
+        key = "{0}-{1}-{2}".format(obj.slug, obj.update_time.isoformat(), obj.verbose_name)
         content = cache.get(key)
         if content is None:
             content = render_to_response(template, data, context_instance = RequestContext(request), mimetype = mime)
