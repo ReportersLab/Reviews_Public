@@ -3,7 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task, Tutorial, Challenge, CustomTag
 from django.contrib import admin
-
+from functools import partial
+from django.forms.models import modelformset_factory
 
 
 
@@ -38,6 +39,21 @@ class CommonAdmin(admin.ModelAdmin):
     def view_link(self, object):
         return '<a href="{0}">{0}</a>'.format(object.get_absolute_url())
     view_link.allow_tags = True
+    
+    
+    def get_changelist_formset(self, request, **kwargs):
+        defaults = {
+            "formfield_callback": partial(self.formfield_for_dbfield, request=request),
+        }
+        defaults.update(kwargs)
+        
+        fields = ()
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fields = ('published',)
+        
+        return modelformset_factory(self.model, self.get_changelist_form(request), extra=0, fields = fields, **defaults)
+    
+    
     '''
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         #if it's one of our custom models -- which currently all have an all_objects property
@@ -70,64 +86,85 @@ class CommonAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics',
-            {
-                'fields': ('name', 'slug', 'url', 'description', 'published', 'tags', )
-            }
-        ),
-        ('Product Details',
-            {
-                'fields': ('company', 'image', 'cost', 'open_source', 'demo_available', 'obsolete',
-                           'programming_required_rating', 'programming_required_description', 'categories',
-                           'release_date', 'operating_systems',)
-            }
-        ),
-    )
     
+    def get_fieldsets(self, request, obj=None):    
+        fieldsets = (
+            ('The Basics',
+                {
+                    'fields': ('name', 'slug', 'url', 'description', 'tags', )
+                }
+            ),
+            ('Product Details',
+                {
+                    'fields': ('company', 'image', 'cost', 'open_source', 'demo_available', 'obsolete',
+                               'programming_required_rating', 'programming_required_description', 'categories',
+                               'release_date', 'operating_systems',)
+                }
+            ),
+        )
+        
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fieldsets[0][1]['fields'] += ('published',)
+        
+        return fieldsets
+    
+   
     inlines = [ProductTaskInline, ReviewInline, ]
     list_display = ('name', 'url', 'company', 'published', 'view_link',)
-    list_editable= ('published',)
+    list_editable = ('published',)
     list_display_links = ('name',)
 
 
 class ReviewAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics',
-            {
-                'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'published', 'tags', 'image', 'review_done',)
-            }
-        ),
-        ('Teaser Text', {'fields': ('teaser',)}),
-        ('Review Text', {'fields': ('description',)}),
-        ('Review Details',
-            {
-                'fields': ('version_tested', 'os_used', 'community', 'community_text', 'documentation', 'documentation_text',
-                           'performance', 'performance_text', 'usability', 'usability_text', 'rating', 'rating_text',)
-            }
+    
+    def get_fieldsets(self, request, obj=None): 
+        fieldsets = (
+            ('The Basics',
+                {
+                    'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'tags', 'image', 'review_done',)
+                }
+            ),
+            ('Teaser Text', {'fields': ('teaser',)}),
+            ('Review Text', {'fields': ('description',)}),
+            ('Review Details',
+                {
+                    'fields': ('version_tested', 'os_used', 'community', 'community_text', 'documentation', 'documentation_text',
+                               'performance', 'performance_text', 'usability', 'usability_text', 'rating', 'rating_text',)
+                }
+            )
         )
-    )
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fieldsets[0][1]['fields'] += ('published',)
+        
+        return fieldsets
     
     list_display = ('name', 'product', 'rating', 'published', 'view_link',)
     list_display_links = ('name',)
-    list_editable= ('published',)
+    list_editable= ('published',) 
     
  
  
 class TutorialAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics', {
-            'fields': ('product', 'kicker', 'name', 'subtitle', 'writer', 'writer_external', 'editor', 'slug', 'published', 'tags', 'image',)
-        }),
-        ('Teaser Text', {'fields': ('teaser',)}),
-        ('Tutorial Text', {'fields': ('description',)}),
-        ('Tutorial Details',
-            {
-                'fields': ('tasks', 'url', 'embed', 'repo_link', 'files', 'version', 'os_used',)
-            }
-         ),
+    def get_fieldsets(self, request, obj=None): 
+        fieldsets = (
+            ('The Basics', {
+                'fields': ('product', 'kicker', 'name', 'subtitle', 'writer', 'writer_external', 'editor', 'slug', 'tags', 'image',)
+            }),
+            ('Teaser Text', {'fields': ('teaser',)}),
+            ('Tutorial Text', {'fields': ('description',)}),
+            ('Tutorial Details',
+                {
+                    'fields': ('tasks', 'url', 'embed', 'repo_link', 'files', 'version', 'os_used',)
+                }
+             ),   
+        )
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fieldsets[0][1]['fields'] += ('published',)
         
-    )
+        return fieldsets
+    
+    
+    
     list_display = ('name', 'product', 'repo_link', 'published', 'view_link',)
     list_display_links = ('name',)
     list_editable = ('published',)
@@ -136,7 +173,7 @@ class TutorialAdmin(CommonAdmin):
 class ChallengeAdmin(CommonAdmin):
     fieldsets = (
         ('The Basics', {
-            'fields': ('kicker', 'name', 'subtitle', 'contact', 'other_contact', 'slug', 'published', 'tags', 'image',)
+            'fields': ('kicker', 'name', 'subtitle', 'contact', 'other_contact', 'slug', 'tags', 'image',)
         }),
         ('Teaser Text', {'fields': ('teaser',)}),
         ('Challenge Text', {'fields': ('description',)}),
@@ -154,20 +191,27 @@ class ChallengeAdmin(CommonAdmin):
     
 
 class ProductTaskAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics',
-            {
-                 'fields': ('kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'published', 'tags', 'image', 'review_done',)
-            }
-        ),
-        ('Teaser Text', {'fields': ('teaser',)}),
-        ('The Review', {'fields': ('description',)}),
-        ('The Details',
-            {
-                'fields': ('product', 'task', 'rating', 'rating_text', 'version_tested', 'os_used', )    
-            } 
-        ),
-    )
+    def get_fieldsets(self, request, obj=None): 
+        fieldsets = (
+            ('The Basics',
+                {
+                     'fields': ('kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'tags', 'image', 'review_done',)
+                }
+            ),
+            ('Teaser Text', {'fields': ('teaser',)}),
+            ('The Review', {'fields': ('description',)}),
+            ('The Details',
+                {
+                    'fields': ('product', 'task', 'rating', 'rating_text', 'version_tested', 'os_used', )    
+                } 
+            ),
+        )
+        
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fieldsets[0][1]['fields'] += ('published',)
+        
+        return fieldsets
+        
     
     list_display = ('name', 'product_name', 'task_name', 'rating', 'published', 'view_link')
     list_display_links = ('name',)
@@ -175,66 +219,99 @@ class ProductTaskAdmin(CommonAdmin):
     
 
 class TaskAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics',
-            {
-                'fields': ('name', 'slug', 'description', 'published', 'tags', )
-            }
-        ),
-        ('The Details',
-            {
-                'fields': ('document', 'difficulty', 'difficulty_text',)    
-            } 
+    def get_fieldsets(self, request, obj=None): 
+        fieldsets = (
+            ('The Basics',
+                {
+                    'fields': ('name', 'slug', 'description', 'tags', )
+                }
+            ),
+            ('The Details',
+                {
+                    'fields': ('document', 'difficulty', 'difficulty_text',)    
+                } 
+            )
         )
-    )
+        
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fieldsets[0][1]['fields'] += ('published',)
+        
+        return fieldsets
+    
+    
+    
     list_display = ('name', 'document_name', 'published', 'view_link',)
     list_display_links = ('name',)
     list_editable= ('published',)
 
 
 class DocumentSetAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics',
-            {
-                'fields': ('name', 'slug', 'description', 'published', 'tags', )
-            }
-        ),
-        ('The Details',
-            {
-                'fields': ('url', 'kind', 'image',)    
-            } 
+    def get_fieldsets(self, request, obj=None): 
+        fieldsets = (
+            ('The Basics',
+                {
+                    'fields': ('name', 'slug', 'description', 'tags', )
+                }
+            ),
+            ('The Details',
+                {
+                    'fields': ('url', 'kind', 'image',)    
+                } 
+            )
         )
-    )
+        
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fieldsets[0][1]['fields'] += ('published',)
+        
+        return fieldsets
+    
+    
     list_display = ('name', 'url', 'published', 'image', 'view_link',)
     list_display_links = ('name',)
     list_editable = ('published',)
 
 class OperatingSystemAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics',
-            {
-                'fields': ('name', 'slug', 'description', 'published', 'tags', )
-            }
-        ),
-        ('The Detials',
-            {
-                'fields': ('url',)    
-            } 
+    def get_fieldsets(self, request, obj=None): 
+        fieldsets = (
+            ('The Basics',
+                {
+                    'fields': ('name', 'slug', 'description', 'tags', )
+                }
+            ),
+            ('The Detials',
+                {
+                    'fields': ('url',)    
+                } 
+            )
         )
-    )
+        
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fieldsets[0][1]['fields'] += ('published',)
+        
+        return fieldsets
+        
+    
     
     list_display = ('name', 'url', 'published',)
     list_display_links = ('name',)
     list_editable = ('published',)
 
 class CategoryAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics',
-            {
-                'fields': ('name', 'slug', 'description', 'published', 'tags', )
-            }
-        ),
-    )
+    def get_fieldsets(self, request, obj=None): 
+        fieldsets = (
+            ('The Basics',
+                {
+                    'fields': ('name', 'slug', 'description', 'tags', )
+                }
+            ),
+        )
+        
+        if request.user.groups.filter(name = 'Editors').count() > 0:
+            fieldsets[0][1]['fields'] += ('published',)
+        
+        return fieldsets
+        
+    
     list_display = ('name', 'published',)
     list_display_links = ('name',)
     list_editable = ('published',)
