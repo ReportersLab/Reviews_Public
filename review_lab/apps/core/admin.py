@@ -258,7 +258,7 @@ class OperatingSystemAdmin(CommonAdmin):
                     'fields': ('name', 'slug', 'description', 'tags', )
                 }
             ),
-            ('The Detials',
+            ('The Details',
                 {
                     'fields': ('url',)    
                 } 
