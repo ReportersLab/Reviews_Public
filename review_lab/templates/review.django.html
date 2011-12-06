@@ -111,6 +111,15 @@
                         </div>
                         <p class="grid_4 omega">{{ review.usability_text }}</p>
                     </div>
+                    <div class="rating_container grid_8 alpha omega">
+                        <span class="verdict grid_2 alpha">Programming Required:</span>
+                        <div class="grid_2">
+                            {% for i in star_range %}
+                                <input name="star_tot" type="radio" class="star" disabled="disabled" {% if forloop.counter == review.programming %} checked="checked" {% endif %} />
+                            {% endfor %}
+                        </div>
+                        <p class="grid_4 omega">{{ review.programming_text }}</p>
+                    </div>
                     <div class="rating_container last grid_8 alpha omega">
                         <span class="verdict grid_2 alpha">Overall:</span>
                         <div class="grid_2">
@@ -120,7 +129,6 @@
                         </div>
                         <p class="grid_4 omega">{{ review.rating_text }}</p>
                     </div>
-                    
                 </div>
             </div>
             

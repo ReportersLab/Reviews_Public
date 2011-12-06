@@ -41,6 +41,13 @@ class CommonAdmin(admin.ModelAdmin):
     view_link.allow_tags = True
     
     
+    def get_form(self, request, obj=None, **kwargs):
+        self.fieldsets = self.get_fieldsets(request, obj)
+        return super(CommonAdmin, self).get_form(request, obj, **kwargs)
+    
+    
+    
+    
     def get_changelist_formset(self, request, **kwargs):
         defaults = {
             "formfield_callback": partial(self.formfield_for_dbfield, request=request),
@@ -52,33 +59,6 @@ class CommonAdmin(admin.ModelAdmin):
             fields = ('published',)
         
         return modelformset_factory(self.model, self.get_changelist_form(request), extra=0, fields = fields, **defaults)
-    
-    
-    '''
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        #if it's one of our custom models -- which currently all have an all_objects property
-        #return all objects
-        try:
-            kwargs['queryset'] = db_field.rel.to.all_objects
-        except AttributeError:
-            pass
-        #otherwise, return the normal content.
-        return super(CommonAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-    
-    def formfield_for_manytomany(self, db_field, request, **kwargs):
-        try:
-            kwargs['queryset'] = db_field.rel.to.all_objects
-        except AttributeError:
-            pass
-        return super(CommonAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
-        
-    
-    def queryset(self, request):
-        # In the Admin we want to get all objects, not just published ones.
-        return self.model.all_objects
-        #this is the normal implementation
-        #return super(CommonAdmin, self).queryset(request)
-    '''
     
     class Media:
         js = (settings.STATIC_URL+'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', settings.STATIC_URL+'js/tinymce_setup.js')
@@ -97,8 +77,7 @@ class ProductAdmin(CommonAdmin):
             ('Product Details',
                 {
                     'fields': ('company', 'image', 'cost', 'open_source', 'demo_available', 'obsolete',
-                               'programming_required_rating', 'programming_required_description', 'categories',
-                               'release_date', 'operating_systems',)
+                                'categories', 'release_date', 'operating_systems',)
                 }
             ),
         )
@@ -107,6 +86,8 @@ class ProductAdmin(CommonAdmin):
             fieldsets[0][1]['fields'] += ('published',)
         
         return fieldsets
+        
+       
     
    
     inlines = [ProductTaskInline, ReviewInline, ]
@@ -116,23 +97,22 @@ class ProductAdmin(CommonAdmin):
 
 
 class ReviewAdmin(CommonAdmin):
-    
     def get_fieldsets(self, request, obj=None): 
         fieldsets = (
-            ('The Basics',
-                {
-                    'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'tags', 'image', 'review_done',)
-                }
-            ),
-            ('Teaser Text', {'fields': ('teaser',)}),
-            ('Review Text', {'fields': ('description',)}),
-            ('Review Details',
-                {
-                    'fields': ('version_tested', 'os_used', 'community', 'community_text', 'documentation', 'documentation_text',
-                               'performance', 'performance_text', 'usability', 'usability_text', 'rating', 'rating_text',)
-                }
+                ('The Basics',
+                    {
+                        'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'tags', 'image', 'review_done', )
+                    }
+                ),
+                ('Teaser Text', {'fields': ('teaser',)}),
+                ('Review Text', {'fields': ('description',)}),
+                ('Review Details',
+                    {
+                        'fields': ('version_tested', 'os_used', 'community', 'community_text', 'documentation', 'documentation_text',
+                                   'performance', 'performance_text', 'usability', 'usability_text', 'rating', 'rating_text','programming', 'programming_text',)
+                    }
+                )
             )
-        )
         if request.user.groups.filter(name = 'Editors').count() > 0:
             fieldsets[0][1]['fields'] += ('published',)
         

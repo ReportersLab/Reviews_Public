@@ -102,6 +102,9 @@ class Review(CommonInfo):
     usability_text       = models.CharField(max_length = 256, blank = True)
     rating               = models.IntegerField(choices=RATING_CHOICES, default = 0)
     rating_text          = models.CharField(max_length = 256, blank = True)
+    programming          = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    programming_text     = models.CharField(max_length = 256, blank = True)
+    
         
     def __unicode__(self):
         return u'%s (Review of: %s)' % (self.name, self.product)
@@ -122,8 +125,8 @@ class Product(CommonInfo):
     #cost                                  = models.IntegerField(blank=False, default=0,help_text='Cost is a dollar amount. "0" for free')
     cost                                  = models.CharField(max_length = 64, blank = True, default = 'Free', help_text = 'Include a dollar sign if you want it to display.')
     categories                            = models.ManyToManyField('Category', blank=True, null=True)
-    programming_required_rating           = models.IntegerField(choices=RATING_CHOICES, default = 0)
-    programming_required_description      = models.TextField(blank = True)
+    #programming_required_rating           = models.IntegerField(choices=RATING_CHOICES, default = 0)
+    #programming_required_description      = models.TextField(blank = True)
     tasks_performed                       = models.ManyToManyField(to='Task', through='ProductTask', blank=True, null=True)
     open_source                           = models.BooleanField()
     demo_available                        = models.BooleanField()
