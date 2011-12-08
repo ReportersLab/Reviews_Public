@@ -54,9 +54,14 @@ class CommonInfo(models.Model):
 
 
 OS_CHOICES = (
-    ('Windows', 'Windows'),
-    ('Mac', 'Mac'),
-    ('Linux', 'Linux'),
+    ('windows', 'Windows Only'),
+    ('mac', 'Mac Only'),
+    ('wm', 'Windows and Mac'),
+    ('web', 'Web Based'),
+    ('android', 'Android Only'),
+    ('iphone', 'Iphone Only'),
+    ('ai', 'iPhone and Android'),
+    ('all', 'Windows, Mac, and Mobile'),
 )
 
 RATING_CHOICES = (
@@ -76,6 +81,7 @@ DOCUMENT_KIND_CHOICES = (
     ('database','database'),
     ('pdf', 'pdf'),
 )
+
 
 
 class Review(CommonInfo):
@@ -122,18 +128,16 @@ class Product(CommonInfo):
     url                                   = models.URLField(blank=True)
     image                                 = models.ImageField( help_text='Product logo or screenshot. TODO: Standardize Size', max_length=256,
                                                               upload_to='review_lab/contrib/img/products', null=True, blank=True)
-    #cost                                  = models.IntegerField(blank=False, default=0,help_text='Cost is a dollar amount. "0" for free')
     cost                                  = models.CharField(max_length = 64, blank = True, default = 'Free', help_text = 'Include a dollar sign if you want it to display.')
     categories                            = models.ManyToManyField('Category', blank=True, null=True)
-    #programming_required_rating           = models.IntegerField(choices=RATING_CHOICES, default = 0)
-    #programming_required_description      = models.TextField(blank = True)
     tasks_performed                       = models.ManyToManyField(to='Task', through='ProductTask', blank=True, null=True)
     open_source                           = models.BooleanField()
     demo_available                        = models.BooleanField()
     company                               = models.CharField(max_length = 128, blank = True)
     release_date                          = models.CharField(max_length = 64,  blank = True, null = True)  #Change to Text
     obsolete                              = models.BooleanField()
-    operating_systems                     = models.ManyToManyField('OperatingSystem', blank = True, null = True) 
+    operating_systems                     = models.ManyToManyField('OperatingSystem', blank = True, null = True)
+    os_availability                       = models.CharField(max_length = 128, blank = True, help_text = 'phrase describing operating system availability', choices = OS_CHOICES)
     
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.url)

@@ -77,7 +77,7 @@ class ProductAdmin(CommonAdmin):
             ('Product Details',
                 {
                     'fields': ('company', 'image', 'cost', 'open_source', 'demo_available', 'obsolete',
-                                'categories', 'release_date', 'operating_systems',)
+                                'categories', 'release_date', 'operating_systems', 'os_availability',)
                 }
             ),
         )
@@ -182,7 +182,7 @@ class ProductTaskAdmin(CommonAdmin):
             ('The Review', {'fields': ('description',)}),
             ('The Details',
                 {
-                    'fields': ('product', 'task', 'rating', 'rating_text', 'version_tested', 'os_used', )    
+                    'fields': ('product', 'task', 'rating', 'rating_text', 'version_tested', 'os_used',)    
                 } 
             ),
         )
