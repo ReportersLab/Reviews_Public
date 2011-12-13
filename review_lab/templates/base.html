@@ -69,11 +69,55 @@
                 </div>
             </div>
             
-            
-            <div id="footer" class="main_content">    
+            <div class="main_content" style="clear:both;">
+                <div id="footer">
+                    <div id="footer_social">
+                        <ul>
+                            <li><a href="http://www.facebook.com/reporterslab"><img src="{{ STATIC_URL }}img/footer_facebook.png" /></a></li>
+                            <li><a href="http://www.twitter.com/reporterslab"><img src="{{ STATIC_URL }}img/footer_twitter.png" /></a></li>
+                            <li><a href="http://www.reporterslab.org/rss"><img src="{{ STATIC_URL }}img/footer_rss.png" /></a></li>
+                            <li><a href="https://plus.google.com/116345623067631086540/posts"><img src="{{ STATIC_URL }}img/footer_google_plus.png" /></a></li>
+                            <li><a href="http://www.github.com/reporterslab"><img src="{{ STATIC_URL }}img/footer_github.png" /></a></li>
+                            <li><a href="http://groups.google.com/group/reporters-lab"><img src="{{ STATIC_URL }}img/footer_forum.png" /></a></li>
+                        </ul>
+                    </div>
+                    
+                    <div id="footer_text">
+                        <h3>REPORTERS' LAB</h3>
+                        <p>
+                            A project of Duke University's Dewitt Wallace Center for Media and Democracy<br />
+                            Box 90241 <span class="slashes">//</span> SB 140 <span class="slashes">//</span>201 Science Drive <span class="slashes">//</span>Durham, NC 27708<br />
+                            <a href="mailto:info@reporterslab.org">info@reporterslab.org</a>
+                        </p>
+                        <h3 style="margin-top:15px;">Questions? Comments?</h3>
+                        <p>Email Tyler Dukes at <a href="mailto:tyler@reporterslab.org">tyler@reporterslab.org</a> or call 919-613-7346</p>
+    
+                        <h4>
+                            &copy; 2012 Reporters' Lab. All Rights Reserved.
+                            <span class="slashes">//</span>
+                            Web design by <a href="http://www.rowdesignstudios.com" style="color:#ED2024;">Row Design Studios</a>
+                        </h4>
+                    </div>
+                    
+                    <fieldset id="footer_more">
+                        <legend align="center">More Information</legend> <!-- align deprecated, but no other solution? -->
+                        <p>
+                            <a href="http://www.reporterslab.org/mission">Our Mission</a><br />
+                            <a href="http://reviews.reporterslab.org">Reviews</a><span class="slashes">//</span>
+                            <a href="http://www.github.com/reporterslab">Source Code</a><br />
+                            <a href="http://www.reporterslab.org/developers">Developers Challenges</a><span class="slashes">//</span>
+                            <a href="http://www.reporterslab.org/researchers">Research Topics</a>
+                        </p>
+                    </fieldset>
+                    
+                    
+                </div>
             </div>
-            
-            
+<!--
+More information
+Our mission
+Reviews // Source Code // Developers Challenges // Research Topics
+-->
             
         </div>
         <script src="{{ STATIC_URL }}js/jquery-stars/jquery.rating.pack.js"></script>

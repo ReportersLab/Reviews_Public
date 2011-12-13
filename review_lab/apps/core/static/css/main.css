@@ -54,7 +54,7 @@ a
 a.good { }
 a.bad { }
  
-a:hover
+a:hover, #footer a:hover, #global_nav a:hover, #header a:hover
 {
     color:#FFCC00;
 }
@@ -232,6 +232,8 @@ fieldset legend
     margin:0;
     padding:5px 0 5px 0;
     width:100%;
+    z-index:20;
+    position:relative;
 }
 
 #global_nav ul
@@ -272,8 +274,101 @@ fieldset legend
 
 #footer
 {
+    float:left;
+    clear:both;
+    width:100%;
+    min-height:100px;
+    margin-top:50px;
+    padding: 10px 0 38px 0;
+    background:#000000;
+    color:#FFFFFF;
+    position:relative;
 }
 
+#footer_text
+{
+    padding: 0 0 0 38px;
+}
+
+#footer_text h3
+{
+    font-size:24px;
+    color: #D6E9E1;
+    text-transform:uppercase;
+    margin: 0 0 -5px 0;
+}
+
+#footer_text h4
+{
+    font-size:13px;
+    color:#B3B3B3;
+    margin-top:13px;
+    text-transform:uppercase;
+}
+
+#footer_text p
+{
+    font-size:16px;
+    font-family: 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
+    text-transform:uppercase;
+    line-height:1.1;
+}
+
+#footer a
+{
+    color:#FFFFFF;
+}
+
+
+#footer_social
+{
+    position:absolute;
+    right:38px;
+    top:-22px;
+}
+
+#footer_social ul
+{
+    float:left;    
+}
+
+#footer_social ul li
+{
+    float:left;
+    margin: 0 0 0 2px;
+}
+
+
+#footer_more
+{
+    position:absolute;
+    right:38px; top:40px;
+    border:2px solid #FFFFFF;
+    text-align:center;
+    padding:15px;
+}
+
+#footer_more legend
+{
+    text-align:center;
+    text-transform:uppercase;
+    font-family: 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
+    font-size:20px;
+    padding: 0 13px 0 13px;
+}
+
+#footer_more p
+{
+    font-size:16px;
+    font-family: 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
+    text-transform:uppercase;
+}
+
+#main
+{
+    width:930px;
+    clear:both;
+}
 
 /**
  *Left Rail Styles
@@ -377,6 +472,7 @@ fieldset legend
 .slashes
 {
     color:#778E1E;
+    margin: 0 5px 0 5px;
 }
 
 
