@@ -1,14 +1,12 @@
 <div id="search_form" class="grid_12 alpha omega">
     <form method="post" name="searchForm" onsubmit="return false;" action="/search">
-        <input id="q" name="searchBox" type="text" style="width:180px; margin:0 15px 0 0;" />
-        <input id="searchButton" type="submit" value="Search" />
+        <input id="search_button" type="image" src="{{ STATIC_URL }}img/search_arrow.png" name="searchButton"  value="" />
+        <input id="q" name="search_box" type="text" placeholder="Search Reporters' Lab" />
     </form>
     <script type="text/javascript" language="javascript">
-        
-            $('#searchButton').click(function(){
+            $('#search_button').click(function(){
                 text = $('#q').val().replace(' ', '+');
                 window.location = "/search?q=" + text
             });
-            
     </script>
 </div>

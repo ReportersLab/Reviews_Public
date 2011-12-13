@@ -5,45 +5,76 @@
         <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
         <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" type="text/css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/960.css" type="text/css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/text.css" type="text/css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css" type="text/css" charset="utf-8" />
         <link rel="stylesheet" href="{{ STATIC_URL }}js/jquery-stars/jquery.rating.css" type="text/css" />
         {% block head %}{% endblock %}
     </head>
     
     <body>
-        <div id="wrapper" class="container_12">
-            <div id="header" class="grid_12 alpha omega">
-                <h1><a href="/">The Reporter's Test Kitchen</a><br />{% now "jS F Y H:i:s" %}</h1>
-                {% include 'renderers/search_box.django.html' %}
+        <div id="wrapper">
+            
+            
+            <div id="header">
+                <div class="main_content">
+                    <div id="header_right_bg"></div>
+                </div>
+                <div id="header_bg"></div>
+                <div class="main_content" style="z-index:3">
+                    <img id="logo" src="{{ STATIC_URL }}img/mast.png" />
+                    <div id="main_subnav">
+                        <ul>
+                            <li><a href="http://www.reporterslab.org/about">About</a></li>
+                            <li><a href="http://www.reporterslab.org/contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div id="tools_nav">
+                        <h5>Our Tools:</h5>
+                        <ul>
+                            <li><a href="http://www.reporterslab.org/timeflow">Timeflow</a></li>
+                            <li><a href="http://www.reporterslab.org/timeflow">Reviews</a></li>
+                            <li><a href="http://www.reporterslab.org/timeflow">TV</a></li>
+                        </ul>
+                    </div>
+                    {% include 'renderers/search_box.django.html' %}
+                </div>
             </div>
-            <div id="pre_main" class="grid_12 alpha omega">
+            
+            <div id="global_nav">
+                <div class="main_content">
+                    <ul>
+                        <li><a href="http://www.reporterslab.org">News</a></li>
+                        <li class="selected"><a href="">Reviews</a></li>
+                        <li><a href="http://www.reporterslab.org/developers">Challenges For Developers</a></li>
+                        <li><a href="http://www.reporterslab.org/researchers">Topics For Researchers</a></li>
+                    </ul>
+                    <a href="http://www.duke.edu" id="duke_tag">A Duke University Project</a>
+                </div>
+            </div>
+            <div id="black_bar"><span>&nbsp;</span></div>
+            
+            
+            <div id="pre_main" class="main_content">
                 {% block pre_main %} {% endblock %}
             </div>
-            <div id="main" class="grid_12 alpha omega">
-                <div id="content" class="grid_8 alpha">
+            
+            
+            <div id="main" class="main_content">
+                <div id="left_rail">
                     {% block main_content %}{% endblock %}
                 </div>
-                <div class="grid_4 omega">
-                    <div id="right_rail" >
-                        {% block right_rail_top %}{% endblock %}
-                        {% include "renderers/right_rail.django.html" %}
-                        {% block right_rail_bottom %}{% endblock %}
-                    </div>
+                <div id="right_rail" >
+                    {% block right_rail_top %}{% endblock %}
+                    {% include "renderers/right_rail.django.html" %}
+                    {% block right_rail_bottom %}{% endblock %}
                 </div>
             </div>
-            <div id="footer" class="grid_12 alpha omega">
-                <div class="grid_9 alpha"><p></p></div>
-                <div id="footer_contact" class="grid_3 omega">
-                    <h4>Contact Us</h4>
-                    <p> email: <a href="mailto:info@reporterslab.org">info@reporterslab.org</a></p>
-                    <p> phone: 919.613.7348</p>
-                    <p>  code: <a href="http://www.github.com/ReportersLab">Github</a></p>
-                    <p>tweets: <a href="http://www.twitter.com/ReportersLab">@ReportersLab</a></p> 
-                </div>
-                
+            
+            
+            <div id="footer" class="main_content">    
             </div>
+            
+            
+            
         </div>
         <script src="{{ STATIC_URL }}js/jquery-stars/jquery.rating.pack.js"></script>
         {% block end_body %}{% endblock %}

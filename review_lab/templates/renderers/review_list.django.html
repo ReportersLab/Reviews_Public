@@ -1,12 +1,12 @@
 {% for review in reviews %}
         <div class="review_list_container {% if forloop.last %}last{% endif %}">
+            <h6>A review of <a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></h6>
             <h2>
                 <a href="{{ review.get_absolute_url }}">{{review.name}}</a>
             </h2>
-            <h6>A review of <a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></h6>
             <div class="byline_timestamp_container">
-                <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a> | </span>
-                
+                <span class="byline"><a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a></span>
+                <span class="slashes">//</span>
                 <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
             </div>
             <div class="teaser">

@@ -1,8 +1,11 @@
 <ul>
 {% for item in items %}
      <li>
-         <h5><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h5>
-         <p> {{ item.update_time|date:"DATETIME_FORMAT" }}</p>
+         <h5>
+               <a href="{{ item.get_absolute_url }}">  {{ item.name }} <br />
+                    {{ item.update_time|date:"DATETIME_FORMAT" }}
+               </a>
+         </h5>
      </li>
  {% endfor %}
  </ul>
