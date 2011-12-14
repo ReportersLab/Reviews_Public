@@ -452,6 +452,11 @@ fieldset legend
     border-bottom:3px solid white;
 }
 
+#right_rail ul li.last
+{
+    border-bottom:none;
+}
+
 #right_rail ul li h5
 {
     font: 100 12px Arial;

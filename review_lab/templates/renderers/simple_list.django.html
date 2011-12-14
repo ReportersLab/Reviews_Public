@@ -1,6 +1,6 @@
 <ul>
 {% for item in items %}
-     <li>
+     <li {% if forloop.last %} class="last" {% endif %}>
          <h5>
                <a href="{{ item.get_absolute_url }}">  {{ item.name }} <br />
                     {{ item.update_time|date:"DATETIME_FORMAT" }}
