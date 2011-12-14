@@ -41,6 +41,11 @@ h2
     font-weight:bold;
 }
 
+h3
+{
+    font-size:27px;    
+}
+
 li{
     list-style:none;
 }
@@ -93,6 +98,33 @@ fieldset legend
     margin-right:auto;
     width:930px;
     position:relative;
+}
+
+
+.box_shadow
+{
+    -webkit-box-shadow:0 1px 10px #999;
+    -moz-box-shadow:0 1px 10px #999;
+    box-shadow:0 1px 10px #999;
+}
+
+.slashes
+{
+    color:#778E1E;
+    margin: 0 5px 0 5px;
+}
+
+.black_bar
+{
+    background:#000000;
+    height:4px;
+    clear:both;
+    margin: 0;
+}
+
+.black_bar.big
+{
+    height:8px;
 }
 
 
@@ -264,13 +296,7 @@ fieldset legend
 
 #global_nav ul li a {color:#FFFFFF;}
 
-#black_bar
-{
-    background:#000000;
-    height:4px;
-    clear:both;
-    margin: 0;
-}
+
 
 #footer
 {
@@ -469,68 +495,146 @@ fieldset legend
     padding-left:5px;
 }
 
-.slashes
-{
-    color:#778E1E;
-    margin: 0 5px 0 5px;
-}
-
 
 
 /**
  *Detail Container, basically used on all details pages to wrap the main content.
  */
 
-#detail_container
+#detail_header h1
 {
-    margin-top:10px;
+    font-family:Arial,'Liberation Sans',FreeSans,sans-serif;
+    font-size:18px;
+    font-weight:bold;
+    text-transform:none;
 }
 
-#detail_container h6
+#detail_header h6, #detail_header h4
 {
-    margin:10px 0 0 0;
-    font-size:10px;
-    text-transform:uppercase;
-    color:#333333;
+    font-family:Arial,'Liberation Sans',FreeSans,sans-serif;
+    font-size:14px;
 }
 
-#detail_container h1
+#detail_header h4
 {
-    margin:0;
-    font-size:20px;
+    text-transform:none;
 }
 
-#detail_container.tag h1
+#review_header_details
 {
-    text-transform:capitalize; /*Tags usually come in lowercase and we want them all caps here. */
+    width:380px;
 }
 
-#detail_container h4
+
+
+#detail_container p
+{
+    margin:0 0 18px 0;
+}
+
+
+.detail_item_container
+{
+    margin:18px 0 18px 0;
+}
+
+.detail_item
+{
+    margin: 0 0 22px 0;
+    padding: 0 0 22px 0;
+    border-bottom: 4px solid #D6E9E1;
+    float:left;
+    width:100%;
+    clear:both;
+}
+
+.detail_item h2
+{
+    font-size:14px;    
+}
+
+.detail_item p
+{
+    color:#4D4D4D;
+    display:inline;
+}
+
+.detail_item .more_link
+{
+    float:none;
+    display:inline;
+    font-size:12px;
+}
+
+.detail_item .verdict
+{
+    float:right;
+    width:164px;
+    margin:5px 15px 20px 20px;
+    padding:15px;
+}
+
+.detail_item_metadata
+{
+    margin: 0 0 22px 0;
+}
+
+#tags
+{
+    margin:18px 0 18px 0;
+    padding:18px;
+    font-weight:bold;
+}
+
+#ratings
+{
+    float:right;
+    width:164px;
+    padding:15px;
+    margin:5px 15px 20px 20px;
+}
+
+#ratings h4
+{
+    font-family:Arial,'Liberation Sans',FreeSans,sans-serif;
+    font-size:14px;
+    margin:0 0 10px 0;
+    text-transform:none;
+}
+
+#ratings img, .verdict img
+{
+    margin: 0 10px 0 0;
+}
+
+#ratings p
 {
     font-size:12px;
-    color:#666;
-    font-weight:normal;
-    margin:2px 0 2px 0;
+    color:#4D4D4D;
+    margin: 8px 0 20px 0;
 }
 
-#detail_container h5
+
+#review_details, #review_header_details
 {
-    font-weight:normal;
-    font-size:12px;
-    font-style:italic;
-    margin:0 0 5px 0;
+    text-align:center;
+    padding:18px 10px 18px 10px;
+    margin:18px 0 18px 0;
+}
+#review_details h6, #review_details p, #review_header_details h6, #review_header_details p
+{
+    display:inline;
 }
 
-#detail_container .byline_timestamp_container
+#review_details h6, #review_header_details h6
 {
-    font-size:12px;
+    font-weight:bold;
+    text-transform:none;
 }
 
-#detail_header
+#review_details p, #review_header_details p
 {
-    margin-bottom:10px;
-    padding:0 0 5px 0;
-    border-bottom:1px solid #DDDDDD;
+    color:#4D4D4D;
 }
 
 
@@ -539,137 +643,7 @@ fieldset legend
  * Review Specific Details
  * 
  **/
-.sidebar, #facets
-{
-    float:right;
-    background:#EDEDED;
-    border-top:1px solid #333333;
-    border-bottom:1px solid #333333;
-    padding:5px;
-    margin:5px 0 10px 10px;
-}
-
-#review_details p, #review_details h6
-{
-    margin:0;
-    padding:0;
-}
-
-#review_details h6
-{
-    margin-top:10px;
-}
-
-
-#header_details div.container, #footer_details div.container
-{
-    float:left;
-    clear:both;
-}
-
-#ratings, #header_details, #footer_details
-{
-    float:left;
-    clear:both;
-    background-color:#E6E6E6;
-    margin:auto;
-    padding:5px 0 5px 0;
-}
-
-.rating_container
-{
-    background-color:#E6E6E6;
-    margin:10px 0 0 0;
-    padding:5px 0 5px 0;
-    float:left;
-    clear:both;
-}
-
-.verdict, #header_details h4, #footer_details h4
-{
-    text-align:right;
-    float:left;
-    margin:-1px 10px 0 0;
-    font-size:14px;
-    font-weight:bold;
-    color:#000000;
-}
-
-.star-rating-control
-{
-    display:block;
-    margin:0 20px 0 20px;
-}
-
-
-.rating_container.last
-{
-    border-top:1px solid #FFFFFF;
-}
-
-
-.detail_item_container
-{
-    float:left; clear:both;
-    margin:10px 0 0 0;
-}
-.detail_item_container h2
-{
-    border-bottom:1px solid #DDDDDD;
-    border-top:1px solid #333333;
-    color:#333333;
-    margin:10px 0 10px 0;
-    padding:10px 0 10px 0;
-}
-
-.detail_item
-{
-    float:left; clear:both;
-    padding-bottom:15px;
-    margin-bottom:15px;
-    border-bottom:1px solid #DDDDDD;
-}
-
-.detail_item.last
-{
-    padding-bottom:5px;
-    border-bottom:none;
-}
-
-.detail_item h3
-{
-    font-weight:bold;
-    font-size:16px;
-    margin:0 0 5px 0;
-}
-
-.detail_item_metadata
-{
-    font-size:12px;
-    margin:5px 0 5px 0;
-    font-style:italic;
-    clear:both;
-    float:left;
-}
-
-.detail_item_metadata span
-{
-    text-align:right;
-}
-
-.detail_item .details
-{
-    margin:0 0 15px 0;
-}
-
-
-#tutorial_embed
-{
-    text-align:center;
-    margin:10px 0 10px 0;
-    float:left; clear:both;
-}
-
+.
 
 
 

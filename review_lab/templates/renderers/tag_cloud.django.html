@@ -1,12 +1,12 @@
 {% if object.tags.all %}
-    <fieldset id="tags" class="tags grid_8 alpha omega">
-        <legend>Tags</legend>
+    <div id="tags" class="tags box_shadow">
+        <h3>Tags</h3>
         <p>
         {% for tag in object.tags.all %}
             {{ tag.something }}
             <a href="{% url tag_view tag.slug %}" class="{{ tag.style_name }}">{{ tag.clean_name }}</a>{% if not forloop.last %}, {% endif %}
         {% endfor %}
         </p>
-    </fieldset>
+    </div>
 {% endif %}    
 
