@@ -64,6 +64,12 @@ a:hover, #footer a:hover, #global_nav a:hover, #header a:hover
     color:#FFCC00;
 }
 
+#global_nav li.selected a
+{
+    border-bottom:3px solid #FFCC00;
+    padding-bottom:1px;
+}
+
 blockquote
 {
 }
@@ -106,6 +112,7 @@ fieldset legend
     -webkit-box-shadow:0 1px 10px #999;
     -moz-box-shadow:0 1px 10px #999;
     box-shadow:0 1px 10px #999;
+    background:#FFFFFF;
 }
 
 .slashes
@@ -170,6 +177,12 @@ fieldset legend
 #logo
 {
     margin:10px 0 0 38px;
+}
+#review_logo
+{
+    position:absolute;
+    top:38px; left:490px;
+    z-index:30;
 }
 
 #main_subnav
@@ -271,7 +284,7 @@ fieldset legend
 #global_nav ul
 {
     float:left;
-    margin: 0 0 0 38px;
+    margin: 0 0 0 22px;
     color:#FFFFFF;
 }
 
@@ -522,7 +535,7 @@ fieldset legend
 
 #review_header_details
 {
-    width:380px;
+    width:390px;
 }
 
 
@@ -546,6 +559,11 @@ fieldset legend
     float:left;
     width:100%;
     clear:both;
+}
+
+.detail_item.last
+{
+    border-bottom:none;
 }
 
 .detail_item h2
@@ -586,7 +604,7 @@ fieldset legend
     font-weight:bold;
 }
 
-#ratings
+#ratings, #facets
 {
     float:right;
     width:164px;
@@ -594,7 +612,7 @@ fieldset legend
     margin:5px 15px 20px 20px;
 }
 
-#ratings h4
+#ratings h4, #facets h4
 {
     font-family:Arial,'Liberation Sans',FreeSans,sans-serif;
     font-size:14px;
@@ -607,7 +625,7 @@ fieldset legend
     margin: 0 10px 0 0;
 }
 
-#ratings p
+#ratings p, #facets p
 {
     font-size:12px;
     color:#4D4D4D;
@@ -704,12 +722,25 @@ fieldset legend
 {
     float:none;
     clear:none;
+    overflow:hidden;
+    width:auto;
 }
 
 
-#facets
+#facets ul
 {
-    margin-top:20px;
+    margin-left:20px;    
+}
+
+#facets ul li
+{
+    list-style:square;
+    color:#778E1E;
+}
+
+#facets ul li a
+{
+    color:#000000;
 }
 
 

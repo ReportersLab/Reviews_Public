@@ -7,7 +7,37 @@
 
 {% block main_content %}
     
+    
+    {% mkrange 1 6 1 as star_range %}
+    
+    {% comment %}
+        {% if product_task.product.review_set.all %}
+        <div>
+            <h6><a href="{{ product_task.product.latest_product_task.get_absolute_url }}">Read Our Latest Review</a></h6>
+        </div>
+        {% endif %}
+    {% endcomment %}
     <div id="detail_container" class="review">
+        
+        <div id="ratings" class="box_shadow">
+            <div class="rating_container">
+                <h4>Verdict:</h4>
+                <div>
+                    {% for i in star_range %}
+                        <img {% if forloop.counter <= product_task.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                    {% endfor %}
+                </div>
+                <p>
+                    {{ product_task.rating_text }}
+                    {% if product_task.product.review_set.all %}
+                        <br /><br />
+                        <a href="{{ product_task.product.latest_product_task.get_absolute_url }}" class="more_link">Read Latest Review &raquo;</a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        
+        
         <div id="detail_header" class="grid_8 alpha omega">
             <h6><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a>
                 {% if product_task.kicker %} | {{ product_task.kicker }} {% endif %}
@@ -18,88 +48,95 @@
             <h4>{{ product_task.subtitle }}</h4>
             <div class="byline_timestamp_container">
                 {% if product_task.reviewer %}
-                    <span class="byline">by: <a href="mailto:{{ product_task.reviewer.email }}">{{ product_task.reviewer.first_name }} {{ product_task.reviewer.last_name }}</a> | </span>
+                    <span class="byline">by: <a href="mailto:{{ product_task.reviewer.email }}">{{ product_task.reviewer.first_name }} {{ product_task.reviewer.last_name }}</a></span>
+                    <span class="slashes">//</span>
                 {% endif %}
                 <span class="timestamp">{{ product_task.update_time|date:"DATETIME_FORMAT" }}</span>
             </div>
             <div class="pt_metadata">
                 <div class="task_url">
-                    <span class="grid_1 alpha">Task:</span>
-                    <a class="grid_7 omega" href="{{ product_task.task.get_absolute_url }}">{{ product_task.task.name }}</a>
+                    <span>Task:</span>
+                    <a href="{{ product_task.task.get_absolute_url }}">{{ product_task.task.name }}</a>
                 </div>
                 {% if product_task.task.document %}
                     <div class="document_url">
-                        <span class="grid_1 alpha">Documents:</span>
-                        <a class="grid_7 omega" href="{{ product_task.task.document.get_absolute_url }}"> {{ product_task.task.document.name }}</a>
+                        <span>Documents:</span>
+                        <a href="{{ product_task.task.document.get_absolute_url }}"> {{ product_task.task.document.name }}</a>
                     </div>
                 {% endif %}
             </div>
-        </div>
-        <div id="details">
-            <div id="review_details" class="sidebar grid_2 omega">
-                <div>
-                    <h6>Product</h6>
-                    <p><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a></p>
-                </div>
-                <div>
-                    <h6>Company</h6>
-                    <p><a href="{{ product_task.product.url }}">{{ product_task.product.company }}</a></p>
-                </div>
+            
+            <div id="review_header_details" class="box_shadow">
                 
-                <div>
-                    <h6>Version Tested</h6>
-                    <p>{{ product_task.version_tested }}</p>
-                </div>
-                {% if product_task.product.release_date %}
-                <div>
-                    <h6>Release Date</h6>
-                    <p>{{ product_task.product.release_date }}</a></p>
-                </div>
-                {% endif %}
-                <div>
-                    <h6>OS Tested</h6>
-                    <p> {% for os in product_task.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a><br />{% endfor %}</p>
-                </div>
-                <div>
-                    <h6>Cost</h6>
+                    <h6>Product:</h6>
+                    <p><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a></p>
+                    <span class="slashes">//</span>
+                
+                    <h6>Company:</h6>
+                    <p><a href="{{ product_task.product.url }}">{{ product_task.product.company }}</a></p>
+                    <span class="slashes">//</span>
+                    
+                    <h6>Cost:</h6>
                     <p>{% if product_task.product.cost == 0 %}FREE {% else %}{{ product_task.product.cost }}{% endif %}</a></p>
+                    
                 </div>
-                <div>
-                    <h6>Open Sourced</h6>
-                    <p>{% if product_task.product.open_source %}Yes {% else %}No{% endif %}</a></p>
-                </div>
-                <div>
-                    <h6>Demo Available</h6>
-                    <p>{% if product_task.product.demo_available %}Yes {% else %}No{% endif %}</a></p>
-                </div>
-                <div>
-                    <h6>Obsolete</h6>
-                    <p>{% if product_task.product.obsolete %}Yes {% else %}No{% endif %}</a></p>
-                </div>
-                {% if product_task.product.review_set.all %}
-                <div>
-                    <h6><a href="{{ product_task.product.latest_review.get_absolute_url }}">Read Our Latest Review</a></h6>
-                </div>
-                {% endif %}
-            </div>
-            <div>
-                {{product_task.description|safe}}
-            </div>
+            
+            
         </div>
+        {{product_task.description|safe}}
     </div>
-    <div class="rating_container">
-        <span class="verdict grid_1 alpha">Verdict:</span>
-        <div class="grid_2">
-            {% mkrange 1 6 1 as star_range %}
-            {% for i in star_range %}
-                <input name="star{{ product_task.id }}" type="radio" class="star" disabled="disabled" {% if forloop.counter == product_task.rating %} checked="checked" {% endif %} />
-            {% endfor %}
-        </div>
-        <p class="grid_5 omega">{{ product_task.rating_text }}</p>
-    </div>
-        
+    
         
     {% include "renderers/tag_cloud.django.html" with object=product_task %}  
-
+    
+    
+            
+            <div class="black_bar big"><span>&nbsp;</span></div>
+                
+            <div id="review_details" class="box_shadow">
+                
+                    <h6>Product:</h6>
+                    <p><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a></p>
+                    <span class="slashes">//</span>
+                
+                    <h6>Company:</h6>
+                    <p><a href="{{ product_task.product.url }}">{{ product_task.product.company }}</a></p>
+                    <span class="slashes">//</span>
+                    
+                    <h6>Version Tested:</h6>
+                    <p>{{ product_task.version_tested }}</p>
+                    <span class="slashes">//</span>
+                
+                {% if product_task.product.release_date %}
+                    <h6>Release Date:</h6>
+                    <p>{{ product_task.product.release_date }}</a></p>
+                    <span class="slashes">//</span>
+                {% endif %}
+                    
+                    <h6>OS Tested:</h6>
+                    <p> {% for os in product_task.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a>{% endfor %}</p>
+                    <span class="slashes">//</span>
+                    
+                    <h6>Cost:</h6>
+                    <p>{% if product_task.product.cost == 0 %}FREE {% else %}{{ product_task.product.cost }}{% endif %}</a></p>
+                    <span class="slashes">//</span>
+                    
+                    <h6>Open Sourced:</h6>
+                    <p>{% if product_task.product.open_source %}Yes {% else %}No{% endif %}</a></p>
+                    <span class="slashes">//</span>
+                    
+                    <h6>Demo Available:</h6>
+                    <p>{% if product_task.product.demo_available %}Yes {% else %}No{% endif %}</a></p>
+                    <span class="slashes">//</span>
+                    
+                    <h6>Obsolete:</h6>
+                    <p>{% if product_task.product.obsolete %}Yes {% else %}No{% endif %}</a></p>
+            </div>
+                
+            
+    
+    
+    
+    
 
 {% endblock %}

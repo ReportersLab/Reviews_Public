@@ -7,143 +7,143 @@
 
 {% block main_content %}
     
+        {% mkrange 1 6 1 as star_range %}
     
         <div id="detail_container" class="product">
-            <h1>{{product.name}}</h1>            
+            <div id="detail_header">
+                <h1>{{product.name}}</h1>
+                
+            </div>
             <div id="details">
                 {{product.description|safe}}
             </div>
-            <div id="footer_details" class="grid_8 alpha omega">
-                <div class="container">
-                    <h4 class="grid_2 alpha">Company:</h4>
-                    <p class="grid_6 omega"><a href="{{ product.url }}">{{ product.company }}</a></p>
-                </div>
-                {% if product.release_date %}
-                <div class="container">
-                    <h4 class="grid_2 alpha">Release Date:</h4>
-                    <p class="grid_6 omega">{{ product.release_date }}</a></p>
-                </div>
-                {% endif %}
-                <div class="container">
-                    <h4 class="grid_2 alpha">Cost:</h4>
-                    <p class="grid_6 omega">{% if product.cost == 0 %}FREE {% else %}{{ product.cost }}{% endif %}</a></p>
-                </div>
-                <div class="container">
-                    <h4 class="grid_2 alpha">Open Sourced:</h4>
-                    <p class="grid_6 omega">{% if product.open_source %}Yes {% else %}No{% endif %}</a></p>
-                </div>
-                <div class="container">
-                    <h4 class="grid_2 alpha">Demo Available:</h4>
-                    <p class="grid_6 omega">{% if product.demo_available %}Yes {% else %}No{% endif %}</a></p>
-                </div>
-                <div class="container">
-                    <h4 class="grid_2 alpha">Obsolete:</h4>
-                    <p class="grid_6 omega">{% if product.obsolete %}Yes {% else %}No{% endif %}</a></p>
-                </div>
-                <div class="container">
-                    <h4 class="grid_2 alpha">Operating Systems:</h4>
-                    <p class="grid_6 omega">
-                        {% for os in product.operating_systems.all %}
-                            <a href="{{os.url}}" target="_blank">
-                                {{os.name}}
-                            </a>
-                            {% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </p>
-                </div>
+        </div>
+        
+        {% include "renderers/tag_cloud.django.html" with object=product %}
+            
+        <div class="black_bar big"><span>&nbsp;</span></div>
                 
-                {% comment %}
-                
-                <div class="container">
-                    <h4 class="grid_2 alpha">Programming:</h4>
-                    <div class="grid_6 omega">
-                        {{ product.programming_required_description|safe }}
-                        <strong>Difficulty: {{ product.programming_required_rating }}/5</strong>
-                    </div>
-                </div>
-                
-                {% endcomment %}
-            </div>
+        <div id="review_details" class="box_shadow">
+            
+            <h6>Product:</h6>
+            <p><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></p>
+            <span class="slashes">//</span>
+        
+            <h6>Company:</h6>
+            <p><a href="{{ product.url }}">{{ product.company }}</a></p>
+            <span class="slashes">//</span>
+            
+            <h6>Version Tested:</h6>
+            <p>{{ review.version_tested }}</p>
+            <span class="slashes">//</span>
+        
+            {% if product.release_date %}
+                <h6>Release Date:</h6>
+                <p>{{ product.release_date }}</a></p>
+                <span class="slashes">//</span>
+            {% endif %}
+            
+            <h6>OS Tested:</h6>
+            <p> {% for os in review.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a>{% endfor %}</p>
+            <span class="slashes">//</span>
+            
+            <h6>Cost:</h6>
+            <p>{% if product.cost == 0 %}FREE {% else %}{{ product.cost }}{% endif %}</a></p>
+            <span class="slashes">//</span>
+            
+            <h6>Open Sourced:</h6>
+            <p>{% if product.open_source %}Yes {% else %}No{% endif %}</a></p>
+            <span class="slashes">//</span>
+            
+            <h6>Demo Available:</h6>
+            <p>{% if product.demo_available %}Yes {% else %}No{% endif %}</a></p>
+            <span class="slashes">//</span>
+            
+            <h6>Obsolete:</h6>
+            <p>{% if product.obsolete %}Yes {% else %}No{% endif %}</a></p>
+        </div>
+            
+        <div class="black_bar big"><span>&nbsp;</span></div>
             
             
-            {% include "renderers/tag_cloud.django.html" with object=product %}
-            
-            
-            
-            {% if product.review_set.all %}
+        {% if product.review_set.all %}
             <div id="product_reviews" class="detail_item_container">
-                <h2>Our Reviews</h2>
+                <h3>Our Reviews</h3>
                 {% for review in product.review_set.all %}
-                    <div class="detail_item review_list_container {% if forloop.last %}last{% endif %}">
-                        <h3>
-                            <a href="{{ review.get_absolute_url }}">{{ review.name }}</a>
-                        </h3>
-                        <div class="byline_timestamp_container">
-                            <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a> | </span>
-                            <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
+                    <div class="detail_item {% if forloop.last %}last{% endif %}">
+                        <div class="rating_container verdict box_shadow">
+                            <h4>Verdict:</h4>
+                            <div>
+                                {% for i in star_range %}
+                                    <img {% if forloop.counter <= review.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                                {% endfor %}
+                            </div>
+                            <p>{{ review.rating_text }}</p>
                         </div>
-                        <div class="teaser">
-                            {{ review.teaser|safe }}
+                        <h2><a href="{{ review.get_absolute_url }}">{{ review.name }}</a></h2>
+                        <div class="details">{{ review.teaser|safe }}
+                           <a href="{{ review.get_absolute_url }}" class="more_link">READ OUR FULL REVIEW &raquo;</a>
                         </div>
-                    </div>
+                     </div>
                 {% endfor %}
             </div>
         {% endif %}
         
         
-        {% if product.producttask_set.all %}         
+        {% if product.producttask_set.all %}
+            <div class="black_bar big"><span>&nbsp;</span></div>
+        
             <div id="task_performance" class="detail_item_container">
-                <h2>Tasks Tested</h2>
+                <h3>Tasks Tested</h3>
                 {% for pt in product.producttask_set.all %}
-                     <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
-                        <h3><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h3>
+                     <div class="detail_item {% if forloop.last %}last{% endif %}">
+                        <div class="rating_container verdict box_shadow">
+                            <h4>Verdict:</h4>
+                            <div>
+                                {% for i in star_range %}
+                                    <img {% if forloop.counter <= pt.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                                {% endfor %}
+                            </div>
+                            <p>{{ pt.rating_text }}</p>
+                        </div>
+                        <h2><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h2>
                         <div class="detail_item_metadata">
                             <div class="task_url">
-                                <span class="grid_1 alpha">Task:</span>
-                                <a class="grid_7 omega" href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>
+                                <span>Task:</span>
+                                <a href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>
                             </div>
                             {% if pt.task.document %}
                                 <div class="document_url">
-                                    <span class="grid_1 alpha">Documents:</span>
-                                    <a class="grid_7 omega" href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
+                                    <span>Documents:</span>
+                                    <a href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
                                 </div>
                             {% endif %}
                         </div>
                         <div class="details">{{ pt.teaser|safe }}
-                           <h6> <a href="{{ pt.get_absolute_url }}">READ OUR FULL REVIEW &raquo;</a></h6>
+                           <a href="{{ pt.get_absolute_url }}" class="more_link">READ OUR FULL REVIEW &raquo;</a>
                         </div>
-                        
                      </div>
-                     
                 {% endfor %}
             </div>
         {% endif %}
         
-        
-        
-        {% if product.tutorial_set.all %}         
+        {% if product.tutorial_set.all %}       
+            <div class="black_bar big"><span>&nbsp;</span></div>
+          
             <div id="product_tutorial" class="detail_item_container">
                 <h2>Tutorials</h2>
+                
                 {% for tutorial in product.tutorial_set.all %}
-                     <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
-                        <h3><a href="{{ tutorial.get_absolute_url }}">{{ tutorial.name }}</a></h3>
-                        <div class="details">{{ tutorial.teaser|safe }}
-                           <h6> <a href="{{ tutorial.get_absolute_url }}">READ THE FULL TUTORIAL &raquo;</a></h6>
+                    <div class="task_item detail_item {% if forloop.last %}last{% endif %}">
+                        <h2><a href="{{ tutorial.get_absolute_url }}">{{ tutorial.name }}</a></h2>
+                        <div class="details">
+                            {{ tutorial.teaser|safe }}
+                            <a href="{{ tutorial.get_absolute_url }}" class="more_link">READ OUR FULL REVIEW &raquo;</a>
                         </div>
-                     </div>
+                    </div>
                 {% endfor %}
             </div>
         {% endif %}
-        
-        
-        
-        
-        
-        
-        
-            
-        </div>
-        
         
 
 {% endblock %}

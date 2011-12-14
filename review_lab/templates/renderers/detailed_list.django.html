@@ -1,20 +1,20 @@
 <div id="detail_container">
 {% for item in objects %}
-<div class="detail_item {% if forloop.last %}last{% endif %}">
-            {% if search %}
-                <h6>{{ item.verbose_name }}</h6>        
-            {% endif %}
-            <h3><a href="{{ item.get_absolute_url }}">{{item.name}}</a></h3>
-            <div class="byline_timestamp_container">
-                <span class="timestamp">{{ item.update_time|date:"DATETIME_FORMAT" }}</span>
-            </div>
-            <div class="teaser">
-                {% if item.teaser %}
-                     {{ item.teaser|safe }}
-                {% else %}
-                     {{ item.description|safe|truncatewords_html:25 }}
-                {% endif %}
-            </div>
+    <div class="detail_item {% if forloop.last %}last{% endif %}">
+        {% if search %}
+            <h6>{{ item.verbose_name }}</h6>        
+        {% endif %}
+        <h2><a href="{{ item.get_absolute_url }}">{{item.name}}</a></h2>
+        <div class="byline_timestamp_container">
+            <span class="timestamp">{{ item.update_time|date:"DATETIME_FORMAT" }}</span>
         </div>
+        <div class="teaser">
+            {% if item.teaser %}
+                 {{ item.teaser|safe }}
+            {% else %}
+                 {{ item.description|safe|truncatewords_html:25 }}
+            {% endif %}
+        </div>
+    </div>
 {% endfor %}
 </div>

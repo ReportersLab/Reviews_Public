@@ -7,73 +7,84 @@
 
 {% block main_content %}
     
+    {% mkrange 1 6 1 as star_range %}
+    
+    
     <div id="detail_container" class="task">
-        {% if task.document %}
-            <h6>Document: <a href="{{ task.document.get_absolute_url }}">{{ task.document.name }}</a></h6>
-        {% endif %}
-        <h1>{{task.name}}</h1>
         
-        <div id="details">
-            {{task.description|safe}}
-        </div>
-        {% include "renderers/tag_cloud.django.html" with object=task %}
-        <div id="ratings">
-            {% mkrange 1 6 1 as star_range %}
-            <div class="grid_8 alpha omega">
+        <div id="ratings" class="box_shadow">
+            <div>
                 <div class="rating_container">
-                    <span class="verdict grid_2 alpha">Difficulty:</span>
-                    <div class="grid_2">
+                    <h4>Overall:</h4>
+                    <div>
                         {% for i in star_range %}
-                            <input name="star_comm" type="radio" class="star" disabled="disabled" {% if forloop.counter == task.difficulty %} checked="checked" {% endif %} />
+                            <img {% if forloop.counter <= task.difficulty %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
                         {% endfor %}
                     </div>
-                    <p class="grid_4 omega">{{ task.difficulty_text }}</p>
+                    <p>{{ task.difficulty_text }}</p>
                 </div>
             </div>
         </div>
         
         
+        <div id="detail_header">
+            {% if task.document %}
+                <h6>Document: <a href="{{ task.document.get_absolute_url }}">{{ task.document.name }}</a></h6>
+            {% endif %}
+            <h1>{{task.name}}</h1>
+        </div>
+        
+        
+        <div id="details">
+            {{task.description|safe}}
+        </div>
+        {% include "renderers/tag_cloud.django.html" with object=task %}
+        
+        <div class="black_bar big"><span>&nbsp;</span></div>
+        
+        
         {% if task.latest_reviews %}         
             <div id="task_performance" class="detail_item_container">
-                <h2>Latest Reviews of this Task</h2>
+                <h3>Latest Reviews of this Task</h3>
+                
+                
                 {% for pt in task.latest_reviews %}
-                     <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
-                        <h3><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h3>
+                     <div class="detail_item {% if forloop.last %}last{% endif %}">
+                        
+                        <div class="rating_container verdict box_shadow">
+                            <h4>Verdict:</h4>
+                            <div>
+                                {% for i in star_range %}
+                                    <img {% if forloop.counter <= pt.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                                {% endfor %}
+                            </div>
+                            <p>{{ pt.rating_text }}</p>
+                        </div>
+                        
+                        
+                        <h2><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h2>
                         <div class="detail_item_metadata">
-                            <div class="pt_product">
-                                <span class="grid_1 alpha">Product:</span>
-                                <a class="grid_7 omega" href="{{ pt.product.get_absolute_url }}">{{ pt.product.name }}</a>
+                            <div class="task_url">
+                                <span>Task:</span>
+                                <a href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>
                             </div>
                             {% if pt.task.document %}
-                                <div class="pt_doc">
-                                    <span class="grid_1 alpha">Documents:</span>
-                                    <a class="grid_7 omega" href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
+                                <div class="document_url">
+                                    <span>Documents:</span>
+                                    <a href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
                                 </div>
                             {% endif %}
                         </div>
                         <div class="details">{{ pt.teaser|safe }}
-                           <h6> <a href="{{ pt.get_absolute_url }}">READ OUR FULL REVIEW &raquo;</a></h6>
+                           <a href="{{ pt.get_absolute_url }}" class="more_link">READ OUR FULL REVIEW &raquo;</a>
                         </div>
                         
                      </div>
                      
                 {% endfor %}
+                
             </div>
         {% endif %}
-        
-        {% comment %}
-        {% if task.challenges %}
-            <div id="task_challenges" class="detail_item_container">
-                <h2>Challenges for this Task</h2>
-                {% for challenge in task.challenges %}
-                    <div class="challenge_item">
-                        <h3><a href="{{ challenge.get_absolute_url }}">{{ challenge.name }}</a></h3>
-                        <div class="details">{{ challenge.teaser|safe }}</div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% endcomment %}
         
         
         

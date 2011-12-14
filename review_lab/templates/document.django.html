@@ -8,22 +8,24 @@
     
     
         <div id="detail_container" class="document">
-            <h6>{{ document.kind }} | <a href="{{ document.url }}">Download the Documents &raquo;</a></h6>
-            <h1>{{ document.name }}</h1>
-            <div id="details">
-                {{ document.description|safe }}
-            </div>
-            
+            <div id="detail_header">
+                <h6>{{ document.kind }} | <a href="{{ document.url }}">Download the Documents &raquo;</a></h6>
+                <h1>{{ document.name }}</h1>
+                <div id="details">
+                    {{ document.description|safe }}
+                </div>
+            </div>            
             
             {% include "renderers/tag_cloud.django.html" with object=document %}
             
+            <div class="black_bar big"><span>&nbsp;</span></div>
             
             {% if document.task_set.all %}
                 <div id="document_tasks" class="detail_item_container">
-                    <h2>Tasks for this Document Set</h2>
+                    <h3>Tasks for this Document Set</h3>
                     {% for task in document.task_set.all %}
-                        <div class="task_item">
-                            <h3><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></h3>
+                        <div class="task_item detail_item {% if forloop.last %}last{% endif %}">
+                            <h2><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></h2>
                             <div class="details">{{ task.description|safe }}</div>
                         </div>
                     {% endfor %}
@@ -31,19 +33,6 @@
             {% endif %}
             
             
-            {% comment %}
-            {% if document.challenges %}
-                <div id="document_challenges" class="detail_item_container">
-                    <h2>Challenges for this Document Set</h2>
-                    {% for challenge in document.challenges %}
-                        <div class="challenge_item">
-                            <h3><a href="{{ challenge.get_absolute_url }}">{{ challenge.name }}</a></h3>
-                            <div class="details">{{ challenge.teaser|safe }}</div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% endcomment %}
             
         </div>
 

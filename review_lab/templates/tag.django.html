@@ -9,16 +9,16 @@
     
     
     <div id="detail_container" class="tag">
-        <h1>Items Tagged With: {{ tag.clean_name|capfirst }} </h1>
         <h6>{{ items.count }} items</h6>
+        <h2>Items Tagged With: {{ tag.clean_name|capfirst }} </h2>
         <div class="detail_item_container">
             {% autopaginate items 10 %}
             {% for item in items %}
                 <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
                     <h6>{{ item.content_type|capfirst }}</h6>
-                    <h3>
+                    <h2>
                         <a href="{{ item.content_object.get_absolute_url }}">{{item.content_object.name}}</a>
-                    </h3>
+                    </h2>
                     <div class="byline_timestamp_container">
                         <span class="timestamp">{{ item.content_object.update_time|date:"DATETIME_FORMAT" }}</span>
                     </div>
