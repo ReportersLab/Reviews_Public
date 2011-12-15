@@ -426,10 +426,10 @@ fieldset legend
 #right_rail
 {
     float:right;
-    width:190px;
+    width:180px;
     height:100%;
     margin:0 38px 0 14px;
-    padding:20px 5px 20px 5px;
+    padding:20px 10px 20px 10px;
     background: #EDF5F2;
 }
 
