@@ -130,20 +130,21 @@
                     <p><a href="{{ review.product.url }}">{{ review.product.company }}</a></p>
                     <span class="slashes">//</span>
                     
+                {% if review.version_tested %}
                     <h6>Version Tested:</h6>
                     <p>{{ review.version_tested }}</p>
                     <span class="slashes">//</span>
-                
+                {% endif %}
                 {% if review.product.release_date %}
                     <h6>Release Date:</h6>
                     <p>{{ review.product.release_date }}</a></p>
                     <span class="slashes">//</span>
                 {% endif %}
-                    
+                {% if review.os_used.count > 0 %}  
                     <h6>OS Tested:</h6>
                     <p> {% for os in review.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a>{% endfor %}</p>
                     <span class="slashes">//</span>
-                    
+                {% endif %}
                     <h6>Cost:</h6>
                     <p>{% if review.product.cost == 0 %}FREE {% else %}{{ review.product.cost }}{% endif %}</a></p>
                     <span class="slashes">//</span>

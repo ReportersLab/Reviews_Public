@@ -186,7 +186,6 @@ def get_response(template = 'index.html', data = dict(), request = dict(), mime 
         'latest_reviews'    : Review.published_objects.all()[:5],
         'latest_documents'  : DocumentSet.published_objects.all()[:5],
         'latest_products'   : Product.published_objects.all()[:5],
-        #'latest_challenges' : Challenge.published_objects.all()[:5],
         'latest_tutorials'  : Tutorial.published_objects.all()[:5],
     }
     

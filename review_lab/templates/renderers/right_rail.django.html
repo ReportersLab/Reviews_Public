@@ -6,11 +6,13 @@
 </div>
 {% endif %}
 
+{% if latest_tutorials.count > 0 %}
 <div>
     <h3>Latest Tutorials</h3>
     {% include "renderers/simple_list.django.html" with items=latest_tutorials %}
     <a class="more_link" href="/search?type=tutorials">See more&raquo;</a>
 </div>
+{% endif %}
 
 <div>
     <h3>Latest Products</h3>

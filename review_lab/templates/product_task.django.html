@@ -102,21 +102,21 @@
                     <h6>Company:</h6>
                     <p><a href="{{ product_task.product.url }}">{{ product_task.product.company }}</a></p>
                     <span class="slashes">//</span>
-                    
+                {% if product_task.version_tested %}   
                     <h6>Version Tested:</h6>
                     <p>{{ product_task.version_tested }}</p>
                     <span class="slashes">//</span>
-                
+                {% endif %}
                 {% if product_task.product.release_date %}
                     <h6>Release Date:</h6>
                     <p>{{ product_task.product.release_date }}</a></p>
                     <span class="slashes">//</span>
                 {% endif %}
-                    
+                {% if product_task.os_used.count > 0 %} 
                     <h6>OS Tested:</h6>
                     <p> {% for os in product_task.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a>{% endfor %}</p>
                     <span class="slashes">//</span>
-                    
+                {% endif %}
                     <h6>Cost:</h6>
                     <p>{% if product_task.product.cost == 0 %}FREE {% else %}{{ product_task.product.cost }}{% endif %}</a></p>
                     <span class="slashes">//</span>
