@@ -32,7 +32,9 @@ class CommonAdmin(admin.ModelAdmin):
     actions_on_top = True
     actions_on_bottom = True
     save_on_top = True
-    list_filter = ('update_time', 'creation_time', 'published')
+    list_filter = ('update_time', 'creation_time', 'published',)
+    search_fields = ('tags__name', 'name', 'description',)
+    date_heirarchy = ('creation_time', 'update_time',)
     
     readonly_fields = ('slug',)
     
@@ -91,7 +93,7 @@ class ProductAdmin(CommonAdmin):
     
    
     inlines = [ProductTaskInline, ReviewInline, ]
-    list_display = ('name', 'url', 'company', 'published', 'view_link',)
+    list_display = ('name', 'url', 'company', 'published', 'view_link', 'update_time',)
     list_editable = ('published',)
     list_display_links = ('name',)
 
@@ -118,7 +120,7 @@ class ReviewAdmin(CommonAdmin):
         
         return fieldsets
     
-    list_display = ('name', 'product', 'rating', 'published', 'view_link',)
+    list_display = ('name', 'product', 'rating', 'published', 'view_link', 'update_time',)
     list_display_links = ('name',)
     list_editable= ('published',) 
     
@@ -145,7 +147,7 @@ class TutorialAdmin(CommonAdmin):
     
     
     
-    list_display = ('name', 'product', 'repo_link', 'published', 'view_link',)
+    list_display = ('name', 'product', 'repo_link', 'published', 'view_link', 'update_time',)
     list_display_links = ('name',)
     list_editable = ('published',)
  
@@ -193,7 +195,7 @@ class ProductTaskAdmin(CommonAdmin):
         return fieldsets
         
     
-    list_display = ('name', 'product_name', 'task_name', 'rating', 'published', 'view_link')
+    list_display = ('name', 'product_name', 'task_name', 'rating', 'published', 'view_link',  'update_time',)
     list_display_links = ('name',)
     list_editable= ('published',)
     
@@ -220,7 +222,7 @@ class TaskAdmin(CommonAdmin):
     
     
     
-    list_display = ('name', 'document_name', 'published', 'view_link',)
+    list_display = ('name', 'document_name', 'published', 'view_link', 'update_time',)
     list_display_links = ('name',)
     list_editable= ('published',)
 
@@ -246,7 +248,7 @@ class DocumentSetAdmin(CommonAdmin):
         return fieldsets
     
     
-    list_display = ('name', 'url', 'published', 'image', 'view_link',)
+    list_display = ('name', 'url', 'published', 'image', 'view_link', 'update_time',)
     list_display_links = ('name',)
     list_editable = ('published',)
 
@@ -272,7 +274,7 @@ class OperatingSystemAdmin(CommonAdmin):
         
     
     
-    list_display = ('name', 'url', 'published',)
+    list_display = ('name', 'url', 'published', 'update_time',)
     list_display_links = ('name',)
     list_editable = ('published',)
 
@@ -292,7 +294,7 @@ class CategoryAdmin(CommonAdmin):
         return fieldsets
         
     
-    list_display = ('name', 'published',)
+    list_display = ('name', 'published', 'update_time',)
     list_display_links = ('name',)
     list_editable = ('published',)
 

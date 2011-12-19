@@ -43,10 +43,6 @@
                 <span class="slashes">//</span>
             {% endif %}
             
-            <h6>OS Tested:</h6>
-            <p> {% for os in review.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a>{% endfor %}</p>
-            <span class="slashes">//</span>
-            
             <h6>Cost:</h6>
             <p>{% if product.cost == 0 %}FREE {% else %}{{ product.cost }}{% endif %}</a></p>
             <span class="slashes">//</span>
