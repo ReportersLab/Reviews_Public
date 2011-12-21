@@ -96,7 +96,6 @@ MORE_CLASSES = {
 
 
 def more_view(request, model):
-    print "THIS IS THE MODEL: " + model
     model_class = MORE_CLASSES.get(model, Review)
     data = {
         'objects': model_class.published_objects.all(),

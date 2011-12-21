@@ -373,14 +373,15 @@ class CustomTag(TagBase):
         
     
     @models.permalink
-    def get_absolute_url(self, slug):
+    def get_absolute_url(self):
         return ('tag_view', (), {'slug': self.slug})
     
     
     def clean_name(self):
-        out = self.name
+        out = self.name.capitalize()
         try:
-            out = self.name.split(':')[1]
+            out = self.name.split(':')[1].capitalize()
+            
         except IndexError:
             pass
         
@@ -401,6 +402,9 @@ class CustomTag(TagBase):
 
 class CustomTagItem(GenericTaggedItemBase):
     tag = models.ForeignKey(CustomTag, related_name="tagged_items")
+    
+    def get_absolute_url(self):
+        return '/'
     
     
 
