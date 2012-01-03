@@ -1,4 +1,8 @@
-<div id="search_form" class="grid_12 alpha omega">
+<div id="search_form">
+    {% comment %}
+        return false prevents csrf problem. For some reason including {% csrf_token %} didn't work. We're not doing anything important here, so this seems
+        like a good enough solution.
+    {% endcomment %}
     <form method="post" name="searchForm" onsubmit="return false;" action="/search">
         <input id="search_button" type="image" src="{{ STATIC_URL }}img/search_arrow.png" name="searchButton"  value="" />
         <input id="q" name="search_box" type="text" placeholder="Search Reporters' Lab" />

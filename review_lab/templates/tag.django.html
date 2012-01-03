@@ -19,7 +19,7 @@
             {% autopaginate items 10 %}
             {% for item in items %}
                 {% if item.content_object.published %}
-                <div class="detail_item grid_8 alpha omega {% if forloop.last %}last{% endif %}">
+                <div class="detail_item {% if forloop.last %}last{% endif %}">
                     <h6>{{ item.content_type|capfirst }}</h6>
                     <h2>
                         <a href="{{ item.content_object.get_absolute_url }}">{{item.content_object.name}}</a>

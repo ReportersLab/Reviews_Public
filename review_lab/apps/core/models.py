@@ -146,12 +146,20 @@ class Product(CommonInfo):
     def get_absolute_url(self):
         return ('product_view', (), {'slug': self.slug})
         
-    
+    @property
     def latest_review(self):
         result = None
         if(self.review_set.count() > 0):
             result = self.review_set.order_by('-creation_time')[0]
         return result
+    
+    @property
+    def latest_rating(self):
+        review = self.latest_review
+        if review is not None:
+            return review.rating
+        else:
+            return None
 
     class Meta:
         ordering             = ['-creation_time']

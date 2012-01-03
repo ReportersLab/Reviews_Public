@@ -7,6 +7,39 @@
 
 {% block main_content %}
     {% autopaginate review_list 10 %}
+    
+    
+    <div id="main_search" class="box_shadow">
+        <h1>Find a tool</h1>
+        <form method="get" name="mainSearchForm" onsubmit="return false;" action="/search">
+            <select id="category_select">
+                <option value="">Select a category &raquo;</option>
+                {% for c in categories %}
+                    <option value="/search?q=&type=products&category={{ c.slug }}">
+                        {{ c.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <span>or</span>
+            <input id="main_search_button" type="image" src="{{ STATIC_URL }}img/search_arrow.png" name="searchButton"  value="" />
+            <input id="main_q" name="main_q" type="text" placeholder="Search our database" class="q" />
+        </form>
+    </div>
+    
+    <script type="text/javascript">
+        $("#category_select").change(function (event) {
+            var url = $(this).val();
+            window.location = url;
+        });
+        
+        $('#main_search_button').click(function(){
+            text = $('#main_q').val().replace(' ', '+');
+            window.location = "/search?q=" + text
+        });
+        
+    </script>
+    
+    
     {% include "renderers/review_list.django.html" with reviews=review_list %}
     {% paginate %}
 {% endblock %}

@@ -12,6 +12,28 @@
     
         <div id="detail_container" class="review">
             
+            <div id="detail_header">
+                <h6><a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a>
+                    {% if review.kicker %} | {{ review.kicker }} {% endif %}
+                </h6>
+                <h1>
+                   {{review.name}}
+                </h1>
+                <h4>{{ review.subtitle }}</h4>
+                <div class="byline_timestamp_container">
+                    {% if review.reviewer %}
+                        <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a></span>
+                        <span class="slashes">//</span>
+                    {% endif %}
+                    <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
+                </div>
+                
+                                
+                
+            </div>
+            
+            
+            
             <div id="ratings" class="box_shadow">
                 <div>
                     <div class="rating_container">
@@ -72,24 +94,7 @@
             </div>
             
             
-            
-            <div id="detail_header">
-                <h6><a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a>
-                    {% if review.kicker %} | {{ review.kicker }} {% endif %}
-                </h6>
-                <h1>
-                   {{review.name}}
-                </h1>
-                <h4>{{ review.subtitle }}</h4>
-                <div class="byline_timestamp_container">
-                    {% if review.reviewer %}
-                        <span class="byline">by: <a href="mailto:{{ review.reviewer.email }}">{{ review.reviewer.first_name }} {{ review.reviewer.last_name }}</a></span>
-                        <span class="slashes">//</span>
-                    {% endif %}
-                    <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
-                </div>
-                
-                <div id="review_header_details" class="box_shadow">
+            <div id="review_header_details" class="box_shadow">
                 
                     <h6>Product:</h6>
                     <p><a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></p>
@@ -103,10 +108,7 @@
                     <p>{% if review.product.cost == 0 %}FREE {% else %}{{ review.product.cost }}{% endif %}</a></p>
                     
                 </div>
-                
-                
-            </div>
-            
+
             
             
             

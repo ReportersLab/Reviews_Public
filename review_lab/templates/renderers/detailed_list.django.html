@@ -1,6 +1,39 @@
+{% load custom_filters %}
+{% load range_tag %}
+{% mkrange 1 6 1 as star_range %}
+
 <div id="detail_container">
+        
+        
 {% for item in objects %}
     <div class="detail_item {% if forloop.last %}last{% endif %}">
+        
+        {% if item|classname:"product" %}
+            <div class="rating_container verdict box_shadow">
+                <h4>Verdict:</h4>
+                <div>
+                    {% for i in star_range %}
+                        <img {% if forloop.counter <= item.latest_review.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                    {% endfor %}
+                </div>
+                <p>{{ item.latest_review.rating_text }}</p>
+            </div>
+        {% endif %}
+        
+        {% if item|classname:"review" %}
+            <div class="rating_container verdict box_shadow">
+                <h4>Verdict:</h4>
+                <div>
+                    {% for i in star_range %}
+                        <img {% if forloop.counter <= item.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                    {% endfor %}
+                </div>
+                <p>{{ item.rating_text }}</p>
+            </div>
+        {% endif %}
+        
+        
+        
         {% if search %}
             <h6>{{ item.verbose_name }}</h6>        
         {% endif %}

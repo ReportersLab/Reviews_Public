@@ -7,7 +7,45 @@
 
 {% block main_content %}
     {% autopaginate results 10 %}
+    
+        <div id="main_search" class="box_shadow">
+            <h1>Find a tool</h1>
+            <form method="get" name="mainSearchForm" onsubmit="return false;" action="/search">
+                <select id="category_select">
+                    <option value="">Select a category &raquo;</option>
+                    {% for c in facets.categories %}
+                        <option value="/search?q=&type=products&category={{ c.slug }}">
+                            {{ c.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <span>or</span>
+                <input id="main_search_button" type="image" src="{{ STATIC_URL }}img/search_arrow.png" name="searchButton"  value="" />
+                <input id="main_q" name="main_q" type="text" placeholder="Search our database" class="q" />
+            </form>
+            
+            {% if request.GET.q  %}
+            <div style="float:left; clear:both;">
+                <h6>Showing results for:  {{ request.GET.q }}</h6>
+            </div>
+            {% endif %}
+        </div>
+        
+        <script type="text/javascript">
+            $("#category_select").change(function (event) {
+                var url = $(this).val();
+                window.location = url;
+            });
+            
+            $('#main_search_button').click(function(){
+                text = $('#main_q').val().replace(' ', '+');
+                window.location = "/search?q=" + text
+            });
+            
+        </script>
+    
     <div id="search_results">
+        
         {% include "renderers/facets.django.html" with facets=facets %}
         {% include "renderers/detailed_list.django.html" with objects=results search='True' %}
     </div>

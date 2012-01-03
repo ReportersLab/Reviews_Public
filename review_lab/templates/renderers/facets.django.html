@@ -1,6 +1,32 @@
 <div id="facets" class="box_shadow">
     <h3>Filter Results</h3>
     <div class="facet">
+        {% comment%}
+            Category is not quite a facet... So, we'll hardcode the type to product. Hopefully this won't be too confusing to users.
+        {% endcomment %}
+        <h2>Category</h2>
+        <ul>
+            <li>
+                {% if request.GET.category == None %}
+                    <span>All</span>
+                {% else %}
+                    <a href="/search?q={{ request.GET.q }}{% if request.GET.date != '' %}&date={{ request.GET.date }}{% endif %}">All</a>
+                {% endif %}
+            </li>
+            {% for c in facets.categories %}
+                <li>
+                    {% if request.GET.category != c.slug %}
+                        <a href="/search?q={{ request.GET.q }}{% if request.GET.date != '' %}&date={{ request.GET.date }}{% endif %}&type=products&category={{ c.slug }}">
+                    {% endif %}
+                    {{ c.name }}
+                    {% if request.GET.category != c.slug %}
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="facet">
         <h2>Date Ranges</h2>
         <ul>
             {% for d in facets.dates %}
@@ -25,12 +51,11 @@
                         <a href="/search?q={{ request.GET.q }}&type={{ t.value }}{% if request.GET.date != '' %}&date={{ request.GET.date }}{% endif %}">
                     {% endif %}
                         {{ t.label }}
-                    {% if request.GET.type != d.value %}
+                    {% if request.GET.type != t.value %}
                         </a>
                     {% endif %}
                 </li>
             {% endfor %}
         </ul>
     </div>
-    
 </div>

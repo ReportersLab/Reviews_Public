@@ -259,14 +259,15 @@ fieldset legend
     position:absolute;
     top:0; left:13px;
     z-index:10;
+    padding:2px 0 2px 16px;
+    width:150px;
     border:2px solid white;
     background:#000000;
     color:#FFFFFF;
     font:14px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
     text-transform:uppercase;
-    padding:2px 0 2px 16px;
-    width:150px;
 }
+
 
 #global_nav
 {
@@ -521,6 +522,75 @@ fieldset legend
     padding-left:5px;
 }
 
+/**
+ *Main search box on search and index page
+ **/
+
+#main_search
+{
+    padding:18px 18px 5px 18px;
+    float:left;
+    clear:both;
+    width:600px;
+    margin:10px 0 18px 0;
+    position:relative;
+}
+
+#main_search select
+{
+    font-family:Arial,'Liberation Sans',FreeSans,sans-serif;
+    font-size:14px;
+    text-transform:none;
+    margin: 0 15px 0 15px;
+    padding: 2px 2px 4px 2px;
+    width:200px;
+    float:left;
+}
+
+#main_search h1
+{
+    font-family:'LeagueGothicRegular', Arial,'Liberation Sans',FreeSans,sans-serif;
+    font-size:36px;
+    text-transform:uppercase;
+    display:inline;
+    margin:0 10px 0 0;
+    float:left;
+    line-height:.8;
+}
+
+#main_search span{
+    float:left;
+    margin:10px 15px 0 0;
+}
+
+#main_search_button{
+    z-index:11;
+    float:left;
+    position:relative;
+}
+
+#main_q{
+    z-index:10;
+    padding:2px 0 2px 16px;
+    width:170px;
+    border:2px solid #DFDFDF;
+    background:#FFFFFF;
+    color:#000000;
+    font:14px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
+    text-transform:uppercase;
+    float:left;
+    position:relative;
+    margin:0 0 0 -10px;
+}
+
+#main_search h6
+{
+    text-transform:none;
+    color:#666666;
+    font-size:12px;
+    margin:10px 0 0 0;
+    clear:both;
+}
 
 
 /**
@@ -626,7 +696,7 @@ fieldset legend
     float:right;
     width:164px;
     padding:15px;
-    margin:5px 15px 20px 20px;
+    margin:10px 15px 20px 20px;
 }
 
 #ratings h4, #facets h4

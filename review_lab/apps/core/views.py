@@ -18,6 +18,7 @@ def index_view(request):
     data = {
         'review_list'  : Review.published_objects.all(),
         'is_index' : True,
+        'categories' : Category.objects.all(),
     }
     return get_response(template='index.django.html', data=data, request=request)
     
@@ -110,6 +111,12 @@ def more_view(request, model):
 def search_view(request):
     #get the query text
     q = request.GET.get('q', '')
+    model = request.GET.get('type', '')
+    model = model.lower()
+    date = request.GET.get('date', None)
+    category = request.GET.get('category', None)
+    
+    
     if q == '':
         q = request.POST.get('q', '')
         request.GET.q = q
@@ -123,7 +130,6 @@ def search_view(request):
         
     
     #If there's a date, lets add that range as well.
-    date = request.GET.get('date', None)
     if date and (date != 'all'):
         now = datetime.date.today()
         difference = datetime.timedelta(weeks=-1)
@@ -139,13 +145,14 @@ def search_view(request):
         now_diff = now + difference
         query &= Q(update_time__range = (now_diff, now))
         
-        
     
+    if category and (category != 'all') and (model == 'products'):
+        query &= Q(categories__slug = category)
+        
     model_list = list()
     
     #lets see if a specific model is requested.
-    model = request.GET.get('type', '')
-    model = model.lower()
+    
     if model != '' and model != 'all':
         model_class = MORE_CLASSES.get(model, Review)
         model_list.append(model_class.published_objects.filter(query))
@@ -160,6 +167,13 @@ def search_view(request):
     
     
     #combine them all into a nice iterable
+    if model == 'products':
+        results = sorted(
+            chain.from_iterable(model_list),
+            key = attrgetter('latest_rating'),
+            reverse = False,
+        )
+        
     results = sorted(
         chain.from_iterable(model_list),
         key=attrgetter('update_time'),
@@ -244,7 +258,9 @@ def gen_facets(request):
         #{'label':'Challenges', 'value':'challenges'},
     ]
     
-    return({'dates':date_facet, 'types':type_facet})
+    category_facet = Category.objects.all()
+    
+    return({'dates':date_facet, 'types':type_facet, 'categories': category_facet,})
     
    
    
