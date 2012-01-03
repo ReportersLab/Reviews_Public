@@ -388,7 +388,7 @@ fieldset legend
     right:38px; top:40px;
     border:2px solid #FFFFFF;
     text-align:center;
-    padding:15px;
+    padding:0 18px 8px 18px;
 }
 
 #footer_more legend
@@ -405,6 +405,13 @@ fieldset legend
     font-size:16px;
     font-family: 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
     text-transform:uppercase;
+}
+
+#duke_logo
+{
+    position:absolute;
+    top:80px;
+    right:35px; 
 }
 
 #main
