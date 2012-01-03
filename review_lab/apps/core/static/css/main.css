@@ -680,6 +680,22 @@ fieldset legend
     margin: 0 0 22px 0;
 }
 
+.detail_item h6
+{
+    display:inline;
+    text-transform:none;
+}
+
+.detail_item h6 a
+{
+    color:#000000;
+}
+
+.detail_item h6 a:hover
+{
+    color:#FFCC00;
+}
+
 #tags, .bottom_box
 {
     margin:18px 0 18px 0;
@@ -802,6 +818,7 @@ fieldset legend
 {
     float:left;
     clear:both;
+    width:650px;
 }
 
 #search_results .detail_item_container

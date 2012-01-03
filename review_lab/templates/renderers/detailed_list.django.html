@@ -17,6 +17,12 @@
                     {% endfor %}
                 </div>
                 <p>{{ item.latest_review.rating_text }}</p>
+                <br />
+                <h6>{% if item.cost == 0 %}FREE {% else %}{{ item.cost }}{% endif %}</h6>
+                <span class="slashes">//</span>
+                <h6><a href="{{item.url}}">Get it</a>
+                <span class="slashes">//</span>
+                <h6><a href="{{ item.latest_review.get_absolute_url }}">Review</a></h6>
             </div>
         {% endif %}
         
@@ -29,6 +35,12 @@
                     {% endfor %}
                 </div>
                 <p>{{ item.rating_text }}</p>
+                <br />
+                <h6>{% if item.product.cost == 0 %}FREE {% else %}{{ item.product.cost }}{% endif %}</h6>
+                <span class="slashes">//</span>
+                <h6><a href="{{item.product.url}}">Get it</a>
+                <span class="slashes">//</span>
+                <h6><a href="{{ item.product.get_absolute_url }}">Details</a></h6>
             </div>
         {% endif %}
         
