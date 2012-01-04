@@ -174,14 +174,14 @@ def search_view(request):
         results = sorted(
             chain.from_iterable(model_list),
             key = attrgetter('latest_rating'),
-            reverse = False,
+            reverse = True,
         )
-        
-    results = sorted(
-        chain.from_iterable(model_list),
-        key=attrgetter('update_time'),
-        reverse = True
-    )
+    else:   
+        results = sorted(
+            chain.from_iterable(model_list),
+            key=attrgetter('update_time'),
+            reverse = True
+        )
     
     data = {
         'results':results,
