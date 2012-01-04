@@ -115,6 +115,8 @@ def search_view(request):
     model = model.lower()
     date = request.GET.get('date', None)
     category = request.GET.get('category', None)
+    cat_object = None
+    type = request.GET.get('type', None)
     
     
     if q == '':
@@ -148,6 +150,7 @@ def search_view(request):
     
     if category and (category != 'all') and (model == 'products'):
         query &= Q(categories__slug = category)
+        cat_object = Category.objects.get(slug = category)
         
     model_list = list()
     
@@ -183,6 +186,11 @@ def search_view(request):
     data = {
         'results':results,
         'facets':gen_facets(request),
+        'date': date,
+        'type': type,
+        'category': category,
+        'cat_object': cat_object,
+        'q': q,
     }
     
     #And return the results
@@ -241,7 +249,6 @@ Generates the data structures for the search facets so there isn't template chao
 def gen_facets(request):
     
     date_facet = [
-        {'label':'All', 'value':'all'},
         {'label':'Past Week', 'value':'week'},
         {'label':'Past 2 Weeks', 'value':'fortnight'},
         {'label':'Past Month', 'value':'month'},
@@ -250,7 +257,6 @@ def gen_facets(request):
     ]
     
     type_facet = [
-        {'label':'All', 'value':'all'},
         {'label':'Reviews', 'value':'reviews'},
         {'label':'Products', 'value':'products'},
         {'label':'Tutorials', 'value':'tutorials'},

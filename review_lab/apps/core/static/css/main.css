@@ -232,7 +232,7 @@ fieldset legend
     margin:0 1px 0 1px;
     padding:2px;
     background:#000000;
-    width:50px;
+    /*width:50px;*/
     text-align:center;
     font: 12px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
     text-transform:uppercase;
@@ -410,7 +410,7 @@ fieldset legend
 #duke_logo
 {
     position:absolute;
-    top:80px;
+    top:85px;
     right:35px; 
 }
 
@@ -859,6 +859,10 @@ fieldset legend
     color:#000000;
 }
 
+#facets span.selected
+{
+    color:#999999;
+}
 
 
 

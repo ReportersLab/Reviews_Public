@@ -14,7 +14,7 @@
                 <select id="category_select">
                     <option value="">Select a category &raquo;</option>
                     {% for c in facets.categories %}
-                        <option value="/search?q=&type=products&category={{ c.slug }}">
+                        <option value="/search?q=&type=products&category={{ c.slug }}" {% if category and cat_object.slug = c.slug %} selected="selected" {% endif %}>
                             {{ c.name }}
                         </option>
                     {% endfor %}
@@ -24,11 +24,19 @@
                 <input id="main_q" name="main_q" type="text" placeholder="Search our database" class="q" />
             </form>
             
-            {% if request.GET.q  %}
+            {% if q  %}
             <div style="float:left; clear:both;">
-                <h6>Showing results for:  {{ request.GET.q }}</h6>
+                <h6>Showing results for:  {{ q }}</h6>
             </div>
             {% endif %}
+            
+            {% if cat_object  %}
+            <div style="float:left; clear:both;">
+                <h6>{{ cat_object.name }}: {{ cat_object.description|safe }}</h6>
+            </div>
+            {% endif %}
+        
+            
         </div>
         
         <script type="text/javascript">

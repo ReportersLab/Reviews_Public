@@ -7,19 +7,19 @@
         <h2>Category</h2>
         <ul>
             <li>
-                {% if request.GET.category == None %}
-                    <span>All</span>
+                {% if category == None %}
+                    <span class="selected">All</span>
                 {% else %}
-                    <a href="/search?q={{ request.GET.q }}{% if request.GET.date != '' %}&date={{ request.GET.date }}{% endif %}">All</a>
+                    <a href="/search?q={{ q }}{% if date != '' %}&date={{ date }}{% endif %}"><span>All</span></a>
                 {% endif %}
             </li>
             {% for c in facets.categories %}
                 <li>
-                    {% if request.GET.category != c.slug %}
-                        <a href="/search?q={{ request.GET.q }}{% if request.GET.date != '' %}&date={{ request.GET.date }}{% endif %}&type=products&category={{ c.slug }}">
+                    {% if category != c.slug %}
+                        <a href="/search?q={{ q }}{% if date != '' %}&date={{ date }}{% endif %}&type=products&category={{ c.slug }}">
                     {% endif %}
-                    {{ c.name }}
-                    {% if request.GET.category != c.slug %}
+                    <span  {% if category == c.slug %}class="selected"{% endif %}>{{ c.name }}</span>
+                    {% if category != c.slug %}
                         </a>
                     {% endif %}
                 </li>
@@ -29,13 +29,20 @@
     <div class="facet">
         <h2>Date Ranges</h2>
         <ul>
+                <li>
+                    {% if date == None %}
+                        <span class="selected">All</span>
+                    {% else %}
+                        <a href="/search?q={{ q }}{% if type != None %}&type={{ type }}{% endif %}{% if category != None %}&category={{ category }}{% endif %}"><span>All</span></a>
+                    {% endif %}
+                </li>
             {% for d in facets.dates %}
                 <li>
-                    {% if request.GET.date != d.value %}
-                        <a href="/search?q={{ request.GET.q }}&date={{ d.value }}{% if request.GET.type != '' %}&type={{ request.GET.type }}{% endif %}">
+                    {% if date != d.value %}
+                        <a href="/search?q={{ q}}&date={{ d.value }}{% if type != None %}&type={{ type }}{% endif %}{% if category != None %}&category={{ category }}{% endif %}">
                     {% endif %}
-                        {{ d.label }}
-                    {% if request.GET.date != d.value %}
+                        <span {% if date == d.value %}class="selected"{% endif %}>{{ d.label }}</span>
+                    {% if date != d.value %}
                         </a>
                     {% endif %}
                 </li>
@@ -45,12 +52,19 @@
     <div class="facet">
         <h2>Type</h2>
         <ul>
+            <li>
+                {% if type == None %}
+                    <span class="selected">All</span>
+                {% else %}
+                    <a href="/search?q={{ q }}{% if date != None %}&date={{ date }}{% endif %}"><span>All</span></a>
+                {% endif %}
+            </li>
             {% for t in facets.types %}
                 <li>
-                    {% if request.GET.type != t.value %}
-                        <a href="/search?q={{ request.GET.q }}&type={{ t.value }}{% if request.GET.date != '' %}&date={{ request.GET.date }}{% endif %}">
+                    {% if type != t.value %}
+                        <a href="/search?q={{ q }}&type={{ t.value }}{% if date != '' %}&date={{ date }}{% endif %}">
                     {% endif %}
-                        {{ t.label }}
+                        <span {% if type == t.value %}class="selected"{% endif %}>{{ t.label }}</span>
                     {% if request.GET.type != t.value %}
                         </a>
                     {% endif %}
