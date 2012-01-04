@@ -8,7 +8,7 @@
 {% for item in objects %}
     <div class="detail_item {% if forloop.last %}last{% endif %}">
         
-        {% if item|classname:"product" %}
+        {% if item|classname:"product" and item.latest_review != None %}
             <div class="rating_container verdict box_shadow">
                 <h4>Verdict:</h4>
                 <div>
