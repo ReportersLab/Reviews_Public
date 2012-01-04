@@ -8,6 +8,28 @@
     
     
         <div id="detail_container" class="tutorial">
+            
+            <div id="detail_header">
+                <h6><a href="{{ tutorial.product.get_absolute_url }}">{{ tutorial.product.name }}</a>
+                    {% if tutorial.kicker %} | {{ tutorial.kicker }} {% endif %}
+                </h6>
+                <h1>
+                   {{tutorial.name}}
+                </h1>
+                <h4>{{ tutorial.subtitle }}</h4>
+                <div class="byline_timestamp_container">
+                    {% if tutorial.writer %}
+                        <span class="byline">By: <a href="mailto:{{ tutorial.writer.email }}">{{ tutorial.writer.first_name }} {{ tutorial.last_name }}</a></span>
+                        <span class="slashes">//</span>
+                    {% endif %}
+                    {% if tutorial.writer_external %}
+                        <span class="byline">By: {{ tutorial.writer_external|safe }}</span>
+                        <span class="slashes">//</span>
+                    {% endif %}
+                    <span class="timestamp">{{ tutorial.update_time|date:"DATETIME_FORMAT" }}</span>
+                </div>
+                
+            </div>
             {% if tutorial.url or tutorial.files or tutorial.repo_link or tutorial.tasks.count > 0 %}
                 <div id="ratings" class="box_shadow">
                     <div>
@@ -42,28 +64,6 @@
                     </div>
                 </div>
             {% endif %}
-            <div id="detail_header">
-                <h6><a href="{{ tutorial.product.get_absolute_url }}">{{ tutorial.product.name }}</a>
-                    {% if tutorial.kicker %} | {{ tutorial.kicker }} {% endif %}
-                </h6>
-                <h1>
-                   {{tutorial.name}}
-                </h1>
-                <h4>{{ tutorial.subtitle }}</h4>
-                <div class="byline_timestamp_container">
-                    {% if tutorial.writer %}
-                        <span class="byline">By: <a href="mailto:{{ tutorial.writer.email }}">{{ tutorial.writer.first_name }} {{ tutorial.last_name }}</a></span>
-                        <span class="slashes">//</span>
-                    {% endif %}
-                    {% if tutorial.writer_external %}
-                        <span class="byline">By: {{ tutorial.writer_external|safe }}</span>
-                        <span class="slashes">//</span>
-                    {% endif %}
-                    <span class="timestamp">{{ tutorial.update_time|date:"DATETIME_FORMAT" }}</span>
-                </div>
-                
-            </div>
-            
             
             <div id="details">
                 {{ tutorial.description|safe }}

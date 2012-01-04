@@ -19,25 +19,6 @@
     {% endcomment %}
     <div id="detail_container" class="review">
         
-        <div id="ratings" class="box_shadow">
-            <div class="rating_container">
-                <h4>Verdict:</h4>
-                <div>
-                    {% for i in star_range %}
-                        <img {% if forloop.counter <= product_task.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
-                    {% endfor %}
-                </div>
-                <p>
-                    {{ product_task.rating_text }}
-                    {% if product_task.product.review_set.all %}
-                        <br /><br />
-                        <a href="{{ product_task.product.latest_product_task.get_absolute_url }}" class="more_link">Read Latest Review &raquo;</a>
-                    {% endif %}
-                </p>
-            </div>
-        </div>
-        
-        
         <div id="detail_header" class="grid_8 alpha omega">
             <h6><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a>
                 {% if product_task.kicker %} | {{ product_task.kicker }} {% endif %}
@@ -64,6 +45,24 @@
                         <a href="{{ product_task.task.document.get_absolute_url }}"> {{ product_task.task.document.name }}</a>
                     </div>
                 {% endif %}
+            </div>
+            
+            <div id="ratings" class="box_shadow">
+                <div class="rating_container">
+                    <h4>Verdict:</h4>
+                    <div>
+                        {% for i in star_range %}
+                            <img {% if forloop.counter <= product_task.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                        {% endfor %}
+                    </div>
+                    <p>
+                        {{ product_task.rating_text }}
+                        {% if product_task.product.review_set.all %}
+                            <br /><br />
+                            <a href="{{ product_task.product.latest_product_task.get_absolute_url }}" class="more_link">Read Latest Review &raquo;</a>
+                        {% endif %}
+                    </p>
+                </div>
             </div>
             
             <div id="review_header_details" class="box_shadow">

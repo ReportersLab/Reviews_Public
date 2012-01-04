@@ -12,6 +12,14 @@
     
     <div id="detail_container" class="task">
         
+        
+        
+        <div id="detail_header">
+            {% if task.document %}
+                <h6>Document: <a href="{{ task.document.get_absolute_url }}">{{ task.document.name }}</a></h6>
+            {% endif %}
+            <h1>{{task.name}}</h1>
+        </div>
         <div id="ratings" class="box_shadow">
             <div>
                 <div class="rating_container">
@@ -24,14 +32,6 @@
                     <p>{{ task.difficulty_text }}</p>
                 </div>
             </div>
-        </div>
-        
-        
-        <div id="detail_header">
-            {% if task.document %}
-                <h6>Document: <a href="{{ task.document.get_absolute_url }}">{{ task.document.name }}</a></h6>
-            {% endif %}
-            <h1>{{task.name}}</h1>
         </div>
         
         
