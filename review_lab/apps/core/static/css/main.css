@@ -866,7 +866,11 @@ fieldset legend
 
 
 
-
+#disqus_thread
+{
+    padding:18px;
+    clear:both;
+}
 
 
 
