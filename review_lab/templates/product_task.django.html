@@ -34,18 +34,7 @@
                 {% endif %}
                 <span class="timestamp">{{ product_task.update_time|date:"DATETIME_FORMAT" }}</span>
             </div>
-            <div class="pt_metadata">
-                <div class="task_url">
-                    <span>Task:</span>
-                    <a href="{{ product_task.task.get_absolute_url }}">{{ product_task.task.name }}</a>
-                </div>
-                {% if product_task.task.document %}
-                    <div class="document_url">
-                        <span>Documents:</span>
-                        <a href="{{ product_task.task.document.get_absolute_url }}"> {{ product_task.task.document.name }}</a>
-                    </div>
-                {% endif %}
-            </div>
+            
             
             <div id="ratings" class="box_shadow">
                 <div class="rating_container">
@@ -83,6 +72,18 @@
             
         </div>
         {{product_task.description|safe}}
+        <p class="pt_metadata">
+            <div class="task_url">
+                <strong>Task:</strong>
+                <a href="{{ product_task.task.get_absolute_url }}">{{ product_task.task.name }}</a>
+            </div>
+            {% if product_task.task.document %}
+                <div class="document_url">
+                    <strong>Documents:</strong>
+                    <a href="{{ product_task.task.document.get_absolute_url }}"> {{ product_task.task.document.name }}</a>
+                </div>
+            {% endif %}
+        </p>
     </div>
     
         
