@@ -8,21 +8,25 @@
 {% for item in objects %}
     <div class="detail_item {% if forloop.last %}last{% endif %}">
         
-        {% if item|classname:"product" and item.latest_review != None %}
+        {% if item|classname:"product" %}
             <div class="rating_container verdict box_shadow">
-                <h4>Verdict:</h4>
-                <div>
-                    {% for i in star_range %}
-                        <img {% if forloop.counter <= item.latest_review.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
-                    {% endfor %}
-                </div>
-                <p>{{ item.latest_review.rating_text }}</p>
-                <br />
+                {% if item.latest_review != None %}
+                    <h4>Verdict:</h4>
+                    <div>
+                        {% for i in star_range %}
+                            <img {% if forloop.counter <= item.latest_review.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                        {% endfor %}
+                    </div>
+                    <p>{{ item.latest_review.rating_text }}</p>
+                    <br />
+                {% endif %}
                 <h6>{% if item.cost == 0 %}FREE {% else %}{{ item.cost }}{% endif %}</h6>
                 <span class="slashes">//</span>
                 <h6><a href="{{item.url}}">Get it</a>
-                <span class="slashes">//</span>
-                <h6><a href="{{ item.latest_review.get_absolute_url }}">Review</a></h6>
+                {% if item.latest_review != None %}
+                    <span class="slashes">//</span>
+                    <h6><a href="{{ item.latest_review.get_absolute_url }}">Review</a></h6>
+                {% endif %}
             </div>
         {% endif %}
         
