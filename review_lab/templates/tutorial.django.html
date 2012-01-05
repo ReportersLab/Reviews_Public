@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}
-    {{ tutorial.name }}, a Tutorial for {{ tutorial.product.name }}
+    Tutorial // {{ tutorial.name }} 
+{% endblock %}
+
+{% block head %}
+    <meta property="og:title" content="Reporters&#039; Lab Reviews // Tutorial // {{ tutorial.name|escape }}" />
+    <meta property="og:type" content="article" />
 {% endblock %}
 
 {% block main_content %}

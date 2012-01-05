@@ -2,7 +2,12 @@
 {% load range_tag %}
 
 {% block title %}
-    Product Preformance: {{ product_task.name }}
+    Performance Review // {{ product_task.name }}
+{% endblock %}
+
+{% block head %}
+    <meta property="og:title" content="Reporters&#039; Lab Reviews // Performance Review // {{ product_task.name|escape }}" />
+    <meta property="og:type" content="article" />
 {% endblock %}
 
 {% block main_content %}

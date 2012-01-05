@@ -2,7 +2,13 @@
 {% load range_tag %}
 
 {% block title %}
-    Task: {{ task.name }}
+    Task // {{ task.name }}
+{% endblock %}
+
+
+{% block head %}
+    <meta property="og:title" content="Reporters&#039; Lab Reviews // Task // {{ task.name|escape }}" />
+    <meta property="og:type" content="article" />
 {% endblock %}
 
 {% block main_content %}

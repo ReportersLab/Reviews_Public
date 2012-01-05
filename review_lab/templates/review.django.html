@@ -2,7 +2,13 @@
 {% load range_tag %}
 
 {% block title %}
-    {{ review.name }}, a Review of {{ review.product.name }}
+    Review // {{ review.name }} 
+{% endblock %}
+
+
+{% block head %}
+    <meta property="og:title" content="Reporters&#039; Lab Reviews // Review // {{ review.name|escape }}" />
+    <meta property="og:type" content="article" />
 {% endblock %}
 
 {% block main_content %}

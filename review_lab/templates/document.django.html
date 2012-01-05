@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Document Set: {{ document.name }}
+    Document Set // {{ document.name }}
+{% endblock %}
+
+{% block head %}
+    <meta property="og:title" content="Reporters&#039; Lab Reviews // Document Set // {{ document.name|escape }}" />
+    <meta property="og:type" content="article" />
 {% endblock %}
 
 {% block main_content %}

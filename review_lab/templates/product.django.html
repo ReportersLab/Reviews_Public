@@ -2,7 +2,12 @@
 {% load range_tag %}
 
 {% block title %}
-    {{ product.name }}
+    Product // {{ product.name }}
+{% endblock %}
+
+{% block head %}
+    <meta property="og:title" content="Reporters&#039; Lab Reviews // Product // {{ product.name|escape }}" />
+    <meta property="og:type" content="product" />
 {% endblock %}
 
 {% block main_content %}
