@@ -599,6 +599,52 @@ fieldset legend
     clear:both;
 }
 
+#main_search #cat_help
+{
+    position:absolute;
+    top:15px;
+    left:370px;
+    font-weight:bold;
+    float:none; margin:0; /*overrides*/
+    color:#778E1E;
+    cursor:pointer;
+}
+
+#cat_help_body
+{
+}
+
+/* the overlayed element */
+.overlay {
+	display:none;
+	z-index:10000;
+	background-color:#FFFFFF;
+	width:500px;	
+	min-height:300px;	
+}
+
+/* close button positioned on upper right corner */
+.overlay .close {
+	background:url(http://media.reporterslab.org/images/icons/close.png) no-repeat;
+	position:absolute;
+	right:-15px;
+	top:-15px;
+	cursor:pointer;
+	height:35px;
+	width:35px;
+}
+
+.overlay_content
+{
+    overflow:auto;
+    padding:18px;
+}
+
+.overlay h2
+{
+    margin-top:15px;
+}
+
 
 /**
  *Detail Container, basically used on all details pages to wrap the main content.

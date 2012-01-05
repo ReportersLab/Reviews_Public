@@ -20,6 +20,7 @@
                     </option>
                 {% endfor %}
             </select>
+            <span id="cat_help" rel="#cat_help_body">?</span>
             <span>or</span>
             <input id="main_search_button" type="image" src="{{ STATIC_URL }}img/search_arrow.png" name="searchButton"  value="" />
             <input id="main_q" name="main_q" type="text" placeholder="Search our database" class="q" />
@@ -42,4 +43,32 @@
     
     {% include "renderers/review_list.django.html" with reviews=review_list %}
     {% paginate %}
+    
+    
+    
+    
+    <!-- category helper div -->
+    <div id="cat_help_body" class="overlay box_shadow">
+        <div class="overlay_content">
+            {% for c in categories %}
+                <div>
+                    <h2>
+                        <a href="/search?q=&type=products&category={{ c.slug }}">{{ c.name }}</a>
+                    </h2>
+                    <p>{{ c.description|safe }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#cat_help").overlay({
+                mask: '#C9D6A6',
+                top: 'center',
+                left: 'center'
+            });
+        });
+    </script>
+    
+    
 {% endblock %}
