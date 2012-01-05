@@ -29,7 +29,7 @@
         <div id="ratings" class="box_shadow">
             <div>
                 <div class="rating_container">
-                    <h4>Overall:</h4>
+                    <h4>Difficulty:</h4>
                     <div>
                         {% for i in star_range %}
                             <img {% if forloop.counter <= task.difficulty %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
