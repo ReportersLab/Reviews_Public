@@ -33,9 +33,12 @@
                         <span class="slashes">//</span>
                     {% endif %}
                     <span class="timestamp">{{ review.update_time|date:"DATETIME_FORMAT" }}</span>
-                    <span class="slashes">//</span>
-                    <div class="fb-like" data-href="http://reviews.reporterslab.org{{ request.get_full_path }}" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="arial"></div>
                 </div>
+                <div id="social_box">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="ReportersLab">Tweet</a>
+                    <div class="fb-like" data-href="http://reviews.reporterslab.org{{ request.get_full_path }}" data-send="false" data-layout="button_count" data-width="0" data-show-faces="false" data-font="arial"></div>
+                    <div class="g-plusone" data-size="medium"></div>    
+                </div> 
             </div>
             
             
@@ -101,19 +104,19 @@
             
             
             <div id="review_header_details" class="box_shadow">
+            
+                <h6>Product:</h6>
+                <p><a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></p>
+                <span class="slashes">//</span>
+            
+                <h6>Company:</h6>
+                <p><a href="{{ review.product.url }}">{{ review.product.company }}</a></p>
+                <span class="slashes">//</span>
                 
-                    <h6>Product:</h6>
-                    <p><a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a></p>
-                    <span class="slashes">//</span>
+                <h6>Cost:</h6>
+                <p>{% if review.product.cost == 0 %}FREE {% else %}{{ review.product.cost }}{% endif %}</p>
                 
-                    <h6>Company:</h6>
-                    <p><a href="{{ review.product.url }}">{{ review.product.company }}</a></p>
-                    <span class="slashes">//</span>
-                    
-                    <h6>Cost:</h6>
-                    <p>{% if review.product.cost == 0 %}FREE {% else %}{{ review.product.cost }}{% endif %}</p>
-                    
-                </div>
+            </div>
 
             
             

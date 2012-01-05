@@ -40,8 +40,25 @@
                 {% endif %}
                 <span class="timestamp">{{ product_task.update_time|date:"DATETIME_FORMAT" }}</span>
             </div>
+            <div id="social_box">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="ReportersLab">Tweet</a>
+                <div class="fb-like" data-href="http://reviews.reporterslab.org{{ request.get_full_path }}" data-send="false" data-layout="button_count" data-width="0" data-show-faces="false" data-font="arial"></div>
+                <div class="g-plusone" data-size="medium"></div>    
+            </div> 
             
+            <div id="review_header_details" class="box_shadow">
+                <h6>Product:</h6>
+                <p><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a></p>
+                <span class="slashes">//</span>
             
+                <h6>Company:</h6>
+                <p><a href="{{ product_task.product.url }}">{{ product_task.product.company }}</a></p>
+                <span class="slashes">//</span>
+                
+                <h6>Cost:</h6>
+                <p>{% if product_task.product.cost == 0 %}FREE {% else %}{{ product_task.product.cost }}{% endif %}</a></p>
+                
+            </div>
             <div id="ratings" class="box_shadow">
                 <div class="rating_container">
                     <h4>Verdict:</h4>
@@ -60,20 +77,6 @@
                 </div>
             </div>
             
-            <div id="review_header_details" class="box_shadow">
-                
-                    <h6>Product:</h6>
-                    <p><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a></p>
-                    <span class="slashes">//</span>
-                
-                    <h6>Company:</h6>
-                    <p><a href="{{ product_task.product.url }}">{{ product_task.product.company }}</a></p>
-                    <span class="slashes">//</span>
-                    
-                    <h6>Cost:</h6>
-                    <p>{% if product_task.product.cost == 0 %}FREE {% else %}{{ product_task.product.cost }}{% endif %}</a></p>
-                    
-                </div>
             
             
         </div>

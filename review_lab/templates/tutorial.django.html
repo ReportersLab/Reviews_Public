@@ -32,9 +32,13 @@
                         <span class="byline">By: {{ tutorial.writer_external|safe }}</span>
                         <span class="slashes">//</span>
                     {% endif %}
-                    <span class="timestamp">{{ tutorial.update_time|date:"DATETIME_FORMAT" }}</span>
+                    <span class="timestamp">{{ tutorial.update_time|date:"DATETIME_FORMAT" }}</span> 
                 </div>
-                
+                <div id="social_box">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="ReportersLab">Tweet</a>
+                    <div class="fb-like" data-href="http://reviews.reporterslab.org{{ request.get_full_path }}" data-send="false" data-layout="button_count" data-width="0" data-show-faces="false" data-font="arial"></div>
+                    <div class="g-plusone" data-size="medium"></div>    
+                </div> 
             </div>
             {% if tutorial.url or tutorial.files or tutorial.repo_link or tutorial.tasks.count > 0 %}
                 <div id="ratings" class="box_shadow">

@@ -604,6 +604,13 @@ fieldset legend
  *Detail Container, basically used on all details pages to wrap the main content.
  */
 
+#detail_header
+{
+    float:left;
+    clear:both;
+    width:100%;
+}
+
 #detail_header h1
 {
     font-family:Arial,'Liberation Sans',FreeSans,sans-serif;
@@ -626,6 +633,7 @@ fieldset legend
 #review_header_details
 {
     width:390px;
+    float:left;
 }
 
 
@@ -890,8 +898,27 @@ fieldset legend
 }
 
 
+#social_box
+{
+    float:left;
+    clear:both;
+    margin-bottom:5px;
+}
 
+#social_box .twitter-share-button
+{
+    float:left;
+}
 
+#social_box .fb-like
+{
+    float:left;
+}
+
+#social_box .g-plusone
+{
+    float:left;
+}
 
 
 
