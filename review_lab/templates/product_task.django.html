@@ -5,9 +5,10 @@
     Performance Review // {{ product_task.name }}
 {% endblock %}
 
-{% block head %}
+{% block meta %}
     <meta property="og:title" content="Reporters&#039; Lab Reviews // Performance Review // {{ product_task.name|escape }}" />
     <meta property="og:type" content="article" />
+    <meta property="og:description" content="{{ product_task.teaser|escape }}" />
 {% endblock %}
 
 {% block main_content %}

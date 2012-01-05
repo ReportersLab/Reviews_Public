@@ -6,9 +6,10 @@
 {% endblock %}
 
 
-{% block head %}
+{% block meta %}
     <meta property="og:title" content="Reporters&#039; Lab Reviews // Review // {{ review.name|escape }}" />
     <meta property="og:type" content="article" />
+    <meta property="og:description" content="{{ review.teaser|escape }}" />
 {% endblock %}
 
 {% block main_content %}

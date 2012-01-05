@@ -4,9 +4,10 @@
     Tutorial // {{ tutorial.name }} 
 {% endblock %}
 
-{% block head %}
+{% block meta %}
     <meta property="og:title" content="Reporters&#039; Lab Reviews // Tutorial // {{ tutorial.name|escape }}" />
     <meta property="og:type" content="article" />
+    <meta property="og:description" content="{{ tutorial.teaser|escape }}" />
 {% endblock %}
 
 {% block main_content %}
