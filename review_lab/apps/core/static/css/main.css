@@ -873,7 +873,21 @@ fieldset legend
 }
 
 
+#disqus_thread #dsq-reply h3
+{
+    font-size:27px;
+    font-family:'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
+    text-transform:uppercase;
+    font-weight:normal;
+}
 
+#disqus_thread h3
+{
+    font-size:14px;
+    font-family:Arial, 'Liberation Sans', FreeSans, sans-serif;
+    font-weight:bold;
+    text-transform:none;
+}
 
 
 
