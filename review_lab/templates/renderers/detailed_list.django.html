@@ -23,10 +23,8 @@
                 <h6>{% if item.cost == 0 %}FREE {% else %}{{ item.cost }}{% endif %}</h6>
                 <span class="slashes">//</span>
                 <h6><a href="{{item.url}}">Get it</a>
-                {% if item.latest_review != None %}
-                    <span class="slashes">//</span>
-                    <h6><a href="{{ item.latest_review.get_absolute_url }}">Review</a></h6>
-                {% endif %}
+                <span class="slashes">//</span>
+                <h6><a href="{{ item.get_absolute_url }}">Details</a></h6>
             </div>
         {% endif %}
         
@@ -50,13 +48,23 @@
         
         
         
-        {% if search %}
+        {% if search and not type %}
             <h6>{{ item.verbose_name }}</h6>        
         {% endif %}
-        <h2><a href="{{ item.get_absolute_url }}">{{item.name}}</a></h2>
-        <div class="byline_timestamp_container">
-            <span class="timestamp">{{ item.update_time|date:"DATETIME_FORMAT" }}</span>
-        </div>
+        <h2>
+            {% if item|classname:"product" and item.latest_review %}
+                <a href="{{ item.latest_review.get_absolute_url }}">
+            {% else %}
+                <a href="{{ item.get_absolute_url }}">
+            {% endif %}
+                {{item.name}}
+            </a>
+        </h2>
+        {% comment %}
+                <div class="byline_timestamp_container">
+                    <span class="timestamp">{{ item.update_time|date:"DATETIME_FORMAT" }}</span>
+                </div>
+        {% endcomment %}
         <div class="teaser">
             {% if item.teaser %}
                  {{ item.teaser|safe }}

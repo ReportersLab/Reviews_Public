@@ -10,7 +10,7 @@
                 {% if category == None %}
                     <span class="selected">All</span>
                 {% else %}
-                    <a href="/search?q={{ q }}{% if date != None %}&date={{ date }}{% endif %}"><span>All</span></a>
+                    <a href="/search?q={{ q }}{% if date != None %}&date={{ date }}{% endif %}&type=products"><span>All</span></a>
                 {% endif %}
             </li>
             {% for c in facets.categories %}
@@ -65,7 +65,7 @@
                         <a href="/search?q={{ q }}&type={{ t.value }}{% if date != None %}&date={{ date }}{% endif %}">
                     {% endif %}
                         <span {% if type == t.value %}class="selected"{% endif %}>{{ t.label }}</span>
-                    {% if request.GET.type != t.value %}
+                    {% if type != t.value %}
                         </a>
                     {% endif %}
                 </li>

@@ -21,6 +21,7 @@ class PublishedManager(models.Manager):
 class CommonInfo(models.Model):
     name            = models.CharField(max_length=512, unique=True, null=False, blank=False, help_text='The name must be unique', verbose_name = 'Name or Title')
     description     = models.TextField(blank=True)
+    teaser          = models.TextField(blank = True)
     published       = models.BooleanField()
     tags            = TaggableManager(blank = True, through='CustomTagItem')
     creation_time   = models.DateTimeField() # generated in save
@@ -90,7 +91,6 @@ class Review(CommonInfo):
     editor               = models.ForeignKey(to=User, null=True, blank=True, related_name='review_editor_user')
     kicker               = models.CharField(max_length = 128, blank = True)
     subtitle             = models.CharField(max_length = 512, blank = True)
-    teaser               = models.TextField(blank = True)
     user_rating          = RatingField(range=10, allow_anonymous = True, use_cookies = True)
     version_tested       = models.CharField(max_length=128, blank = True)
     os_used              = models.ManyToManyField('OperatingSystem', blank = True, null = True)
@@ -121,6 +121,8 @@ class Review(CommonInfo):
         
     class Meta:
         ordering = ['-creation_time']
+        verbose_name         = 'Review'
+        verbose_name_plural = 'Reviews'
     
     
     
@@ -177,7 +179,6 @@ class Tutorial(CommonInfo):
     editor               = models.ForeignKey(to=User, null=True, blank=True, related_name='tutorial_editor_user')
     kicker               = models.CharField(max_length = 128, blank = True)
     subtitle             = models.CharField(max_length = 512, blank = True)
-    teaser               = models.TextField(blank = True)
     image                = models.ImageField( help_text='Product logo or screenshot. TODO: Standardize Size', max_length=256,
                                               upload_to='review_lab/contrib/img/tutorials', null=True, blank=True)
     version              = models.CharField(max_length=128, blank = True)
@@ -194,34 +195,10 @@ class Tutorial(CommonInfo):
 
     class Meta:
         ordering = ['-creation_time']
+        verbose_name         = 'Tutorial'
+        verbose_name_plural  = 'Tutorials'
 
 
-
-'''
-It was decided to keep the challenges separate from the rest of the content due to special concerns.
-
-For now I have removed them from the Admin and the views / urls / etc. I'll leave the model in case we ressurect it.
-'''
-class Challenge(CommonInfo):
-    tasks                     = models.ManyToManyField(to='Task', blank=True, null=True)
-    documents                 = models.ManyToManyField(to='DocumentSet', blank=True, null=True)
-    teaser                    = models.TextField(blank=True)
-    kicker                    = models.CharField(max_length = 128, blank = True)
-    subtitle                  = models.CharField(max_length = 512, blank = True)
-    image                     = models.ImageField(help_text='Challenge logo. TODO: Standardize Size', max_length=256,
-                                            upload_to='review_lab/contrib/img/challenges', null=True, blank=True)
-    files                     = models.FileField(verbose_name='Challenge Files', upload_to='review_lab/contrib/zip/challenges', blank=True, null=True,
-                                           help_text='Any kind of related files for the challenge should go here if not part of the Document Set')
-    contact                   = models.ForeignKey(to=User, null=True, blank=True)
-    other_contact             = models.CharField(max_length=256, blank=True, help_text='other contact information if not user in system')
-    award                     = models.CharField(max_length=256, blank=True)
-    
-    @models.permalink
-    def get_absolute_url(self):
-        return ('challenge_view', (), {'slug': self.slug})
-        
-    class Meta:
-        ordering = ['-creation_time']
 
     
 class Task(CommonInfo):
@@ -258,12 +235,13 @@ class Task(CommonInfo):
 
     class Meta:
         ordering = ['-creation_time']
+        verbose_name         = 'Task'
+        verbose_name_plural = 'Tasks'
 
 
 class ProductTask(CommonInfo):
     product          = models.ForeignKey('Product')
     task             = models.ForeignKey('Task')
-    teaser           = models.TextField(blank = True)
     rating           = models.IntegerField(choices=RATING_CHOICES, default = 0)
     rating_text      = models.CharField(max_length = 256, blank = True)
     reviewer         = models.ForeignKey(to=User, null=True, blank=True)
@@ -345,6 +323,7 @@ class Category(CommonInfo):
         return u'%s' % (self.name,)
         
     class Meta:
+        verbose_name         = 'Category'
         verbose_name_plural = 'Categories'
     
     
@@ -477,7 +456,6 @@ def invalidate_document(sender, **kwargs):
 post_save.connect(invalidate_review, sender=Review)
 post_save.connect(invalidate_product, sender=Product)
 post_save.connect(invalidate_tutorial, sender=Tutorial)
-post_save.connect(invalidate_challenge, sender=Challenge)
 post_save.connect(invalidate_task, sender=Task)
 post_save.connect(invalidate_product_task, sender=ProductTask)
 post_save.connect(invalidate_document, sender=DocumentSet)

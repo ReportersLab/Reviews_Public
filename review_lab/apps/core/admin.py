@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
-from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task, Tutorial, Challenge, CustomTag
+from models import Category, DocumentSet, OperatingSystem, Product, ProductTask, Review, Task, Tutorial, CustomTag
 from django.contrib import admin
 from functools import partial
 from django.forms.models import modelformset_factory
@@ -73,9 +73,11 @@ class ProductAdmin(CommonAdmin):
         fieldsets = (
             ('The Basics',
                 {
-                    'fields': ('name', 'slug', 'url', 'description', 'tags', )
+                    'fields': ('name', 'slug', 'url', 'tags', )
                 }
             ),
+            ('Teaser Text', {'fields': ('teaser',)}),
+            ('The Description', {'fields': ('description',)}),
             ('Product Details',
                 {
                     'fields': ('company', 'image', 'cost', 'open_source', 'demo_available', 'obsolete',
@@ -151,26 +153,7 @@ class TutorialAdmin(CommonAdmin):
     list_display_links = ('name',)
     list_editable = ('published',)
  
-'''
-class ChallengeAdmin(CommonAdmin):
-    fieldsets = (
-        ('The Basics', {
-            'fields': ('kicker', 'name', 'subtitle', 'contact', 'other_contact', 'slug', 'tags', 'image',)
-        }),
-        ('Teaser Text', {'fields': ('teaser',)}),
-        ('Challenge Text', {'fields': ('description',)}),
-        ('Challenge Details',
-            {
-                'fields': ('tasks', 'documents', 'files', 'award')
-            }
-         ),
-        
-    )
-    list_display = ('name', 'contact', 'published', 'view_link',)
-    list_display_links = ('name',)
-    list_editable = ('published',)
-''' 
-    
+
 
 class ProductTaskAdmin(CommonAdmin):
     def get_fieldsets(self, request, obj=None): 
@@ -205,9 +188,11 @@ class TaskAdmin(CommonAdmin):
         fieldsets = (
             ('The Basics',
                 {
-                    'fields': ('name', 'slug', 'description', 'tags', )
+                    'fields': ('name', 'slug', 'tags', )
                 }
             ),
+            ('Teaser Text', {'fields': ('teaser',)}),
+            ('The Description', {'fields': ('description',)}),
             ('The Details',
                 {
                     'fields': ('document', 'difficulty', 'difficulty_text',)    
@@ -232,9 +217,11 @@ class DocumentSetAdmin(CommonAdmin):
         fieldsets = (
             ('The Basics',
                 {
-                    'fields': ('name', 'slug', 'description', 'tags', )
+                    'fields': ('name', 'slug', 'tags', )
                 }
             ),
+            ('Teaser Text', {'fields': ('teaser',)}),
+            ('The Description', {'fields': ('description',)}),
             ('The Details',
                 {
                     'fields': ('url', 'kind', 'image',)    
@@ -257,9 +244,11 @@ class OperatingSystemAdmin(CommonAdmin):
         fieldsets = (
             ('The Basics',
                 {
-                    'fields': ('name', 'slug', 'description', 'tags', )
+                    'fields': ('name', 'slug', 'tags', )
                 }
             ),
+            ('Teaser Text', {'fields': ('teaser',)}),
+            ('The Description', {'fields': ('description',)}),
             ('The Details',
                 {
                     'fields': ('url',)    
@@ -283,9 +272,11 @@ class CategoryAdmin(CommonAdmin):
         fieldsets = (
             ('The Basics',
                 {
-                    'fields': ('name', 'slug', 'description', 'tags', )
+                    'fields': ('name', 'slug', 'tags', )
                 }
             ),
+            ('Teaser Text', {'fields': ('teaser',)}),
+            ('The Description', {'fields': ('description',)}),
         )
         
         if request.user.groups.filter(name = 'Editors').count() > 0:
@@ -308,7 +299,6 @@ admin.site.register(ProductTask, ProductTaskAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Tutorial, TutorialAdmin)
-#admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(CustomTag)
 
 

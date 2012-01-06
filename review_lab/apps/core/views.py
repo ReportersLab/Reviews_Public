@@ -166,7 +166,6 @@ def search_view(request):
         model_list.append(Product.published_objects.filter(query))
         model_list.append(Tutorial.published_objects.filter(query))
         model_list.append(DocumentSet.published_objects.filter(query))
-        #model_list.append(Challenge.published_objects.filter(query))
     
     
     #combine them all into a nice iterable
@@ -261,7 +260,6 @@ def gen_facets(request):
         {'label':'Products', 'value':'products'},
         {'label':'Tutorials', 'value':'tutorials'},
         {'label':'Document Sets', 'value':'documents'},
-        #{'label':'Challenges', 'value':'challenges'},
     ]
     
     category_facet = Category.objects.all()

@@ -73,6 +73,10 @@ a:hover, #footer a:hover, #global_nav a:hover, #header a:hover
 
 blockquote
 {
+    border-left: 5px solid black;
+    color: #000000;
+    margin: 20px;
+    padding: 0 15px;
 }
 
 fieldset
@@ -236,7 +240,7 @@ fieldset legend
     text-align:center;
     font: 12px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
     text-transform:uppercase;
-    letter-spacing:.8px; 
+    letter-spacing:1px; 
 }
 #tools_nav li a
 {
@@ -266,6 +270,7 @@ fieldset legend
     color:#FFFFFF;
     font:14px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
     text-transform:uppercase;
+    letter-spacing:1px;
 }
 
 
@@ -588,6 +593,7 @@ fieldset legend
     float:left;
     position:relative;
     margin:0 0 0 -10px;
+    letter-spacing:1px;
 }
 
 #main_search h6
