@@ -750,6 +750,10 @@ fieldset legend
 .detail_item h6
 {
     display:inline;
+}
+
+.detail_item .verdict h6
+{
     text-transform:none;
 }
 
