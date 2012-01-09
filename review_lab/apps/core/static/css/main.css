@@ -837,11 +837,18 @@ fieldset legend
 
 /**
  *
- * Review Specific Details
+ * Content Specific Details
  * 
  **/
-.
 
+#body_content a
+{
+    color:#778E1E;
+}
+#body_content a:hover
+{
+    color:#FFCC00;
+}
 
 
 /**

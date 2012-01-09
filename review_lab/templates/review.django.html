@@ -120,9 +120,9 @@
 
             
             
-            
-            {{review.description|safe}}
-                
+            <div id="body_content">
+                {{review.description|safe}}
+            </div>
         </div>
             
             {% include "renderers/tag_cloud.django.html" with object=review %}
