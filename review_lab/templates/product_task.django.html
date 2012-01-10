@@ -25,7 +25,7 @@
     {% endcomment %}
     <div id="detail_container" class="review">
         
-        <div id="detail_header" class="grid_8 alpha omega">
+        <div id="detail_header">
             <h6><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a>
                 {% if product_task.kicker %} | {{ product_task.kicker }} {% endif %}
             </h6>
@@ -45,43 +45,44 @@
                 <div class="fb-like" data-href="http://reviews.reporterslab.org{{ request.get_full_path }}" data-send="false" data-layout="button_count" data-width="0" data-show-faces="false" data-font="arial"></div>
                 <div class="g-plusone" data-size="medium"></div>    
             </div> 
-            
-            <div id="review_header_details" class="box_shadow">
-                <h6>Product:</h6>
-                <p><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a></p>
-                <span class="slashes">//</span>
-            
-                <h6>Company:</h6>
-                <p><a href="{{ product_task.product.url }}">{{ product_task.product.company }}</a></p>
-                <span class="slashes">//</span>
-                
-                <h6>Cost:</h6>
-                <p>{% if product_task.product.cost == 0 %}FREE {% else %}{{ product_task.product.cost }}{% endif %}</a></p>
-                
-            </div>
-            <div id="ratings" class="box_shadow">
-                <div class="rating_container">
-                    <h4>Verdict:</h4>
-                    <div>
-                        {% for i in star_range %}
-                            <img {% if forloop.counter <= product_task.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
-                        {% endfor %}
-                    </div>
-                    <p>
-                        {{ product_task.rating_text }}
-                        {% if product_task.product.review_set.all %}
-                            <br /><br />
-                            <a href="{{ product_task.product.latest_product_task.get_absolute_url }}" class="more_link">Read Latest Review &raquo;</a>
-                        {% endif %}
-                    </p>
-                </div>
-            </div>
-    
-            <div id="body_content">
-                {{product_task.description|safe}}
-            </div>
-    
         </div>
+        
+        <div id="review_header_details" class="box_shadow">
+            <h6>Product:</h6>
+            <p><a href="{{ product_task.product.get_absolute_url }}">{{ product_task.product.name }}</a></p>
+            <span class="slashes">//</span>
+        
+            <h6>Company:</h6>
+            <p><a href="{{ product_task.product.url }}">{{ product_task.product.company }}</a></p>
+            <span class="slashes">//</span>
+            
+            <h6>Cost:</h6>
+            <p>{% if product_task.product.cost == 0 %}FREE {% else %}{{ product_task.product.cost }}{% endif %}</a></p>
+            
+        </div>
+
+        <div id="ratings" class="box_shadow">
+            <div class="rating_container">
+                <h4>Verdict:</h4>
+                <div>
+                    {% for i in star_range %}
+                        <img {% if forloop.counter <= product_task.rating %} src="{{ STATIC_URL }}img/rating_check.png" {% else %} src="{{ STATIC_URL }}img/rating_uncheck.png" {% endif %} />
+                    {% endfor %}
+                </div>
+                <p>
+                    {{ product_task.rating_text }}
+                    {% if product_task.product.review_set.all %}
+                        <br /><br />
+                        <a href="{{ product_task.product.latest_product_task.get_absolute_url }}" class="more_link">Read Latest Review &raquo;</a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        
+        <div id="body_content">
+            {{product_task.description|safe}}
+        </div>
+    
         <p class="pt_metadata">
             <div class="task_url">
                 <strong>Task:</strong>
