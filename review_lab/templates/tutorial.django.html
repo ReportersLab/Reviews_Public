@@ -40,6 +40,51 @@
                     <div class="g-plusone" data-size="medium"></div>    
                 </div> 
             </div>
+            
+            
+            
+            <div id="review_details" class="box_shadow" style="clear:left; overflow:hidden; width:605px;">
+                    
+                <h6>Product:</h6>
+                <p><a href="{{ tutorial.product.get_absolute_url }}">{{ tutorial.product.name }}</a></p>
+                <span class="slashes">//</span>
+            
+                <h6>Company:</h6>
+                <p><a href="{{ tutorial.product.url }}">{{ tutorial.product.company }}</a></p>
+                <span class="slashes">//</span>
+            {% if tutorial.version %} 
+                <h6>Version Tested:</h6>
+                <p>{{ tutorial.version }}</p>
+                <span class="slashes">//</span>
+            {% endif %}
+            {% if tutorial.product.release_date %}
+                <h6>Release Date:</h6>
+                <p>{{ tutorial.product.release_date }}</a></p>
+                <span class="slashes">//</span>
+            {% endif %}
+            {% if tutorial.os_used.count > 0 %}
+                <h6>OS Tested:</h6>
+                <p> {% for os in tutorial.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a>{% endfor %}</p>
+                <span class="slashes">//</span>
+            {% endif %}
+                <h6>Cost:</h6>
+                <p>{% if tutorial.product.cost == 0 %}FREE {% else %}{{ tutorial.product.cost }}{% endif %}</a></p>
+                <span class="slashes">//</span>
+                
+                <h6>Open Sourced:</h6>
+                <p>{% if tutorial.product.open_source %}Yes {% else %}No{% endif %}</a></p>
+                <span class="slashes">//</span>
+                
+                <h6>Demo Available:</h6>
+                <p>{% if tutorial.product.demo_available %}Yes {% else %}No{% endif %}</a></p>
+                <span class="slashes">//</span>
+                
+                <h6>Obsolete:</h6>
+                <p>{% if tutorial.product.obsolete %}Yes {% else %}No{% endif %}</a></p>
+            </div>
+            
+            
+            
             {% if tutorial.url or tutorial.files or tutorial.repo_link or tutorial.tasks.count > 0 %}
                 <div id="ratings" class="box_shadow">
                     <div>
@@ -75,6 +120,8 @@
                 </div>
             {% endif %}
             
+            
+            
             <div id="body_content">
                 {{ tutorial.description|safe }}
             </div>
@@ -90,45 +137,7 @@
         {% endif %}
         {% include "renderers/tag_cloud.django.html" with object=tutorial %}
         <div class="black_bar big"><span>&nbsp;</span></div>
-        <div id="review_details" class="box_shadow">
-                
-            <h6>Product:</h6>
-            <p><a href="{{ tutorial.product.get_absolute_url }}">{{ tutorial.product.name }}</a></p>
-            <span class="slashes">//</span>
         
-            <h6>Company:</h6>
-            <p><a href="{{ tutorial.product.url }}">{{ tutorial.product.company }}</a></p>
-            <span class="slashes">//</span>
-        {% if tutorial.version %} 
-            <h6>Version Tested:</h6>
-            <p>{{ tutorial.version }}</p>
-            <span class="slashes">//</span>
-        {% endif %}
-        {% if tutorial.product.release_date %}
-            <h6>Release Date:</h6>
-            <p>{{ tutorial.product.release_date }}</a></p>
-            <span class="slashes">//</span>
-        {% endif %}
-        {% if tutorial.os_used.count > 0 %}
-            <h6>OS Tested:</h6>
-            <p> {% for os in tutorial.os_used.all %} <a href="{{ os.url }}">{{ os.name }}</a>{% endfor %}</p>
-            <span class="slashes">//</span>
-        {% endif %}
-            <h6>Cost:</h6>
-            <p>{% if tutorial.product.cost == 0 %}FREE {% else %}{{ tutorial.product.cost }}{% endif %}</a></p>
-            <span class="slashes">//</span>
-            
-            <h6>Open Sourced:</h6>
-            <p>{% if tutorial.product.open_source %}Yes {% else %}No{% endif %}</a></p>
-            <span class="slashes">//</span>
-            
-            <h6>Demo Available:</h6>
-            <p>{% if tutorial.product.demo_available %}Yes {% else %}No{% endif %}</a></p>
-            <span class="slashes">//</span>
-            
-            <h6>Obsolete:</h6>
-            <p>{% if tutorial.product.obsolete %}Yes {% else %}No{% endif %}</a></p>
-    </div>
         
         
     <div id="comments">

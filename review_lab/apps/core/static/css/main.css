@@ -695,6 +695,20 @@ fieldset legend
     margin:0 0 18px 0;
 }
 
+#detail_container ul, #detail_container ol
+{
+    margin:10px 0 10px 20px;
+}
+
+#detail_container ul li
+{
+    list-style:square;
+}
+#detail_container ol li
+{
+    list-style:decimal;
+}
+
 
 .detail_item_container
 {
