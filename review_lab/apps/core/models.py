@@ -355,7 +355,7 @@ I also want to add a get_absolute_url method so templates can be created.
 class CustomTag(TagBase):
     
     def save(self, *args, **kwargs):
-        self.name = self.name.lower()
+        #self.name = self.name.lower()
         super(CustomTag, self).save(*args, **kwargs)
         
     
