@@ -113,7 +113,7 @@ class ReviewAdmin(CommonAdmin):
                 ('Review Details',
                     {
                         'fields': ('version_tested', 'os_used', 'community', 'community_text', 'documentation', 'documentation_text',
-                                   'performance', 'performance_text', 'usability', 'usability_text', 'rating', 'rating_text','programming', 'programming_text',)
+                                   'performance', 'performance_text', 'usability', 'usability_text', 'rating', 'rating_text',)
                     }
                 )
             )
