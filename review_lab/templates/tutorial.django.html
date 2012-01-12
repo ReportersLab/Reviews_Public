@@ -108,7 +108,7 @@
                         {% endif %}
                         {% if tutorial.tasks %}
                             <div class="rating_container">
-                                <h4>Tutorial Tasks:</h4>
+                                <h4>Tutorial Tests:</h4>
                                 <p>   
                                     {% for task in tutorial.tasks.all %}
                                         <a href="{{ task.get_absolute_url }}">{{ task.name }} &raquo;</a><br /> 

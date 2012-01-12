@@ -2,12 +2,12 @@
 {% load range_tag %}
 
 {% block title %}
-    Task // {{ task.name }}
+    Test // {{ task.name }}
 {% endblock %}
 
 
 {% block meta %}
-    <meta property="og:title" content="Reporters&#039; Lab Reviews // Task // {{ task.name|escape }}" />
+    <meta property="og:title" content="Reporters&#039; Lab Reviews // Test // {{ task.name|escape }}" />
     <meta property="og:type" content="article" />
 {% endblock %}
 
@@ -51,7 +51,7 @@
         
         {% if task.latest_reviews %}         
             <div id="task_performance" class="detail_item_container">
-                <h3>Latest Reviews of this Task</h3>
+                <h3>Latest Test Results</h3>
                 
                 
                 {% for pt in task.latest_reviews %}
@@ -66,21 +66,7 @@
                             </div>
                             <p>{{ pt.rating_text }}</p>
                         </div>
-                        
-                        
                         <h2><a href="{{ pt.get_absolute_url }}">{{ pt.name }}</a></h2>
-                        <div class="detail_item_metadata">
-                            <div class="task_url">
-                                <span>Task:</span>
-                                <a href="{{ pt.task.get_absolute_url }}">{{ pt.task.name }}</a>
-                            </div>
-                            {% if pt.task.document %}
-                                <div class="document_url">
-                                    <span>Documents:</span>
-                                    <a href="{{ pt.task.document.get_absolute_url }}"> {{ pt.task.document.name }}</a>
-                                </div>
-                            {% endif %}
-                        </div>
                         <div class="details">{{ pt.teaser|safe }}
                            <a href="{{ pt.get_absolute_url }}" class="more_link">READ OUR FULL REVIEW &raquo;</a>
                         </div>

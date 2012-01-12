@@ -2,11 +2,11 @@
 {% load range_tag %}
 
 {% block title %}
-    Performance Review // {{ product_task.name }}
+    Test Result // {{ product_task.name }}
 {% endblock %}
 
 {% block meta %}
-    <meta property="og:title" content="Reporters&#039; Lab Reviews // Performance Review // {{ product_task.name|escape }}" />
+    <meta property="og:title" content="Reporters&#039; Lab Reviews // Test Result // {{ product_task.name|escape }}" />
     <meta property="og:type" content="article" />
     <meta property="og:description" content="{{ product_task.teaser|escape }}" />
 {% endblock %}
@@ -85,7 +85,7 @@
     
         <p class="pt_metadata">
             <div class="task_url">
-                <strong>Task:</strong>
+                <strong>Test:</strong>
                 <a href="{{ product_task.task.get_absolute_url }}">{{ product_task.task.name }}</a>
             </div>
             {% if product_task.task.document %}

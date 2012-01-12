@@ -173,7 +173,7 @@ class Product(CommonInfo):
 class Tutorial(CommonInfo):
     product              = models.ForeignKey(to='Product')
     url                  = models.URLField(blank=True, help_text='URL to source of this tutorial if applicable.')
-    tasks                = models.ManyToManyField('Task', blank=True, null=True, help_text='What tasks this tutorial will help with')
+    tasks                = models.ManyToManyField('Task', blank=True, null=True, help_text='What tests this tutorial will help with', verbose_name='tests')
     writer               = models.ForeignKey(to=User, null=True, blank=True)
     writer_external      = models.CharField(max_length = 256, blank=True, help_text='Writer name, email if not part of Review Lab')
     editor               = models.ForeignKey(to=User, null=True, blank=True, related_name='tutorial_editor_user')
@@ -227,7 +227,7 @@ class Task(CommonInfo):
     
     
     def __unicode__(self):
-        return u'Task: %s, For Document: %s' % (self.name, self.document)
+        return u'Test: %s, For Document: %s' % (self.name, self.document)
         
     @models.permalink
     def get_absolute_url(self):
@@ -235,13 +235,13 @@ class Task(CommonInfo):
 
     class Meta:
         ordering = ['-creation_time']
-        verbose_name         = 'Task'
-        verbose_name_plural = 'Tasks'
+        verbose_name         = 'Test'
+        verbose_name_plural = 'Tests'
 
 
 class ProductTask(CommonInfo):
     product          = models.ForeignKey('Product')
-    task             = models.ForeignKey('Task')
+    task             = models.ForeignKey('Task', verbose_name = 'test')
     rating           = models.IntegerField(choices=RATING_CHOICES, default = 0)
     rating_text      = models.CharField(max_length = 256, blank = True)
     reviewer         = models.ForeignKey(to=User, null=True, blank=True)
@@ -257,7 +257,7 @@ class ProductTask(CommonInfo):
     
     
     def __unicode__(self):
-        return u'Task Review of %s for Task %s' % (self.product, self.task)
+        return u'Test Results of %s for Test %s' % (self.product, self.task)
     
     @property
     def product_name(self):
@@ -272,8 +272,8 @@ class ProductTask(CommonInfo):
         return ('product_task_view', (), {'slug': self.slug})
     
     class Meta:
-        verbose_name = 'Product Task Review'
-        verbose_name_plural = 'Product Task Reviews'
+        verbose_name = 'Test Result'
+        verbose_name_plural = 'Test Results'
         ordering = ['-creation_time']
 
 

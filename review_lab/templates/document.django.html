@@ -27,7 +27,7 @@
             
             {% if document.task_set.all %}
                 <div id="document_tasks" class="detail_item_container">
-                    <h3>Tasks for this Document Set</h3>
+                    <h3>Tests for this Document Set</h3>
                     {% for task in document.task_set.all %}
                         <div class="task_item detail_item {% if forloop.last %}last{% endif %}">
                             <h2><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></h2>
