@@ -122,6 +122,7 @@ fieldset legend
 
 .ie_box_shadow{
     position:absolute;
+    padding:18px;
     background:#000;
     filter:progid:DXImageTransform.Microsoft.Blur(pixelradius=10);
     -ms-filter:"progid:DXImageTransform.Microsoft.Blur(pixelradius=10)";
