@@ -29,8 +29,8 @@
             shadow = $("<div class='ie_box_shadow'></div>");
             $(this).after(shadow);
             $(this).css("z-index", "2").css("position", "relative");
-            $(shadow).width($(this).outerWidth() + 10)
-                     .height($(this).outerHeight() + 10)
+            $(shadow).width($(this).outerWidth())
+                     .height($(this).outerHeight())
                      .css("left", ($(this).position().left - 5) + "px")
                      .css("top",($(this).position().top - 5) + "px")
                      .css("z-index", "1")
