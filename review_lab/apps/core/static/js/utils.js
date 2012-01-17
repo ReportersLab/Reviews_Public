@@ -22,7 +22,7 @@
     
     
     
-    if ($.browser.msie) {
+    if ($.browser.msie && ( parseInt($.browser.version, 10) < 9 )) {
         $(".box_shadow").each(function(){
             if($(this).hasClass('overlay'))
                 return;
