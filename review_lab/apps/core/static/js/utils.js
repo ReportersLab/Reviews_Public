@@ -19,4 +19,14 @@
 			$(this).find('.hasPlaceholder').each(function() { $(this).val(''); });
 		});
 	}
+    
+    
+    
+    if ($.browser.msie) {
+        var elements = $(".box_shadow");
+        $(elements).after("<div class='ie_box_shadow'></div>");
+        $(".ie_box_shadow").width($(element).width()).height($(element).height()).css("left", (pos.left + 5) + "px").css("top",(pos.top + 5) + "px");
+    }
+    
+    
 });

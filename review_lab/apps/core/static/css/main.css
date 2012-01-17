@@ -120,6 +120,13 @@ fieldset legend
     background:#FFFFFF;
 }
 
+.ie_box_shadow{
+    background:#000;
+    filter:progid:DXImageTransform.Microsoft.Blur(pixelradius=10);
+    -ms-filter:"progid:DXImageTransform.Microsoft.Blur(pixelradius=10)";
+}
+
+
 .slashes
 {
     color:#778E1E;
