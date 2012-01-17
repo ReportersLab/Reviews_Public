@@ -23,9 +23,12 @@
     
     
     if ($.browser.msie) {
-        var elements = $(".box_shadow");
-        $(elements).after("<div class='ie_box_shadow'></div>");
-        $(".ie_box_shadow").width($(element).width()).height($(element).height()).css("left", (pos.left + 5) + "px").css("top",(pos.top + 5) + "px");
+        $(".box_shadow").each(function(){
+            $(this).after("<div class='ie_box_shadow'></div>");
+            $(this).css('z-index:2');
+            $(".ie_box_shadow").width($(this).width()).height($(this).height()).css("left", (pos.left + 5) + "px").css("top",(pos.top + 5) + "px");
+            $('.ie_box_shadow').css('z-index:1');    
+        });
     }
     
     
