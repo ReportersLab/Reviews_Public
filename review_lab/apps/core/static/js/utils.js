@@ -31,8 +31,8 @@
             $(this).css("z-index", "2").css("position", "relative");
             $(shadow).width($(this).outerWidth())
                      .height($(this).outerHeight())
-                     .css("left", ($(this).position().left -5) + "px")
-                     .css("top",($(this).position().top) + "px")
+                     .css("left", ($(this).position().left -5) + "px") //ie tester keeps going crazy over this, can't tell if I need the 5px or not.
+                     .css("top",($(this).position().top -5) + "px")
                      .css("z-index", "1")
                      .css("margin-top", $(this).css("margin-top"))
                      .css("margin-right", $(this).css("margin-right"))
