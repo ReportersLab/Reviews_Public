@@ -31,7 +31,7 @@
                     {% for task in document.task_set.all %}
                         <div class="task_item detail_item {% if forloop.last %}last{% endif %}">
                             <h2><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></h2>
-                            <div class="details">{{ task.description|safe }}</div>
+                            <div class="details">{{ task.teaser|safe }}</div>
                         </div>
                     {% endfor %}
                 </div>
