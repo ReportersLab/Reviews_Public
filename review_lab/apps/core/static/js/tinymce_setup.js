@@ -41,7 +41,6 @@ TINYMCE_OPTIONS = {
     language: 'en',
     object_resizing: false,
     media_strict: true,
-    gecko_spellcheck: true,
     
     // Callbackss
     file_browser_callback: 'CustomFileBrowser',
@@ -59,6 +58,14 @@ TINYMCE_OPTIONS = {
     fix_table_elements: true,
     fix_nesting: true,
     forced_root_block : 'p',
+    
+    //pasting
+    paste_auto_cleanup_on_paste: true,
+    paste_remove_styles: true,
+    paste_remove_styles_if_webkit: true,
+    paste_strip_class_attributes: true,
+
+
     
     // URL
     relative_urls: false,
