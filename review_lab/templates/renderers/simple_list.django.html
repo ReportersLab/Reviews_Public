@@ -2,9 +2,7 @@
 {% for item in items %}
      <li {% if forloop.last %} class="last" {% endif %}>
          <h5>
-               <a href="{{ item.get_absolute_url }}">  {{ item.name }} <br />
-                    {{ item.update_time|date:"DATETIME_FORMAT" }}
-               </a>
+               <a href="{{ item.get_absolute_url }}">  {{ item.name }}</a>
          </h5>
      </li>
  {% endfor %}
