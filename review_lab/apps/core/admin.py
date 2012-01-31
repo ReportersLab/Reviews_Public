@@ -105,7 +105,7 @@ class ReviewAdmin(CommonAdmin):
         fieldsets = (
                 ('The Basics',
                     {
-                        'fields': ('product', 'kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'tags', 'image', 'review_done', )
+                        'fields': ('product', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'tags', 'image', 'review_done', )
                     }
                 ),
                 ('Teaser Text', {'fields': ('teaser',)}),
@@ -132,7 +132,7 @@ class TutorialAdmin(CommonAdmin):
     def get_fieldsets(self, request, obj=None): 
         fieldsets = (
             ('The Basics', {
-                'fields': ('product', 'kicker', 'name', 'subtitle', 'writer', 'writer_external', 'editor', 'slug', 'tags', 'image',)
+                'fields': ('product', 'name', 'subtitle', 'writer', 'writer_external', 'editor', 'slug', 'tags', 'image',)
             }),
             ('Teaser Text', {'fields': ('teaser',)}),
             ('Tutorial Text', {'fields': ('description',)}),
@@ -160,7 +160,7 @@ class ProductTaskAdmin(CommonAdmin):
         fieldsets = (
             ('The Basics',
                 {
-                     'fields': ('kicker', 'name', 'subtitle', 'reviewer', 'editor', 'slug', 'tags', 'image', 'review_done',)
+                     'fields': ('name', 'subtitle', 'reviewer', 'editor', 'slug', 'tags', 'image', 'review_done',)
                 }
             ),
             ('Teaser Text', {'fields': ('teaser',)}),
