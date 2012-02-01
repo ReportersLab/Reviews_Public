@@ -1015,7 +1015,13 @@ fieldset legend
 
 
 
-
+#flatpage_title
+{
+    border-bottom: 5px solid #C9D6A6;
+    font: 36px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
+    margin: 0 0 18px;
+    padding: 0 0 13px;
+}
 
 
 
