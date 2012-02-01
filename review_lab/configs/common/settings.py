@@ -81,6 +81,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.gzip.GZipMiddleware',
 #    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -105,6 +106,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.admindocs',
