@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     
     #override with our custom view function.
     url(r'^taggit_autosuggest/list/$', views.list_tags, name='taggit_autosuggest-list'),
-    url(r'$/^', cache_page(60 * 15)(views.index_view), name='index_view'),
+    url(r'^$', cache_page(60 * 15)(views.index_view), name='index_view'),
     
     
 )

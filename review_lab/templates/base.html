@@ -118,11 +118,13 @@
                 <div id="left_rail">
                     {% block main_content %}{% endblock %}
                 </div>
-                <div id="right_rail" >
-                    {% block right_rail_top %}{% endblock %}
-                    {% include "renderers/right_rail.django.html" %}
-                    {% block right_rail_bottom %}{% endblock %}
-                </div>
+                {% if not flatpage %}
+                    <div id="right_rail" >
+                        {% block right_rail_top %}{% endblock %}
+                        {% include "renderers/right_rail.django.html" %}
+                        {% block right_rail_bottom %}{% endblock %}
+                    </div>
+                {% endif %}
             </div>
             
             <div class="main_content" style="clear:both;">

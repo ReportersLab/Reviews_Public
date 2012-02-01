@@ -1,4 +1,4 @@
-{% if not is_index%}
+{% if not is_index and latest_reviews.count > 0 %}
 <div>
     <h3>Latest Reviews</h3>
     {% include "renderers/simple_list.django.html" with items=latest_reviews %}
@@ -14,15 +14,18 @@
 </div>
 {% endif %}
 
+{% if latest_products.count > 0 %}
 <div>
     <h3>Latest Products</h3>
     {% include "renderers/simple_list.django.html" with items=latest_products %}
     <a class="more_link" href="/search?type=products">See more&raquo;</a>
 </div>
+{% endif %}
 
-
+{% if latest_documents.count > 0 %}
 <div>
     <h3>Latest Docs</h3>
     {% include "renderers/simple_list.django.html" with items=latest_documents %}
     <a class="more_link" href="/search?type=documents">See more&raquo;</a>
 </div>
+{% endif %}
