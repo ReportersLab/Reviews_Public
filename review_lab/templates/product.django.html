@@ -96,7 +96,7 @@
         
             <div id="task_performance" class="detail_item_container">
                 <h3>Test Results</h3>
-                {% for pt in product.producttask_set.all %}
+                {% for pt in product.ordered_tests %}
                      <div class="detail_item {% if forloop.last %}last{% endif %}">
                         <div class="rating_container verdict box_shadow">
                             <h4>Verdict:</h4>

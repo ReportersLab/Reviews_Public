@@ -119,6 +119,8 @@ class Review(CommonInfo):
     def get_absolute_url(self):
         return ('review_view', (), {'slug': self.slug})
         
+    
+        
     class Meta:
         ordering = ['-creation_time']
         verbose_name         = 'Review'
@@ -162,6 +164,12 @@ class Product(CommonInfo):
             return review.rating
         else:
             return None
+
+    @property
+    def ordered_tests(self):
+        tests = self.producttask_set.order_by('-rating')
+        return tests
+    
 
     class Meta:
         ordering             = ['-creation_time']

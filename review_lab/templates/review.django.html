@@ -181,7 +181,7 @@
             <div id="task_performance" class="detail_item_container">
                 <h3>How {{ review.product.name }} performed on our tests</h3>
                 
-                {% for pt in review.product.producttask_set.all %}
+                {% for pt in review.product.ordered_tests %}
                      <div class="detail_item {% if forloop.last %}last{% endif %}">
                         
                         
