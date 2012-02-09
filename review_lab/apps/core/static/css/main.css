@@ -18,7 +18,7 @@
 
 body
 {
-  font:12px/1.5 Arial,'Liberation Sans',FreeSans,sans-serif;
+  font:13px/1.5 Arial,'Liberation Sans',FreeSans,sans-serif;
   min-width:930px;
 }
 
@@ -818,7 +818,7 @@ fieldset legend
 
 #ratings img, .verdict img
 {
-    margin: 0 10px 0 0;
+    margin: 0 9px 0 0;
 }
 
 #ratings p, #facets p
