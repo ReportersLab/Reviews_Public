@@ -177,7 +177,10 @@ except ImportError:
 
 
 
-
+try:
+    from settings_private import * 
+except ImportError:
+    pass
 
 
 

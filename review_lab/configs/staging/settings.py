@@ -43,3 +43,7 @@ LOG_FILENAME = os.path.join(os.path.dirname(__file__), 'logging.conf')
 logging.config.fileConfig(LOG_FILENAME)
 
 
+try:
+    from settings_private import * 
+except ImportError:
+    pass
