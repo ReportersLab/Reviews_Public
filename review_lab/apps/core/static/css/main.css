@@ -317,7 +317,7 @@ fieldset legend
     float:right;
     margin:3px 48px 0 0;
     padding:0;
-    font:12px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
+    font:14px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
     color:#C9D6A6;
     text-transform:uppercase;
 }
@@ -363,7 +363,7 @@ fieldset legend
 
 #footer_text p
 {
-    font-size:16px;
+    font-size:20px;
     letter-spacing:.8px;
     font-family: 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
     text-transform:uppercase;
@@ -471,8 +471,8 @@ fieldset legend
 #right_rail ul li
 {
     list-style:none;
-    padding: 0 0 10px 0;
-    margin:0 0 10px 0;
+    padding: 0 0 5px 0;
+    margin:0 0 5px 0;
     border-bottom:3px solid white;
 }
 
