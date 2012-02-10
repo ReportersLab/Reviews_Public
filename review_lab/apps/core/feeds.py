@@ -10,7 +10,7 @@ class LatestReviewsFeed(Feed):
     description = "The latest reviews from the Reporters' Lab."
     
     def link(self, object):
-        return "/more/reviews/"
+        return "/search?type=reviews"
     
     def items(self):
         return Review.published_objects.all()[:10]
@@ -27,7 +27,7 @@ class LatestProductFeed(Feed):
     description = "The latest products Reporters' Lab is looking at."
     
     def link(self, object):
-        return "/more/products/"
+        return "/search?type=products"
     
     def items(self):
         return Product.published_objects.all()[:10]
