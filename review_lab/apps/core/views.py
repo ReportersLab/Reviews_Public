@@ -150,7 +150,7 @@ def search_view(request):
     
     if category and (category != 'all') and (model == 'products'):
         query &= Q(categories__slug = category)
-        cat_object = Category.objects.get(slug = category)
+        cat_object = get_object_or_404(Category, slug = category)
         
     model_list = list()
     
