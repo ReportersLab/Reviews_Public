@@ -240,7 +240,14 @@ class Task(CommonInfo):
     @models.permalink
     def get_absolute_url(self):
         return ('task_view', (), {'slug': self.slug})    
-
+    
+    
+    @property
+    def reviews_by_rating(self):
+        if(self.producttask_set.count() > 0):
+            tests = self.producttask_set.order_by('-rating')
+        return tests
+    
     class Meta:
         ordering = ['-creation_time']
         verbose_name         = 'Test'

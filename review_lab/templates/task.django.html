@@ -51,10 +51,10 @@
         
         {% if task.latest_reviews %}         
             <div id="task_performance" class="detail_item_container">
-                <h3>Latest Test Results</h3>
+                <h3>Test Results</h3>
                 
                 
-                {% for pt in task.latest_reviews %}
+                {% for pt in task.reviews_by_rating %}
                      <div class="detail_item {% if forloop.last %}last{% endif %}">
                         
                         <div class="rating_container verdict box_shadow">
