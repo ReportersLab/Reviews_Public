@@ -148,6 +148,30 @@ fieldset legend
 }
 
 
+#sidebar-buttons {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin: -20px -20px 10px;
+    padding: 10px 20px 5px 20px;
+}
+
+
+a.big_button
+{
+    display:block;
+    width:200px;
+    height:55px;
+    background-repeat:no-repeat;
+    background-position:-1px 0;
+    margin-bottom:5px;
+    margin-left:-10px; /*removes the padding from .widget */
+}
+
+a.big_button:hover
+{
+    background-position:-1px -55px;  
+}
+
+a.big_button span{display:none;}
 
 #wrapper
 {
