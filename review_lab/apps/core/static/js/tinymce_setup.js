@@ -41,6 +41,7 @@ TINYMCE_OPTIONS = {
     language: 'en',
     object_resizing: false,
     media_strict: true,
+    gecko_spellcheck: true,
     
     // Callbackss
     file_browser_callback: 'CustomFileBrowser',
