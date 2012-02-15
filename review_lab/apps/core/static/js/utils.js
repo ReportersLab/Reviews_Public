@@ -29,8 +29,15 @@ $(function() {
  
  
  $(document).ready(function(){
-    setTimeout("checkFonts()",2000);
- });
+    
+    if ($.browser.msie && ( parseInt($.browser.version, 10) < 9 )) {
+        checkFonts();
+    }
+    
+    if ( $.browser.mozilla && parseInt($.browser.version, 10) < 10 ) {
+          setTimeout("checkFonts()",1000);
+    }
+});
  
  function checkFonts()
  {
