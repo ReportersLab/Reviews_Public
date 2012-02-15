@@ -2,7 +2,37 @@
 
 
  $(function() {
-	if(!$.support.placeholder) { 
+	
+    
+    
+});
+ 
+ 
+ 
+ 
+ 
+ $(document).ready(function(){
+    setTimeout("checkFonts()",2000);
+ });
+ 
+ function checkFonts()
+ {
+    leagueWidth = $("#league_gothic_tester").width();
+    arialWidth = $("#arial_tester").width();
+    //if they're the same, the League Gothic font didn't load properly. Let's load some different styles.
+    if(leagueWidth == arialWidth){
+        $("body").addClass("arial_only");
+        addShadows();
+    }else
+    {
+    }
+    
+    
+ }
+ 
+ function addShadows(){
+    
+    if(!$.support.placeholder) { 
 		var active = document.activeElement;
 		$(':text').focus(function () {
 			if ($(this).attr('placeholder') != '' && $(this).val() == $(this).attr('placeholder')) {
@@ -41,23 +71,4 @@
         });
     }
     
-    
-});
- 
- 
- 
- 
- 
- $(document).ready(function(){
-    setTimeout("checkFonts()",2000);
- });
- 
- function checkFonts()
- {
-    leagueWidth = $("#league_gothic_tester").width();
-    arialWidth = $("#arial_tester").width();
-    //if they're the same, the League Gothic font didn't load properly. Let's load some different styles.
-    if(leagueWidth == arialWidth){
-        $("body").addClass("arial_only");
-    }
  }
