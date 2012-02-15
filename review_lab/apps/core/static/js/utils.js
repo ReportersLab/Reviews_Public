@@ -1,5 +1,5 @@
 
-
+/*
 
  $(function() {
 	
@@ -8,7 +8,7 @@
 });
  
  
- 
+*/
  
  
  $(document).ready(function(){
@@ -22,11 +22,9 @@
     //if they're the same, the League Gothic font didn't load properly. Let's load some different styles.
     if(leagueWidth == arialWidth){
         $("body").addClass("arial_only");
-        addShadows();
-    }else
-    {
+        
     }
-    
+    addShadows();
     
  }
  
