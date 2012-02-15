@@ -1,35 +1,7 @@
 
-/*
 
- $(function() {
+$(function() {
 	
-    
-    
-});
- 
- 
-*/
- 
- 
- $(document).ready(function(){
-    setTimeout("checkFonts()",2000);
- });
- 
- function checkFonts()
- {
-    leagueWidth = $("#league_gothic_tester").width();
-    arialWidth = $("#arial_tester").width();
-    //if they're the same, the League Gothic font didn't load properly. Let's load some different styles.
-    if(leagueWidth == arialWidth){
-        $("body").addClass("arial_only");
-        
-    }
-    addShadows();
-    
- }
- 
- function addShadows(){
-    
     if(!$.support.placeholder) { 
 		var active = document.activeElement;
 		$(':text').focus(function () {
@@ -48,7 +20,36 @@
 		});
 	}
     
+    addShadows();
     
+});
+ 
+ 
+
+ 
+ 
+ $(document).ready(function(){
+    setTimeout("checkFonts()",2000);
+ });
+ 
+ function checkFonts()
+ {
+    leagueWidth = $("#league_gothic_tester").width();
+    arialWidth = $("#arial_tester").width();
+    //if they're the same, the League Gothic font didn't load properly. Let's load some different styles.
+    if(leagueWidth == arialWidth){
+        $("body").addClass("arial_only");
+            removeShadows();
+            addShadows();
+    }
+    
+ }
+ 
+ function removeShadows(){
+    $(".ie_box_shadow").remove();
+ }
+ 
+ function addShadows(){
     
     if ($.browser.msie && ( parseInt($.browser.version, 10) < 9 )) {
         $(".box_shadow").each(function(){
