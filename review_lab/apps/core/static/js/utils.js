@@ -43,3 +43,22 @@
     
     
 });
+ 
+ 
+ 
+ 
+ 
+ $(document).ready(function(){
+    setTimeout("checkFonts()",2000);
+ });
+ 
+ function checkFonts()
+ {
+    leagueWidth = $("#league_gothic_tester").width();
+    arialWidth = $("#arial_tester").width();
+    //if they're the same, the League Gothic font didn't load properly. Let's load some different styles.
+    console.log(leagueWidth, arialWidth);
+    if(leagueWidth == arialWidth){
+        $("body").addClass("arial_only");
+    }
+ }

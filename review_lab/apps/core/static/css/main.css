@@ -30,6 +30,7 @@ h1, h3, h4, h5, h6 /* testing for now. */
     letter-spacing:.8px;
 }
 
+
 h6
 {
    font: 12px/1.5 Arial,'Liberation Sans',FreeSans,sans-serif; 
@@ -70,6 +71,7 @@ a:hover, #footer a:hover, #global_nav a:hover, #header a:hover
     border-bottom:3px solid #FFCC00;
     padding-bottom:1px;
 }
+
 
 blockquote
 {
@@ -244,6 +246,7 @@ a.big_button span{display:none;}
     
 }
 
+
 #tools_nav
 {
     position:absolute;
@@ -256,6 +259,8 @@ a.big_button span{display:none;}
     float:left;
     margin: 0 2px 0 0;
 }
+
+
 
 #tools_nav ul
 {
@@ -274,6 +279,10 @@ a.big_button span{display:none;}
     text-transform:uppercase;
     letter-spacing:1px; 
 }
+
+
+
+
 #tools_nav li a
 {
     color:#FFFFFF;
@@ -306,6 +315,7 @@ a.big_button span{display:none;}
 }
 
 
+
 #global_nav
 {
     background:#000000;
@@ -336,6 +346,7 @@ a.big_button span{display:none;}
     font:20px 'LeagueGothicRegular',Arial,'Liberation Sans',FreeSans,sans-serif;
 }
 
+
 #duke_tag
 {
     float:right;
@@ -345,6 +356,7 @@ a.big_button span{display:none;}
     color:#C9D6A6;
     text-transform:uppercase;
 }
+
 
 #global_nav ul li a {color:#FFFFFF;}
 
@@ -393,6 +405,7 @@ a.big_button span{display:none;}
     text-transform:uppercase;
     line-height:1.1;
 }
+
 
 #footer a
 {
@@ -444,12 +457,15 @@ a.big_button span{display:none;}
     text-transform:uppercase;
 }
 
+
 #duke_logo
 {
     position:absolute;
     top:85px;
     right:35px; 
 }
+
+
 
 #main
 {
@@ -486,6 +502,8 @@ a.big_button span{display:none;}
     font-size:32px;
     margin:5px 0 15px 0;
 }
+
+
 
 #right_rail div
 {
@@ -591,6 +609,8 @@ a.big_button span{display:none;}
     float:left;
 }
 
+
+
 #main_search h1
 {
     font-family:'LeagueGothicRegular', Arial,'Liberation Sans',FreeSans,sans-serif;
@@ -601,6 +621,8 @@ a.big_button span{display:none;}
     float:left;
     line-height:.8;
 }
+
+
 
 #main_search span{
     float:left;
@@ -627,6 +649,8 @@ a.big_button span{display:none;}
     margin:0 0 0 -10px;
     letter-spacing:1px;
 }
+
+
 
 #main_search h6
 {
@@ -1055,6 +1079,114 @@ a.big_button span{display:none;}
 
 
 
+/**
+ *ARIAL ONLY FIXES
+ **/
+
+.arial_only #footer_more p
+{
+    font-size:12px;
+}
+
+.arial_only #footer_more legend
+{
+    font-size:14px;
+}
+.arial_only #duke_logo
+{
+    top:70px;
+    right:50px;
+}
+
+.arial_only #right_rail h3
+{
+    font-size:18px;
+}
+
+.arial_only #footer_text p
+{
+    font-family:Arial,'Liberation Sans',FreeSans,sans-serif;
+    font-size:12px;
+    letter-spacing:normal;
+    line-height:30px;
+}
+
+.arial_only #duke_tag
+{
+    font:8px Arial,'Liberation Sans',FreeSans,sans-serif;   
+}
+
+.arial_only #global_nav ul li
+{
+    font: 12px Arial,'Liberation Sans',FreeSans,sans-serif;
+    margin:5px 15px 5px 15px;
+}
+
+.arial_only #q{
+    font-size:10px;
+}
+
+.arial_only #tools_nav li
+{
+    font: 10px Arial, 'Liberation Sans', FreeSans, sans-serif;
+    letter-spacing:normal;
+}
+
+.arial_only #main_subnav ul li
+{
+    font:14px Arial,'Liberation Sans',FreeSans,sans-serif;
+}
+
+.arial_only h1, .arial_only h3, .arial_only h4, .arial_only h5, .arial_only h6
+{
+    font:12px Arial,'Liberation Sans',FreeSans,sans-serif;
+    letter-spacing:normal;
+}
+
+.arial_only #main_search select
+{
+    font-size:12px;
+}
+
+.arial_only #main_search h1
+{
+    font-size:20px;
+}
+
+.arial_only #main_q
+{
+    font-size:11px;
+}
+
+.arial_only #global_nav li.selected a
+{
+    padding-bottom:7px;
+}
+
+.arial_only #tools_nav h5
+{
+    font-size:10px;
+}
+
+#league_gothic_tester
+{
+    font-size:14px;
+    font-family:'LeagueGothicRegular', Arial;
+    letter-spacing:normal;
+    position:absolute;
+    bottom:0;
+    left:-1000px;
+}
+
+#arial_tester
+{
+    font-family:Arial;
+    font-size:14px;
+    letter-spacing:normal;
+    position:absolute;
+    bottom:0;
+    left:-1000px;
+}
 
 
 
@@ -1077,6 +1209,7 @@ a.big_button span{display:none;}
 }
 
 */
+
 @font-face {
     font-family: 'LeagueGothicRegular';
     src: url('http://media.reporterslab.org/fonts/League_Gothic-webfont.eot');
