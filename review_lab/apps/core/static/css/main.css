@@ -1111,6 +1111,11 @@ a.big_button span{display:none;}
     line-height:30px;
 }
 
+.arial_only #footer h4
+{
+    font-size: 10px;
+}
+
 .arial_only #duke_tag
 {
     font:8px Arial,'Liberation Sans',FreeSans,sans-serif;   
