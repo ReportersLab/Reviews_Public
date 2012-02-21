@@ -149,12 +149,17 @@ class Product(CommonInfo):
     @models.permalink
     def get_absolute_url(self):
         return ('product_view', (), {'slug': self.slug})
-        
+    
+    @property
+    def reviews(self):
+        results = self.review_set.filter(published = True).order_by('-creation_time')
+        return results
+    
     @property
     def latest_review(self):
         result = None
         if(self.review_set.count() > 0):
-            result = self.review_set.order_by('-creation_time')[0]
+            result = self.review_set.filter(published = True).order_by('-creation_time')[0]
         return result
     
     @property
@@ -167,7 +172,7 @@ class Product(CommonInfo):
 
     @property
     def ordered_tests(self):
-        tests = self.producttask_set.order_by('-rating')
+        tests = self.producttask_set.filter(published = True).order_by('-rating')
         return tests
     
 
@@ -223,14 +228,14 @@ class Task(CommonInfo):
     def latest_reviews(self):
         result = None
         if(self.producttask_set.count() > 0):
-            result = self.producttask_set.order_by('-creation_time')[:5]
+            result = self.producttask_set.filter(published = True).order_by('-creation_time')[:5]
         return result
     
     @property
     def challenges(self):
         result = None
         if(self.challenge_set.count() > 0):
-            result = self.challenge_set.order_by('-creation_time')
+            result = self.challenge_set.filter(published = True).order_by('-creation_time')
         return result
     
     
@@ -245,7 +250,7 @@ class Task(CommonInfo):
     @property
     def reviews_by_rating(self):
         if(self.producttask_set.count() > 0):
-            tests = self.producttask_set.order_by('-rating')
+            tests = self.producttask_set.filter(published = True).order_by('-rating')
         return tests
     
     class Meta:
@@ -303,7 +308,7 @@ class DocumentSet(CommonInfo):
     def challenges(self):
         result = None
         if(self.challenge_set.count() > 0):
-            result = self.challenge_set.order_by('-creation_time')
+            result = self.challenge_set.filter(published = True).order_by('-creation_time')
         return result
     
     

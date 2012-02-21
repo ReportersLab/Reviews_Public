@@ -67,10 +67,10 @@
         <div class="black_bar big"><span>&nbsp;</span></div>
             
             
-        {% if product.review_set.all %}
+        {% if product.reviews %}
             <div id="product_reviews" class="detail_item_container">
                 <h3>Our Reviews</h3>
-                {% for review in product.review_set.all %}
+                {% for review in product.reviews %}
                     <div class="detail_item {% if forloop.last %}last{% endif %}">
                         <div class="rating_container verdict box_shadow">
                             <h4>Verdict:</h4>
