@@ -158,7 +158,7 @@ class Product(CommonInfo):
     @property
     def latest_review(self):
         result = None
-        if(self.review_set.count() > 0):
+        if(self.review_set.filter(published = True).count() > 0):
             result = self.review_set.filter(published = True).order_by('-creation_time')[0]
         return result
     
@@ -227,14 +227,14 @@ class Task(CommonInfo):
     @property
     def latest_reviews(self):
         result = None
-        if(self.producttask_set.count() > 0):
+        if(self.producttask_set.filter(published = True).count() > 0):
             result = self.producttask_set.filter(published = True).order_by('-creation_time')[:5]
         return result
     
     @property
     def challenges(self):
         result = None
-        if(self.challenge_set.count() > 0):
+        if(self.challenge_set.filter(published = True).count() > 0):
             result = self.challenge_set.filter(published = True).order_by('-creation_time')
         return result
     
