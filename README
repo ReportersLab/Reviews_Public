@@ -3,3 +3,4 @@ The Reporter's Lab Review System.
 A Django Project designed to deploy on EC2 and help us review products reporter's may use in their day-to-day investigations.
 
 
+The project is based off of the Chicago Tribune's Django Project Templates project (https://github.com/ReportersLab/django-project-templates).
